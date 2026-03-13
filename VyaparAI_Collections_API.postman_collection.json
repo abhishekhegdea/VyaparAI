@@ -1,0 +1,654 @@
+{
+  "info": {
+    "name": "VyaparAI API",
+    "description": "Complete API collection for VyaparAI e-commerce system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "product_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "cart_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "bill_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{auth_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running"
+      },
+      "response": []
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "User Registration",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set(\"auth_token\", response.token);",
+                  "    pm.environment.set(\"user_id\", response.user.userID);",
+                  "    pm.test(\"Registration successful\", function () {",
+                  "        pm.expect(response.message).to.eql(\"User registered successfully\");",
+                  "        pm.expect(response.token).to.exist;",
+                  "        pm.expect(response.user).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Register a new user account"
+          },
+          "response": []
+        },
+        {
+          "name": "User Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set(\"auth_token\", response.token);",
+                  "    pm.environment.set(\"user_id\", response.user.userID);",
+                  "    pm.test(\"Login successful\", function () {",
+                  "        pm.expect(response.message).to.eql(\"Login successful\");",
+                  "        pm.expect(response.token).to.exist;",
+                  "        pm.expect(response.user).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@vyaparai.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login with user credentials"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/profile",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "profile"]
+            },
+            "description": "Get current user profile"
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/verify",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "verify"]
+            },
+            "description": "Verify if the current token is valid"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/logout",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "logout"]
+            },
+            "description": "Logout the current user"
+          },
+          "response": []
+        }
+      ],
+      "description": "Authentication endpoints for user registration, login, and profile management"
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            },
+            "description": "Get all available products"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/1",
+              "host": ["{{base_url}}"],
+              "path": ["products", "1"]
+            },
+            "description": "Get a specific product by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/categories/list",
+              "host": ["{{base_url}}"],
+              "path": ["products", "categories", "list"]
+            },
+            "description": "Get all product categories"
+          },
+          "response": []
+        },
+        {
+          "name": "Add New Product (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set(\"product_id\", response.product.productID);",
+                  "    pm.test(\"Product added successfully\", function () {",
+                  "        pm.expect(response.message).to.eql(\"Product added successfully\");",
+                  "        pm.expect(response.product).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "New Product",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "Electronics",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Product description",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "150.00",
+                  "type": "text"
+                },
+                {
+                  "key": "GST_applicable",
+                  "value": "true",
+                  "type": "text"
+                },
+                {
+                  "key": "quantity",
+                  "value": "20",
+                  "type": "text"
+                },
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": ["{{base_url}}"],
+              "path": ["products"]
+            },
+            "description": "Add a new product (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Updated Product",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "200.00",
+                  "type": "text"
+                },
+                {
+                  "key": "quantity",
+                  "value": "15",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/products/{{product_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["products", "{{product_id}}"]
+            },
+            "description": "Update an existing product (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/{{product_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["products", "{{product_id}}"]
+            },
+            "description": "Delete a product (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product Quantity (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 25\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/products/{{product_id}}/quantity",
+              "host": ["{{base_url}}"],
+              "path": ["products", "{{product_id}}", "quantity"]
+            },
+            "description": "Update product quantity (Admin only)"
+          },
+          "response": []
+        }
+      ],
+      "description": "Product management endpoints"
+    },
+    {
+      "name": "Cart",
+      "item": [
+        {
+          "name": "Get User Cart",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart",
+              "host": ["{{base_url}}"],
+              "path": ["cart"]
+            },
+            "description": "Get current user's cart"
+          },
+          "response": []
+        },
+        {
+          "name": "Add Item to Cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set(\"cart_id\", response.cartItem.cartID);",
+                  "    pm.test(\"Item added to cart\", function () {",
+                  "        pm.expect(response.message).to.eql(\"Item added to cart\");",
+                  "        pm.expect(response.cartItem).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productID\": 1,\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/add",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "add"]
+            },
+            "description": "Add an item to the cart"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Cart Item Quantity",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 3\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/cart/update/{{cart_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "update", "{{cart_id}}"]
+            },
+            "description": "Update quantity of a cart item"
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Item from Cart",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart/remove/{{cart_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "remove", "{{cart_id}}"]
+            },
+            "description": "Remove an item from the cart"
+          },
+          "response": []
+        },
+        {
+          "name": "Clear Cart",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cart/clear",
+              "host": ["{{base_url}}"],
+              "path": ["cart", "clear"]
+            },
+            "description": "Clear all items from the cart"
+          },
+          "response": []
+        }
+      ],
+      "description": "Cart management endpoints"
+    },
+    {
+      "name": "Bills",
+      "item": [
+        {
+          "name": "Generate User Bill from Cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set(\"bill_id\", response.bill.billID);",
+                  "    pm.test(\"Bill generated successfully\", function () {",
+                  "        pm.expect(response.message).to.eql(\"Bill generated successfully\");",
+                  "        pm.expect(response.bill).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bills/user/generate",
+              "host": ["{{base_url}}"],
+              "path": ["bills", "user", "generate"]
+            },
+            "description": "Generate a bill from user's cart"
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Admin Bill",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    pm.environment.set(\"bill_id\", response.bill.billID);",
+                  "    pm.test(\"Admin bill generated successfully\", function () {",
+                  "        pm.expect(response.message).to.eql(\"Admin bill generated successfully\");",
+                  "        pm.expect(response.bill).to.exist;",
+                  "        pm.expect(response.breakdown).to.exist;",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"productID\": 1,\n      \"quantity\": 2\n    }\n  ],\n  \"customerName\": \"John Doe\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/bills/admin/generate",
+              "host": ["{{base_url}}"],
+              "path": ["bills", "admin", "generate"]
+            },
+            "description": "Generate a bill for a customer (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Bills",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bills/user",
+              "host": ["{{base_url}}"],
+              "path": ["bills", "user"]
+            },
+            "description": "Get current user's bills"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Bills (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bills/admin",
+              "host": ["{{base_url}}"],
+              "path": ["bills", "admin"]
+            },
+            "description": "Get all bills (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Bill by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bills/{{bill_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["bills", "{{bill_id}}"]
+            },
+            "description": "Get a specific bill by ID"
+          },
+          "response": []
+        }
+      ],
+      "description": "Bill management endpoints"
+    }
+  ]
+} 

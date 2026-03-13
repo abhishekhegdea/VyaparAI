@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VyaparAI - Your One-Stop Shop</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Your one-stop destination for Stationaries, Fancy Items, Toys, and Gifts">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="VyaparAI">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzY2N2VlYSIvPgo8c3ZnIHg9IjgiIHk9IjgiIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xOSA3aC0zVjZhMSAxIDAgMCAwLTEtMWgtNGE5IDkgMCAwIDAtOSA5djhhMSAxIDAgMCAwIDEgMWgxNmExIDEgMCAwIDAgMS0xVjE2YTEgMSAwIDAgMC0xLTF6Ii8+CjxwYXRoIGQ9Ik0xMiAxMmEyIDIgMCAxIDAgMCA0IDIgMiAwIDAgMCAwLTR6Ii8+Cjwvc3ZnPgo8L3N2Zz4K">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjIiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB4PSI0NSIgeT0iNDUiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xOSA3aC0zVjZhMSAxIDAgMCAwLTEtMWgtNGE5IDkgMCAwIDAtOSA5djhhMSAxIDAgMCAwIDEgMWgxNmExIDEgMCAwIDAgMS0xVjE2YTEgMSAwIDAgMC0xLTF6Ii8+CjxwYXRoIGQ9Ik0xMiAxMmEyIDIgMCAxIDAgMCA0IDIgMiAwIDAgMCAwLTR6Ii8+Cjwvc3ZnPgo8L3N2Zz4K">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/billing.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Welcome to VyaparAI</h2>
+            <p>Loading your shopping experience...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-store"></i>
+                <span>VyaparAI</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="products">Products</a>
+                <a href="#" class="nav-link" data-page="cart">Cart <span id="cartCount" class="cart-count">0</span></a>
+                <a href="#" class="nav-link" data-page="bills">My Bills</a>
+                <a href="#" class="nav-link" id="loginBtn">Login</a>
+                <a href="#" class="nav-link" id="logoutBtn" style="display: none;">Logout</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="homePage" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Welcome to VyaparAI</h1>
+                    <p>Your one-stop destination for Stationaries, Fancy Items, Toys, and Gifts</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="showPage('products')">
+                            <i class="fas fa-shopping-bag"></i> Start Shopping
+                        </button>
+                        <button class="btn btn-secondary" onclick="showPage('auth')">
+                            <i class="fas fa-user"></i> Login/Register
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="category-cards">
+                        <div class="category-card">
+                            <i class="fas fa-pencil-alt"></i>
+                            <h3>Stationaries</h3>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-gem"></i>
+                            <h3>Fancy Items</h3>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Toys</h3>
+                        </div>
+                        <div class="category-card">
+                            <i class="fas fa-gift"></i>
+                            <h3>Gifts</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentication Page -->
+        <section id="authPage" class="page">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form active">
+                    <h2>Welcome Back</h2>
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="auth-form">
+                    <h2>Create Account</h2>
+                    <form id="registerFormElement">
+                        <div class="form-group">
+                            <label for="registerName">Full Name</label>
+                            <input type="text" id="registerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="productsPage" class="page">
+            <div class="products-container">
+                <div class="products-header">
+                    <h2>Our Products</h2>
+                    <div class="products-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search products...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <select id="categoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="Stationaries">Stationaries</option>
+                            <option value="Fancy Items">Fancy Items</option>
+                            <option value="Toys">Toys</option>
+                            <option value="Gifts">Gifts</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Page -->
+        <section id="cartPage" class="page">
+            <div class="cart-container">
+                <div class="cart-header">
+                    <h2>Shopping Cart</h2>
+                    <button class="btn btn-secondary" onclick="clearCart()">
+                        <i class="fas fa-trash"></i> Clear Cart
+                    </button>
+                </div>
+                <div class="cart-content">
+                    <div class="cart-items" id="cartItems">
+                        <!-- Cart items will be loaded here -->
+                    </div>
+                    <div class="cart-summary" id="cartSummary">
+                        <!-- Cart summary will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bills Page -->
+        <section id="billsPage" class="page">
+            <div class="bills-container">
+                <div class="bills-header">
+                    <h2>My Bills</h2>
+                </div>
+                <div class="bills-content" id="billsContent">
+                    <!-- Bills will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section id="adminPage" class="page">
+            <div class="admin-container">
+                <div class="admin-header">
+                    <h2>Admin Dashboard</h2>
+                    <div class="admin-nav">
+                        <button class="admin-nav-btn active" data-section="products">Products</button>
+                        <button class="admin-nav-btn" data-section="billing">Billing</button>
+                        <button class="admin-nav-btn" data-section="stats">Statistics</button>
+                    </div>
+                </div>
+                
+                <!-- Admin Products Section -->
+                <div id="adminProducts" class="admin-section active">
+                    <div class="admin-products-header">
+                        <h3>Product Management</h3>
+                        <button class="btn btn-primary" onclick="showAddProductModal()">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                    <div class="admin-products-grid" id="adminProductsGrid">
+                        <!-- Admin products will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Admin Billing Section -->
+                <div id="adminBilling" class="admin-section">
+                    <div class="admin-billing-header">
+                        <h3>Generate Bill</h3>
+                    </div>
+                    <div class="admin-billing-content">
+                        <div class="billing-form">
+                            <div class="form-group">
+                                <label for="customerName">Customer Name</label>
+                                <input type="text" id="customerName" required>
+                            </div>
+                            <div class="billing-items" id="billingItems">
+                                <!-- Billing items will be added here -->
+                            </div>
+                            <button class="btn btn-secondary" onclick="addBillingItem()">
+                                <i class="fas fa-plus"></i> Add Item
+                            </button>
+                            <button class="btn btn-primary" onclick="generateAdminBill()">
+                                <i class="fas fa-file-invoice"></i> Generate Bill
+                            </button>
+                        </div>
+                        <div class="billing-preview" id="billingPreview">
+                            <!-- Bill preview will be shown here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Stats Section -->
+                <div id="adminStats" class="admin-section">
+                    <div class="stats-grid" id="statsGrid">
+                        <!-- Statistics will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- Add/Edit Product Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Product</h3>
+                <span class="close" onclick="closeModal('productModal')">&times;</span>
+            </div>
+            <form id="productForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Stationaries">Stationaries</option>
+                        <option value="Fancy Items">Fancy Items</option>
+                        <option value="Toys">Toys</option>
+                        <option value="Gifts">Gifts</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Price (₹)</label>
+                        <input type="number" id="productPrice" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productQuantity">Quantity</label>
+                        <input type="number" id="productQuantity" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productGST">
+                        <input type="checkbox" id="productGST">
+                        GST Applicable
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="productImage">Product Image</label>
+                    <input type="file" id="productImage" accept="image/*">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('productModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bill Preview Modal -->
+    <div id="billModal" class="modal">
+        <div class="modal-content bill-modal">
+            <div class="modal-header">
+                <h3>Bill Preview</h3>
+                <span class="close" onclick="closeModal('billModal')">&times;</span>
+            </div>
+            <div class="bill-content" id="billContent">
+                <!-- Bill content will be loaded here -->
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal('billModal')">Close</button>
+                <button class="btn btn-primary" onclick="printBill()">
+                    <i class="fas fa-print"></i> Print Bill
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/billing.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/app.js"></script>
+    
+    <!-- Service Worker Registration for PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html> 

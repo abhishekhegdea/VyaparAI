@@ -1,0 +1,155 @@
+.home {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.onboarding-card {
+  width: min(680px, 100%);
+  background: #e8edef;
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 0 16px 34px rgba(27, 37, 64, 0.12);
+}
+
+.app-mark {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.mark-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primary-color);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 20px rgba(15, 138, 141, 0.3);
+}
+
+.app-mark h2 {
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: -0.02em;
+}
+
+.hero-photo-wrap {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background:
+    linear-gradient(180deg, rgba(15, 138, 141, 0.28), rgba(15, 138, 141, 0.2)),
+    url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80') center / cover no-repeat;
+}
+
+.onboarding-copy h1 {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(32px, 4.2vw, 52px);
+  line-height: 1.1;
+}
+
+.lang-caption {
+  text-align: center;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin: 16px 0 12px;
+}
+
+.language-pills {
+  background: #c9d5d9;
+  border-radius: 12px;
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.pill {
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+  font-weight: 700;
+  color: #52607a;
+  background: transparent;
+}
+
+.pill.active {
+  background: #ffffff;
+  color: var(--primary-color);
+}
+
+.onboarding-cta {
+  width: min(460px, 100%);
+  margin: 30px auto 14px;
+  height: 56px;
+  font-size: 22px;
+}
+
+.onboarding-footnote {
+  text-align: center;
+  color: var(--text-light);
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.home-quick-info {
+  width: min(680px, 100%);
+  border-radius: 18px;
+  padding: 20px 22px;
+  background: #fff;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.home-quick-info h3 {
+  margin: 0 0 6px;
+  font-size: 24px;
+}
+
+.home-quick-info p {
+  margin: 0 0 14px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .onboarding-card {
+    border-radius: 0;
+    box-shadow: none;
+    min-height: calc(100vh - 80px);
+    padding: 18px 12px;
+  }
+
+  .app-mark h2 {
+    font-size: 40px;
+  }
+
+  .hero-photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .onboarding-copy h1 {
+    font-size: 48px;
+  }
+
+  .onboarding-cta {
+    width: 100%;
+  }
+
+  .home-quick-info {
+    display: none;
+  }
+}

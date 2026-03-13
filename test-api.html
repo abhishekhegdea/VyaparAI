@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - VyaparAI</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        button { margin: 10px; padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; }
+        .success { border-color: #28a745; background: #d4edda; }
+        .error { border-color: #dc3545; background: #f8d7da; }
+        .admin-section { margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>VyaparAI API Test</h1>
+    <p>This page tests the API endpoints to ensure they're working correctly.</p>
+    
+    <button onclick="testHealth()">Test Health Endpoint</button>
+    <button onclick="testLogin()">Test Login</button>
+    <button onclick="testProducts()">Test Products</button>
+    <button onclick="testCart()">Test Cart (requires login)</button>
+    <button onclick="testBills()">Test Bills (requires login)</button>
+    <button onclick="clearResults()">Clear Results</button>
+    
+    <div class="admin-section">
+        <h2>Admin Tests</h2>
+        <button onclick="testAdminLogin()">Test Admin Login</button>
+        <button onclick="testAdminBills()">Test Admin Bills</button>
+        <button onclick="testAdminBilling()">Test Admin Billing</button>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let authToken = null;
+        let adminToken = null;
+        
+        function addResult(message, isSuccess = true) {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `result ${isSuccess ? 'success' : 'error'}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}:</strong> ${message}`;
+            results.appendChild(div);
+        }
+        
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        async function testHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                addResult(`Health check: ${JSON.stringify(data)}`);
+            } catch (error) {
+                addResult(`Health check failed: ${error.message}`, false);
+            }
+        }
+        
+        async function testLogin() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'user@example.com',
+                        password: 'user123'
+                    })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    authToken = data.token;
+                    addResult(`User login successful: ${data.user.name} (${data.user.role})`);
+                } else {
+                    addResult(`User login failed: ${data.error}`, false);
+                }
+            } catch (error) {
+                addResult(`User login error: ${error.message}`, false);
+            }
+        }
+        
+        async function testAdminLogin() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'admin@vyaparai.com',
+                        password: 'admin123'
+                    })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    adminToken = data.token;
+                    addResult(`Admin login successful: ${data.user.name} (${data.user.role})`);
+                } else {
+                    addResult(`Admin login failed: ${data.error}`, false);
+                }
+            } catch (error) {
+                addResult(`Admin login error: ${error.message}`, false);
+            }
+        }
+        
+        async function testProducts() {
+            try {
+                const response = await fetch(`${API_BASE}/products`);
+                const data = await response.json();
+                addResult(`Products loaded: ${data.products.length} products found`);
+            } catch (error) {
+                addResult(`Products error: ${error.message}`, false);
+            }
+        }
+        
+        async function testCart() {
+            if (!authToken) {
+                addResult('Please login first to test cart', false);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/cart`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                const data = await response.json();
+                addResult(`Cart loaded: ${data.cartItems.length} items, Total: ₹${data.subtotal}`);
+            } catch (error) {
+                addResult(`Cart error: ${error.message}`, false);
+            }
+        }
+        
+        async function testBills() {
+            if (!authToken) {
+                addResult('Please login first to test bills', false);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/bills/user`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+                const data = await response.json();
+                addResult(`User bills loaded: ${data.bills.length} bills found`);
+            } catch (error) {
+                addResult(`User bills error: ${error.message}`, false);
+            }
+        }
+        
+        async function testAdminBills() {
+            if (!adminToken) {
+                addResult('Please login as admin first to test admin bills', false);
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/bills/admin`, {
+                    headers: {
+                        'Authorization': `Bearer ${adminToken}`
+                    }
+                });
+                const data = await response.json();
+                addResult(`Admin bills loaded: ${data.bills.length} bills found`);
+            } catch (error) {
+                addResult(`Admin bills error: ${error.message}`, false);
+            }
+        }
+        
+        async function testAdminBilling() {
+            if (!adminToken) {
+                addResult('Please login as admin first to test admin billing', false);
+                return;
+            }
+            
+            try {
+                // First get products to use in billing
+                const productsResponse = await fetch(`${API_BASE}/products`);
+                const productsData = await productsResponse.json();
+                
+                if (productsData.products.length === 0) {
+                    addResult('No products available for billing test', false);
+                    return;
+                }
+                
+                const product = productsData.products[0];
+                
+                const response = await fetch(`${API_BASE}/bills/admin/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${adminToken}`
+                    },
+                    body: JSON.stringify({
+                        customerName: 'Test Customer',
+                        items: [{
+                            productID: product.productID,
+                            quantity: 2
+                        }]
+                    })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addResult(`Admin billing successful: Bill #${data.bill.billID} created for ₹${data.bill.total}`);
+                } else {
+                    addResult(`Admin billing failed: ${data.error}`, false);
+                }
+            } catch (error) {
+                addResult(`Admin billing error: ${error.message}`, false);
+            }
+        }
+        
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            addResult('Page loaded. Starting API tests...');
+            setTimeout(testHealth, 500);
+        });
+    </script>
+</body>
+</html> 

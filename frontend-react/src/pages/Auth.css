@@ -1,0 +1,134 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--background);
+}
+
+.auth-container {
+  background-color: var(--surface);
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 30px rgba(14, 40, 58, 0.12);
+  overflow: hidden;
+  width: 100%;
+  max-width: 520px;
+}
+
+.auth-tabs {
+  display: flex;
+  background-color: #e4ebed;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-tab.active {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.auth-form {
+  padding: 30px;
+}
+
+.auth-form h2 {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.auth-form p {
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group svg {
+  position: absolute;
+  left: 12px;
+  color: var(--text-light);
+  z-index: 1;
+}
+
+.input-group .form-control {
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.password-toggle:hover {
+  color: var(--text-primary);
+}
+
+.auth-form .btn-primary {
+  min-height: 52px;
+  font-size: 18px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    margin: 0;
+    border-radius: 18px;
+    min-height: 100vh;
+  }
+
+  .auth-form {
+    padding: 20px 16px;
+  }
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+  text-decoration: underline;
+}
+
+.link-btn:hover {
+  opacity: 0.8;
+}

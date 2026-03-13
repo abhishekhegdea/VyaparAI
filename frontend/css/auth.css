@@ -1,0 +1,374 @@
+/* Authentication Page Styles */
+.auth-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.auth-tabs {
+    display: flex;
+    background: #f8f9fa;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 20px;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.auth-tab.active {
+    color: #667eea;
+    background: white;
+}
+
+.auth-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-form {
+    display: none;
+    padding: 40px;
+}
+
+.auth-form.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+.auth-form .form-group {
+    margin-bottom: 25px;
+}
+
+.auth-form .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.auth-form .form-group input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e1e8ed;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.auth-form .form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.auth-form .btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+.auth-form .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Loading state for buttons */
+.btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Error states */
+.form-group.error input {
+    border-color: #ff6b6b;
+    background: #fff5f5;
+}
+
+.form-group.error .error-message {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Success states */
+.form-group.success input {
+    border-color: #4caf50;
+    background: #f8fff8;
+}
+
+/* Password strength indicator */
+.password-strength {
+    margin-top: 5px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e1e8ed;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.password-strength.weak .password-strength-bar {
+    background: #ff6b6b;
+    width: 25%;
+}
+
+.password-strength.medium .password-strength-bar {
+    background: #ffa726;
+    width: 50%;
+}
+
+.password-strength.strong .password-strength-bar {
+    background: #4caf50;
+    width: 75%;
+}
+
+.password-strength.very-strong .password-strength-bar {
+    background: #2e7d32;
+    width: 100%;
+}
+
+/* Social login buttons (if needed) */
+.social-login {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.social-login p {
+    color: #6c757d;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: #e1e8ed;
+}
+
+.social-login p::before {
+    left: 0;
+}
+
+.social-login p::after {
+    right: 0;
+}
+
+.social-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.social-btn {
+    padding: 12px 20px;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+/* Forgot password link */
+.forgot-password {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.forgot-password a {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Responsive design for auth */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 40px 20px;
+        border-radius: 15px;
+    }
+
+    .auth-form {
+        padding: 30px 25px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.6rem;
+    }
+
+    .auth-tab {
+        padding: 15px;
+        font-size: 1rem;
+    }
+
+    .social-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        margin: 20px 15px;
+    }
+
+    .auth-form {
+        padding: 25px 20px;
+    }
+
+    .auth-form h2 {
+        font-size: 1.4rem;
+    }
+
+    .auth-form .form-group input {
+        padding: 12px 16px;
+    }
+
+    .auth-form .btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* Animation for form transitions */
+.auth-form {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.auth-form.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Focus styles for accessibility */
+.auth-form .form-group input:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+.auth-tab:focus-visible {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+    .auth-container {
+        background: #2c3e50;
+        color: white;
+    }
+
+    .auth-tabs {
+        background: #34495e;
+    }
+
+    .auth-tab {
+        color: #bdc3c7;
+    }
+
+    .auth-tab.active {
+        background: #2c3e50;
+        color: #667eea;
+    }
+
+    .auth-form .form-group input {
+        background: #34495e;
+        border-color: #4a5568;
+        color: white;
+    }
+
+    .auth-form .form-group input:focus {
+        background: #2c3e50;
+        border-color: #667eea;
+    }
+
+    .auth-form h2 {
+        color: white;
+    }
+
+    .auth-form .form-group label {
+        color: #ecf0f1;
+    }
+} 
