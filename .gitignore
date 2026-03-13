@@ -8,7 +8,6 @@ backend/node_modules/
 backend/.env
 frontend-react/.env
 frontend-react/.env.local
-frontend-react/.env.production
 
 # Build output
 frontend-react/dist/
