@@ -78,6 +78,14 @@ const Admin = ({ showToast }) => {
   const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts', 'Beverages', 'Food'];
   const paymentMethods = ['cash', 'card', 'upi', 'bank_transfer'];
 
+  const notifyOncePerSession = (key, message, type = 'warning') => {
+    if (sessionStorage.getItem(key)) {
+      return;
+    }
+    showToast(message, type);
+    sessionStorage.setItem(key, '1');
+  };
+
   const isConsumableCategory = (category) => {
     const normalized = String(category || '').toLowerCase();
     return normalized.includes('food') || normalized.includes('beverage');
@@ -165,7 +173,11 @@ const Admin = ({ showToast }) => {
       setNearExpiryAlerts(nearExpiryItems);
 
       if (nearExpiryItems.length > 0) {
-        showToast(`Replace these foods/beverages soon: ${nearExpiryItems.length} items near expiry`, 'warning');
+        notifyOncePerSession(
+          'expiryAlertToastShown',
+          `Replace these foods/beverages soon: ${nearExpiryItems.length} items near expiry`,
+          'warning'
+        );
       }
     } catch (error) {
       console.error('Failed to fetch stats:', error);
@@ -178,7 +190,7 @@ const Admin = ({ showToast }) => {
     setLowStockAlerts(lowStock);
     
     if (lowStock.length > 0) {
-      showToast(`${lowStock.length} items are running low on stock!`, 'warning');
+      notifyOncePerSession('lowStockToastShown', `${lowStock.length} items are running low on stock!`, 'warning');
     }
   };
 
@@ -884,6 +896,26 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               </p>
             </div>
             <button className="tax-alert-close" onClick={() => setNearExpiryAlerts([])} aria-label="Dismiss expiry alert">✕</button>
+          </div>
+        )}
+
+        {marketingAdvice?.creative?.imageUrl && (
+          <div className="dashboard-photo-card">
+            <div className="dashboard-photo-head">
+              <strong>Latest AI Product Photo</strong>
+              <button className="btn btn-outline btn-small" onClick={() => setActiveTab('marketingAI')}>
+                Open Marketing AI
+              </button>
+            </div>
+            <img
+              src={marketingAdvice.creative.imageUrl}
+              alt={`${marketingAdvice.productSnapshot?.name || 'Product'} AI generated photography`}
+              className="dashboard-generated-photo"
+              loading="lazy"
+            />
+            <p className="agent-disclaimer">
+              {marketingAdvice.productSnapshot?.name || 'Product'} • {marketingAdvice.creative?.selectedStyle || 'studio-white'}
+            </p>
           </div>
         )}
 
