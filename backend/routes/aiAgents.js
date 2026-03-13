@@ -58,13 +58,13 @@ router.post('/finance-advice', requireAuth, requireAdmin, async (req, res) => {
 
 router.post('/marketing-advice', requireAuth, requireAdmin, async (req, res) => {
   try {
-    const { product } = req.body || {};
+    const { product, photoStyle } = req.body || {};
 
     if (!product || !product.name) {
       return res.status(400).json({ error: 'Product details are required' });
     }
 
-    const advice = buildMarketingAdvice(product);
+    const advice = buildMarketingAdvice(product, { photoStyle });
     res.json({ message: 'Marketing advisory generated', advice });
   } catch (error) {
     console.error('Marketing advisory error:', error);
@@ -74,6 +74,7 @@ router.post('/marketing-advice', requireAuth, requireAdmin, async (req, res) => 
 
 router.post('/marketing-advice/product/:productID', requireAuth, requireAdmin, async (req, res) => {
   try {
+    const { photoStyle } = req.body || {};
     const product = await Product.findOne(
       { productID: Number(req.params.productID), ownerAdminID: req.user.userID },
       { _id: 0 }
@@ -83,7 +84,7 @@ router.post('/marketing-advice/product/:productID', requireAuth, requireAdmin, a
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const advice = buildMarketingAdvice(product);
+    const advice = buildMarketingAdvice(product, { photoStyle });
     res.json({ message: 'Marketing advisory generated', advice, product });
   } catch (error) {
     console.error('Marketing advisory by product error:', error);

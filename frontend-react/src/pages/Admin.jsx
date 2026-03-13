@@ -29,6 +29,7 @@ const Admin = ({ showToast }) => {
     price: '',
     quantity: '',
     category: 'Stationaries',
+    expiry_date: '',
     image: null,
     GST_applicable: false,
     productID: null
@@ -71,9 +72,16 @@ const Admin = ({ showToast }) => {
     regime: 'new'
   });
   const [financeAdvice, setFinanceAdvice] = useState(null);
+  const [nearExpiryAlerts, setNearExpiryAlerts] = useState([]);
+  const [photoStyle, setPhotoStyle] = useState('studio-white');
 
-  const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts'];
+  const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts', 'Beverages', 'Food'];
   const paymentMethods = ['cash', 'card', 'upi', 'bank_transfer'];
+
+  const isConsumableCategory = (category) => {
+    const normalized = String(category || '').toLowerCase();
+    return normalized.includes('food') || normalized.includes('beverage');
+  };
 
   useEffect(() => {
     if (!authLoading) {
@@ -133,6 +141,15 @@ const Admin = ({ showToast }) => {
       
       // Check for low stock items
       const lowStockItems = productsResponse.data.products?.filter(product => product.quantity <= 5) || [];
+      const nearExpiryItems = (productsResponse.data.products || [])
+        .filter((product) => product.expiry_date)
+        .map((product) => {
+          const expiry = new Date(product.expiry_date);
+          const daysToExpire = Math.ceil((expiry - new Date()) / (1000 * 60 * 60 * 24));
+          return { ...product, daysToExpire };
+        })
+        .filter((product) => product.daysToExpire <= 7)
+        .sort((a, b) => a.daysToExpire - b.daysToExpire);
       
       setStats({
         totalRevenue,
@@ -145,6 +162,11 @@ const Admin = ({ showToast }) => {
         lowStockItems
       });
       setTaxAlert(checkTaxAlert(bills));
+      setNearExpiryAlerts(nearExpiryItems);
+
+      if (nearExpiryItems.length > 0) {
+        showToast(`Replace these foods/beverages soon: ${nearExpiryItems.length} items near expiry`, 'warning');
+      }
     } catch (error) {
       console.error('Failed to fetch stats:', error);
       showToast('Failed to fetch dashboard stats', 'error');
@@ -251,7 +273,11 @@ const Admin = ({ showToast }) => {
     } else if (type === 'checkbox') {
       setForm({ ...form, [name]: checked });
     } else {
-      setForm({ ...form, [name]: value });
+      const updatedForm = { ...form, [name]: value };
+      if (name === 'category' && !isConsumableCategory(value)) {
+        updatedForm.expiry_date = '';
+      }
+      setForm(updatedForm);
     }
   };
 
@@ -262,6 +288,7 @@ const Admin = ({ showToast }) => {
       price: '',
       quantity: '',
       category: 'Stationaries',
+      expiry_date: '',
       image: null,
       GST_applicable: false,
       productID: null
@@ -307,7 +334,7 @@ const Admin = ({ showToast }) => {
     }
   };
 
-  const generateMarketingAdvice = async (product = latestAddedProduct) => {
+  const generateMarketingAdvice = async (product = latestAddedProduct, style = photoStyle) => {
     if (!product) {
       showToast('Add or select a product first to generate marketing strategy', 'warning');
       return;
@@ -315,7 +342,7 @@ const Admin = ({ showToast }) => {
 
     try {
       setAgentLoading(true);
-      const response = await apiService.getMarketingAdvice({ product });
+      const response = await apiService.getMarketingAdvice({ product, photoStyle: style });
       setMarketingAdvice(response.data.advice);
       showToast('Marketing AI strategy generated', 'success');
     } catch (error) {
@@ -388,6 +415,7 @@ const Admin = ({ showToast }) => {
       price: product.price,
       quantity: product.quantity,
       category: product.category,
+      expiry_date: product.expiry_date ? new Date(product.expiry_date).toISOString().split('T')[0] : '',
       image: null,
       GST_applicable: !!product.GST_applicable,
       productID: product.productID
@@ -842,6 +870,23 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           </div>
         )}
 
+        {nearExpiryAlerts.length > 0 && (
+          <div className="expiry-alert-banner">
+            <div className="tax-alert-icon">⚠️</div>
+            <div className="tax-alert-body">
+              <strong>Expiry Alert: Replace These Foods/Beverages Soon</strong>
+              <p>
+                {nearExpiryAlerts
+                  .slice(0, 4)
+                  .map((item) => `${item.name} (${item.daysToExpire < 0 ? `${Math.abs(item.daysToExpire)} days expired` : `${item.daysToExpire} days left`})`)
+                  .join(', ')}
+                {nearExpiryAlerts.length > 4 ? ` and ${nearExpiryAlerts.length - 4} more.` : ''}
+              </p>
+            </div>
+            <button className="tax-alert-close" onClick={() => setNearExpiryAlerts([])} aria-label="Dismiss expiry alert">✕</button>
+          </div>
+        )}
+
         <div className="ai-banner" onClick={() => setActiveTab('marketingAI')} role="button" tabIndex={0} onKeyDown={() => {}}>
           <div className="ai-banner-text">
             <strong>Ask VyaparAI</strong>
@@ -932,6 +977,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                   <div className="product-info">
                     <strong>{product.name}</strong>
                     <small>{product.description}</small>
+                    {product.expiry_date && (
+                      <small className="expiry-meta">Expiry: {new Date(product.expiry_date).toLocaleDateString('en-IN')}</small>
+                    )}
                   </div>
                 </td>
                 <td>{product.category}</td>
@@ -1123,6 +1171,26 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <p><strong>Latest Product:</strong> {latestAddedProduct.name} ({latestAddedProduct.category})</p>
           <p><strong>Price:</strong> {formatPrice(Number(latestAddedProduct.price || 0))}</p>
           <p><strong>Stock:</strong> {latestAddedProduct.quantity}</p>
+          <div className="form-row" style={{ marginTop: '10px' }}>
+            <div className="form-group">
+              <label>Photo Style</label>
+              <select className="form-control" value={photoStyle} onChange={(e) => setPhotoStyle(e.target.value)}>
+                <option value="studio-white">Studio White</option>
+                <option value="dark-luxury">Dark Luxury</option>
+                <option value="lifestyle-desk">Lifestyle Desk</option>
+              </select>
+            </div>
+            <div className="form-group" style={{ display: 'flex', alignItems: 'end' }}>
+              <button
+                className="btn btn-secondary"
+                type="button"
+                onClick={() => generateMarketingAdvice(latestAddedProduct, photoStyle)}
+                disabled={agentLoading}
+              >
+                Regenerate Product Photo
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -1131,6 +1199,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <h3>{marketingAdvice.prompt}</h3>
           {marketingAdvice.strategyMeta?.engine && (
             <p><strong>Strategy Engine:</strong> {marketingAdvice.strategyMeta.engine}</p>
+          )}
+          {marketingAdvice.creative?.selectedStyle && (
+            <p><strong>Photo Style:</strong> {marketingAdvice.creative.selectedStyle}</p>
           )}
           <p><strong>Objective:</strong> {marketingAdvice.strategy?.objective}</p>
           <p><strong>Target Audience:</strong> {marketingAdvice.strategy?.targetAudience}</p>
@@ -1398,6 +1469,21 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           </div>
         </div>
 
+        {isConsumableCategory(form.category) && (
+          <div className="form-group">
+            <label>Expiry Date</label>
+            <input
+              type="date"
+              value={form.expiry_date}
+              onChange={handleInputChange}
+              name="expiry_date"
+              required
+              className="form-control"
+              style={{ color: '#333', backgroundColor: 'white' }}
+            />
+          </div>
+        )}
+
         <div className="form-group">
           <label className="checkbox-label">
             <input
@@ -1569,6 +1655,21 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                   />
                 </div>
               </div>
+
+              {isConsumableCategory(form.category) && (
+                <div className="form-group">
+                  <label>Expiry Date</label>
+                  <input
+                    type="date"
+                    value={form.expiry_date}
+                    onChange={handleInputChange}
+                    name="expiry_date"
+                    required
+                    className="form-control"
+                    style={{ color: '#333', backgroundColor: 'white' }}
+                  />
+                </div>
+              )}
 
               <div className="form-group">
                 <label className="checkbox-label">

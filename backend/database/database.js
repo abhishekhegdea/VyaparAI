@@ -69,6 +69,7 @@ const productSchema = new mongoose.Schema(
     price: { type: Number, required: true },
     GST_applicable: { type: Boolean, default: false },
     quantity: { type: Number, default: 0 },
+    expiry_date: { type: Date, default: null },
     image_url: { type: String, default: null },
     created_at: { type: Date, default: Date.now }
   },
@@ -179,7 +180,9 @@ async function seedSampleProducts(ownerAdminID) {
     { name: 'Gift Box', category: 'Gifts', description: 'Beautiful gift wrapping box', price: 150.0, GST_applicable: true, quantity: 40 },
     { name: 'Flower Vase', category: 'Fancy Items', description: 'Decorative ceramic flower vase', price: 300.0, GST_applicable: true, quantity: 25 },
     { name: 'Candle Holder', category: 'Fancy Items', description: 'Elegant metal candle holder', price: 180.0, GST_applicable: true, quantity: 35 },
-    { name: 'Birthday Card', category: 'Gifts', description: 'Handmade birthday greeting card', price: 30.0, GST_applicable: false, quantity: 100 }
+    { name: 'Birthday Card', category: 'Gifts', description: 'Handmade birthday greeting card', price: 30.0, GST_applicable: false, quantity: 100 },
+    { name: 'Orange Juice 1L', category: 'Beverages', description: 'Packed orange juice bottle', price: 120.0, GST_applicable: true, quantity: 28, expiry_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) },
+    { name: 'Whole Wheat Bread', category: 'Food', description: 'Fresh bakery bread loaf', price: 45.0, GST_applicable: false, quantity: 18, expiry_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) }
   ];
 
   for (const product of sampleProducts) {

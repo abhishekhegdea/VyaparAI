@@ -8,6 +8,17 @@ const { buildMarketingAdvice } = require('../services/agenticAdvisors');
 const router = express.Router();
 const { Product } = models;
 
+function isConsumableCategory(category) {
+  const normalized = String(category || '').trim().toLowerCase();
+  return normalized.includes('food') || normalized.includes('beverage');
+}
+
+function parseExpiryDate(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 // Retail manager app: all product access is admin-authenticated.
 router.use(requireAuth, requireAdmin);
 
@@ -102,10 +113,15 @@ router.get('/:id', async (req, res) => {
 // Add new product (admin only)
 router.post('/', requireAuth, requireAdmin, upload.single('image'), async (req, res) => {
   try {
-    const { name, category, description, price, GST_applicable, quantity } = req.body;
+    const { name, category, description, price, GST_applicable, quantity, expiry_date } = req.body;
 
     if (!name || !category || !price || quantity === undefined) {
       return res.status(400).json({ error: 'Name, category, price, and quantity are required' });
+    }
+
+    const parsedExpiryDate = parseExpiryDate(expiry_date);
+    if (isConsumableCategory(category) && !parsedExpiryDate) {
+      return res.status(400).json({ error: 'Expiry date is required for Food/Beverages products' });
     }
 
     const image_url = req.file ? `/uploads/${req.file.filename}` : null;
@@ -118,6 +134,7 @@ router.post('/', requireAuth, requireAdmin, upload.single('image'), async (req, 
       price: parseFloat(price),
       GST_applicable: GST_applicable === 'true' || GST_applicable === true,
       quantity: parseInt(quantity, 10),
+      expiry_date: parsedExpiryDate,
       image_url
     });
 
@@ -139,7 +156,7 @@ router.post('/', requireAuth, requireAdmin, upload.single('image'), async (req, 
 // Update product (admin only)
 router.put('/:id', requireAuth, requireAdmin, upload.single('image'), async (req, res) => {
   try {
-    const { name, category, description, price, GST_applicable, quantity } = req.body;
+    const { name, category, description, price, GST_applicable, quantity, expiry_date } = req.body;
     const productId = req.params.id;
 
     // Check if product exists
@@ -158,13 +175,22 @@ router.put('/:id', requireAuth, requireAdmin, upload.single('image'), async (req
     const parsedGST = GST_applicable !== undefined
       ? GST_applicable === 'true' || GST_applicable === true
       : existingProduct.GST_applicable;
+    const resolvedCategory = category || existingProduct.category;
+    const parsedExpiryDate = expiry_date !== undefined
+      ? parseExpiryDate(expiry_date)
+      : existingProduct.expiry_date;
+
+    if (isConsumableCategory(resolvedCategory) && !parsedExpiryDate) {
+      return res.status(400).json({ error: 'Expiry date is required for Food/Beverages products' });
+    }
 
     existingProduct.name = name || existingProduct.name;
-    existingProduct.category = category || existingProduct.category;
+    existingProduct.category = resolvedCategory;
     existingProduct.description = description !== undefined ? description : existingProduct.description;
     existingProduct.price = Number.isNaN(parsedPrice) ? existingProduct.price : parsedPrice;
     existingProduct.GST_applicable = parsedGST;
     existingProduct.quantity = Number.isNaN(parsedQuantity) ? existingProduct.quantity : parsedQuantity;
+    existingProduct.expiry_date = parsedExpiryDate;
     existingProduct.image_url = image_url;
 
     await existingProduct.save();

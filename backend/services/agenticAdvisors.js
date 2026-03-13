@@ -54,32 +54,39 @@ function getMarketingSeedHex() {
   return crypto.createHash('sha256').update(marketingKey).digest('hex').slice(0, 8);
 }
 
-function buildPhotographyPrompt(product = {}) {
+function buildPhotographyPrompt(product = {}, style = 'studio-white') {
   const name = product.name || 'retail product';
   const category = product.category || 'general merchandise';
+  const styleMap = {
+    'studio-white': 'ultra clean white seamless background, softbox lighting from both sides',
+    'dark-luxury': 'dark moody luxury background, dramatic rim lighting, premium cinematic look',
+    'lifestyle-desk': 'natural lifestyle desk setup, warm daylight, realistic usage context'
+  };
+  const selectedStyle = styleMap[style] || styleMap['studio-white'];
+
   return [
     `Studio product photography of ${name}`,
     `category: ${category}`,
-    'ultra clean white seamless background',
-    'softbox lighting from both sides',
+    selectedStyle,
     'realistic commercial e-commerce style',
     'sharp focus, high detail, natural shadows, no watermark, no text'
   ].join(', ');
 }
 
-function buildProductPhotographyUrl(product = {}) {
-  const prompt = buildPhotographyPrompt(product);
+function buildProductPhotographyUrl(product = {}, style = 'studio-white') {
+  const prompt = buildPhotographyPrompt(product, style);
   const seedHex = getMarketingSeedHex();
   const seed = parseInt(seedHex, 16) % 100000;
   return `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=1024&seed=${seed}&nologo=true&enhance=true`;
 }
 
-function buildMarketingAdvice(product = {}) {
+function buildMarketingAdvice(product = {}, options = {}) {
   const tone = getCategoryCampaignTone(product.category);
   const productName = product.name || 'your new item';
   const price = toNumber(product.price, 0);
-  const productPhotoPrompt = buildPhotographyPrompt(product);
-  const productPhotoUrl = buildProductPhotographyUrl(product);
+  const photoStyle = options.photoStyle || 'studio-white';
+  const productPhotoPrompt = buildPhotographyPrompt(product, photoStyle);
+  const productPhotoUrl = buildProductPhotographyUrl(product, photoStyle);
   const seedHex = getMarketingSeedHex();
 
   const priceBand = price < 100 ? 'impulse buy' : price < 500 ? 'mid-ticket' : 'premium';
@@ -125,6 +132,7 @@ function buildMarketingAdvice(product = {}) {
     creative: {
       type: 'product-photography',
       style: 'Studio e-commerce photography',
+      selectedStyle: photoStyle,
       imagePrompt: productPhotoPrompt,
       imageUrl: productPhotoUrl,
       note: 'Image is generated from a product-photography prompt and seeded with your MARKETING_API_KEY.'
