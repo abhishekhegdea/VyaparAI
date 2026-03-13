@@ -1129,10 +1129,26 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
       {marketingAdvice ? (
         <div className="agent-card">
           <h3>{marketingAdvice.prompt}</h3>
+          {marketingAdvice.strategyMeta?.engine && (
+            <p><strong>Strategy Engine:</strong> {marketingAdvice.strategyMeta.engine}</p>
+          )}
           <p><strong>Objective:</strong> {marketingAdvice.strategy?.objective}</p>
           <p><strong>Target Audience:</strong> {marketingAdvice.strategy?.targetAudience}</p>
           <p><strong>Value Hook:</strong> {marketingAdvice.strategy?.valueHook}</p>
           <p><strong>CTA:</strong> {marketingAdvice.strategy?.cta}</p>
+
+          {marketingAdvice.creative?.imageUrl && (
+            <div className="marketing-image-wrap">
+              <h4>AI Product Photography</h4>
+              <img
+                src={marketingAdvice.creative.imageUrl}
+                alt={`${marketingAdvice.productSnapshot?.name || 'Product'} product photography`}
+                className="marketing-generated-image"
+                loading="lazy"
+              />
+              <p className="agent-disclaimer">{marketingAdvice.creative.note}</p>
+            </div>
+          )}
 
           <h4>Recommended Channels</h4>
           <ul className="agent-list">

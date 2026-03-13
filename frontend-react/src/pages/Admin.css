@@ -136,6 +136,8 @@ tr:last-child td { border-bottom: none; }
 .agent-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .agent-disclaimer { font-size: 11px; color: #7a8a9b; margin-top: 12px; }
 .empty-state { text-align: center; color: #7a8a9b; }
+.marketing-image-wrap { margin: 14px 0; }
+.marketing-generated-image { width: 100%; max-width: 420px; border-radius: 12px; border: 1px solid #e1e8ed; box-shadow: 0 4px 14px rgba(0,0,0,0.12); object-fit: cover; }
 
 .chatbot-card h3 { margin-bottom: 6px; }
 .chatbot-subtitle { color: #7a8a9b; font-size: 12px; margin: 0 0 12px; }
