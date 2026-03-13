@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 // Create axios instance with default configuration
+// VITE_API_URL is set in Netlify/Vercel env vars to the Render backend URL, e.g. https://vyaparai-backend.onrender.com/api
 const api = axios.create({
-  baseURL: import.meta.env.PROD ? '/api' : 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

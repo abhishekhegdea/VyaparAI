@@ -18,9 +18,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // CORS configuration
+// Add your deployed frontend URL via FRONTEND_URL env var on Render
 const allowedOrigins = [
   'http://localhost:5500',
-  'http://127.0.0.1:5500'
+  'http://127.0.0.1:5500',
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : [])
 ];
 
 app.use(cors({

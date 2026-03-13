@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: vyaparai-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: MONGODB_URI
+        sync: false        # fill in Render dashboard
+      - key: JWT_SECRET
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: AI_PROVIDER
+        value: groq
+      - key: FRONTEND_URL
+        sync: false        # fill in after Netlify deploy, e.g. https://vyaparai.netlify.app
