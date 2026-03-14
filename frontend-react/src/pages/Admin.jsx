@@ -1935,10 +1935,20 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
             <div className="scanner-output-block" style={{ marginBottom: '12px' }}>
               <h4>Rule Coverage</h4>
-              <p><strong>Coverage:</strong> {coveredCount}/10 rules applied</p>
-              <ul className="agent-list">
+              <div className="rule-coverage-headline">
+                <p><strong>Coverage:</strong> {coveredCount}/10 rules applied</p>
+                <span className={`rule-coverage-pill ${coveredCount === 10 ? 'complete' : 'partial'}`}>
+                  {coveredCount === 10 ? 'All rules covered' : 'Review remaining rules'}
+                </span>
+              </div>
+              <ul className="agent-list rule-coverage-list">
                 {ruleChecklist.map((rule) => (
-                  <li key={rule.key}>{rule.covered ? '[Yes]' : '[No]'} {rule.label}</li>
+                  <li key={rule.key} className="rule-coverage-item">
+                    <span className={`rule-status-badge ${rule.covered ? 'covered' : 'missing'}`}>
+                      {rule.covered ? 'Yes' : 'No'}
+                    </span>
+                    <span>{rule.label}</span>
+                  </li>
                 ))}
               </ul>
             </div>

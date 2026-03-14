@@ -204,6 +204,16 @@ tr:last-child td { border-bottom: none; }
 .agent-card h3, .agent-card h4 { color: #1a2332; margin: 0 0 10px; }
 .agent-list { padding-left: 20px; color: #1a2332; font-size: 14px; }
 .agent-list li { margin-bottom: 6px; }
+.rule-coverage-headline { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.rule-coverage-headline p { margin: 0; }
+.rule-coverage-pill { display: inline-flex; align-items: center; justify-content: center; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.02em; }
+.rule-coverage-pill.complete { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; border: 1px solid #86efac; }
+.rule-coverage-pill.partial { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; border: 1px solid #fcd34d; }
+.rule-coverage-list { list-style: none; padding-left: 0; margin: 0; display: grid; gap: 8px; }
+.rule-coverage-item { display: flex; align-items: center; gap: 10px; background: rgba(248, 250, 252, 0.95); border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 12px; margin-bottom: 0 !important; }
+.rule-status-badge { min-width: 46px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: 5px 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.rule-status-badge.covered { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #166534; }
+.rule-status-badge.missing { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #b91c1c; }
 .agent-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .agent-disclaimer { font-size: 11px; color: #7a8a9b; margin-top: 12px; }
 .empty-state { text-align: center; color: #7a8a9b; }
