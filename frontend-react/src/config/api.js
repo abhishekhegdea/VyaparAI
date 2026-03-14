@@ -1,7 +1,24 @@
 import axios from 'axios';
 
 const DEFAULT_LOCAL_API = 'http://localhost:3000/api';
-const DEFAULT_PROD_API = 'https://vyaparai-backend-ijum.onrender.com/api';
+const DEFAULT_PROD_API = 'https://dukaansaathi-backend-ijum.onrender.com/api';
+const FALLBACK_PROD_API = 'https://vyaparai-backend-ijum.onrender.com/api';
+
+function normalizeBaseUrl(url) {
+  return String(url || '').replace(/\/+$/, '');
+}
+
+function resolveProdFallback(baseUrl) {
+  const normalized = normalizeBaseUrl(baseUrl);
+  const normalizedPrimaryProd = normalizeBaseUrl(DEFAULT_PROD_API);
+  const normalizedFallbackProd = normalizeBaseUrl(FALLBACK_PROD_API);
+
+  if (normalized === normalizedPrimaryProd) {
+    return FALLBACK_PROD_API;
+  }
+
+  return null;
+}
 
 function resolveApiBaseUrl() {
   const fromEnv = import.meta.env.VITE_API_URL;
@@ -20,8 +37,11 @@ function resolveApiBaseUrl() {
 
 // Create axios instance with default configuration
 // Keep VITE_API_URL pointing to the active Render backend URL for DukaanSaathi.
+const resolvedBaseUrl = resolveApiBaseUrl();
+const fallbackBaseUrl = resolveProdFallback(resolvedBaseUrl);
+
 const api = axios.create({
-  baseURL: resolveApiBaseUrl(),
+  baseURL: resolvedBaseUrl,
   // Render cold starts can exceed 20s, so keep a higher timeout for first request.
   timeout: 45000,
   headers: {
@@ -47,6 +67,16 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    const originalRequest = error.config;
+    const isNetworkError = !error.response;
+    const isRetryableHttpStatus = [404, 502, 503, 504].includes(error.response?.status);
+
+    if (fallbackBaseUrl && originalRequest && !originalRequest.__retriedWithFallback && (isNetworkError || isRetryableHttpStatus)) {
+      originalRequest.__retriedWithFallback = true;
+      originalRequest.baseURL = fallbackBaseUrl;
+      return api.request(originalRequest);
+    }
+
     if (error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('token');
