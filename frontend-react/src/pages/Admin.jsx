@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings, ArrowLeft, ScanLine, FileSearch } from 'lucide-react';
 import NotificationBell from '../components/NotificationBell';
@@ -134,6 +134,10 @@ const Admin = ({ showToast }) => {
   const [scannerReportLoading, setScannerReportLoading] = useState(false);
   const [latestScanResult, setLatestScanResult] = useState(null);
   const [latestScannerReport, setLatestScannerReport] = useState('');
+  const [showScannerCamera, setShowScannerCamera] = useState(false);
+  const [cameraError, setCameraError] = useState('');
+  const [cameraStream, setCameraStream] = useState(null);
+  const videoRef = useRef(null);
 
   const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts', 'Beverages', 'Food'];
   const paymentMethods = ['cash', 'card', 'upi', 'bank_transfer'];
@@ -200,6 +204,20 @@ const Admin = ({ showToast }) => {
       fetchSalesAnalytics();
     }
   }, [activeTab]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (showScannerCamera && cameraStream && videoRef.current) {
+      videoRef.current.srcObject = cameraStream;
+    }
+  }, [showScannerCamera, cameraStream]);
+
+  useEffect(() => {
+    return () => {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [cameraStream]);
 
   const fetchProducts = async () => {
     try {
@@ -983,13 +1001,67 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return 'in-stock';
   };
 
+  const closeScannerCamera = () => {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach((track) => track.stop());
+      setCameraStream(null);
+    }
+    setShowScannerCamera(false);
+  };
+
   const handleDesktopScan = async () => {
     if (scanInProgress) return;
-    setScanInProgress(true);
 
     try {
-      showToast('Opening webcam. Press SPACE in camera window to capture.', 'info');
-      const response = await apiService.scanProductFromDesktop();
+      setCameraError('');
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        throw new Error('Camera access is not supported in this browser.');
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { ideal: 'environment' }
+        },
+        audio: false
+      });
+
+      setCameraStream(stream);
+      setShowScannerCamera(true);
+    } catch (error) {
+      const msg = error?.message || 'Unable to open camera';
+      setCameraError(msg);
+      showToast(msg, 'error');
+    }
+  };
+
+  const captureScannerFrame = async () => {
+    if (!videoRef.current || scanInProgress) return;
+
+    const video = videoRef.current;
+    const width = video.videoWidth || 1280;
+    const height = video.videoHeight || 720;
+    if (!width || !height) {
+      showToast('Camera not ready yet. Please wait a second.', 'warning');
+      return;
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      showToast('Unable to process camera frame.', 'error');
+      return;
+    }
+
+    ctx.drawImage(video, 0, 0, width, height);
+    const imageDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+    const imageBase64 = imageDataUrl.split(',')[1];
+
+    setScanInProgress(true);
+    try {
+      closeScannerCamera();
+      const response = await apiService.scanProductFromImage(imageBase64);
       const scan = response?.data?.scan;
       setLatestScanResult(scan || null);
       showToast('Product scanned and saved to sales.json', 'success');
@@ -1006,7 +1078,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     setScannerReportLoading(true);
 
     try {
-      const response = await apiService.getDesktopScanReport();
+      const response = await apiService.getScannerDataReport();
       const report = response?.data?.report || '';
       setLatestScannerReport(report);
       showToast('Scanner report generated', 'success');
@@ -1340,7 +1412,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         {(latestScanResult || latestScannerReport) && (
           <div className="analytics-card">
             <div className="analytics-head">
-              <h3>Desktop Scanner Output</h3>
+              <h3>Scanner Output</h3>
             </div>
             {latestScanResult && (
               <div className="scanner-output-block">
@@ -1903,14 +1975,14 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         <div className="form-row" style={{ marginTop: '12px' }}>
           <button className="btn btn-primary" type="button" onClick={handleDesktopScan} disabled={scanInProgress}>
             <ScanLine size={16} />
-            {scanInProgress ? 'Scanning...' : 'Scan Product'}
+            {scanInProgress ? 'Processing...' : 'Scan Product'}
           </button>
           <button className="btn btn-outline" type="button" onClick={handleScannerReport} disabled={scannerReportLoading}>
             <FileSearch size={16} />
             {scannerReportLoading ? 'Generating...' : 'Generate Report'}
           </button>
         </div>
-        <p className="agent-disclaimer">Tip: In webcam window press SPACE to capture, ESC to cancel.</p>
+        <p className="agent-disclaimer">Tip: Open camera, align label, then tap Capture &amp; Scan.</p>
       </div>
 
       {(latestScanResult || latestScannerReport) && (
@@ -2120,6 +2192,27 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <Settings size={20} /><span>Finance</span>
         </button>
       </nav>
+
+      {showScannerCamera && (
+        <div className="scanner-camera-overlay" onClick={closeScannerCamera}>
+          <div className="scanner-camera-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="scanner-camera-head">
+              <h3>Capture Product</h3>
+              <button className="modal-close" onClick={closeScannerCamera} aria-label="Close scanner camera">
+                <X size={22} />
+              </button>
+            </div>
+            <video ref={videoRef} className="scanner-camera-preview" autoPlay playsInline muted />
+            {cameraError && <p className="scanner-camera-error">{cameraError}</p>}
+            <div className="scanner-camera-actions">
+              <button className="btn btn-outline" onClick={closeScannerCamera}>Cancel</button>
+              <button className="btn btn-primary" onClick={captureScannerFrame} disabled={scanInProgress}>
+                {scanInProgress ? 'Processing...' : 'Capture & Scan'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
 
       {/* Product Modal */}

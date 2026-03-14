@@ -91,6 +91,8 @@ export const API_ENDPOINTS = {
   // Desktop scanner bridge
   SCANNER_SCAN: '/scanner/scan',
   SCANNER_REPORT: '/scanner/report',
+  SCANNER_SCAN_IMAGE: '/scanner/scan-image',
+  SCANNER_REPORT_DATA: '/scanner/report-data',
   
   // Health
   HEALTH: '/health',
@@ -131,6 +133,8 @@ export const apiService = {
   // Desktop scanner bridge
   scanProductFromDesktop: () => api.post(API_ENDPOINTS.SCANNER_SCAN),
   getDesktopScanReport: () => api.get(API_ENDPOINTS.SCANNER_REPORT),
+  scanProductFromImage: (imageBase64) => api.post(API_ENDPOINTS.SCANNER_SCAN_IMAGE, { imageBase64 }),
+  getScannerDataReport: () => api.get(API_ENDPOINTS.SCANNER_REPORT_DATA),
   
   // Health
   healthCheck: () => api.get(API_ENDPOINTS.HEALTH),
