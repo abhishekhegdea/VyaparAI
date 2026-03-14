@@ -36,10 +36,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, options = {}) => {
     try {
+      const normalizedEmail = String(email || '').trim().toLowerCase();
+      const normalizedPassword = String(password || '');
       const shouldUseAdminLogin = options.adminOnly === true;
       const response = shouldUseAdminLogin
-        ? await apiService.adminLogin({ email, password })
-        : await apiService.login({ email, password });
+        ? await apiService.adminLogin({ email: normalizedEmail, password: normalizedPassword })
+        : await apiService.login({ email: normalizedEmail, password: normalizedPassword });
       const { token: newToken, user: userData } = response.data;
       
       localStorage.setItem('token', newToken);
@@ -60,7 +62,14 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await apiService.register({ name, email, password });
+      const normalizedName = String(name || '').trim();
+      const normalizedEmail = String(email || '').trim().toLowerCase();
+      const normalizedPassword = String(password || '');
+      const response = await apiService.register({
+        name: normalizedName,
+        email: normalizedEmail,
+        password: normalizedPassword
+      });
       const { token: newToken, user: userData } = response.data;
 
       localStorage.setItem('token', newToken);

@@ -8,10 +8,16 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'vyaparai-jwt-secret';
 const { User } = models;
 
+function normalizeEmail(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
 // Retailer self-registration — new users are created with admin role
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const name = String(req.body.name || '').trim();
+    const email = normalizeEmail(req.body.email);
+    const password = String(req.body.password || '');
 
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Name, email and password are required' });
@@ -59,7 +65,8 @@ router.post('/register', async (req, res) => {
 // Retailer login (admin role only)
 router.post('/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const password = String(req.body.password || '');
 
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
@@ -104,7 +111,8 @@ router.post('/login', async (req, res) => {
 // Admin-only login
 router.post('/admin/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const password = String(req.body.password || '');
 
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
