@@ -1,10 +1,29 @@
 import axios from 'axios';
 
+const DEFAULT_LOCAL_API = 'http://localhost:3000/api';
+const DEFAULT_PROD_API = 'https://vyaparai-backend-ijum.onrender.com/api';
+
+function resolveApiBaseUrl() {
+  const fromEnv = import.meta.env.VITE_API_URL;
+  if (fromEnv) {
+    return fromEnv;
+  }
+
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const isLocalHost = host === 'localhost' || host === '127.0.0.1';
+    return isLocalHost ? DEFAULT_LOCAL_API : DEFAULT_PROD_API;
+  }
+
+  return DEFAULT_LOCAL_API;
+}
+
 // Create axios instance with default configuration
 // VITE_API_URL is set in Netlify/Vercel env vars to the Render backend URL, e.g. https://vyaparai-backend.onrender.com/api
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-  timeout: 20000,
+  baseURL: resolveApiBaseUrl(),
+  // Render cold starts can exceed 20s, so keep a higher timeout for first request.
+  timeout: 45000,
   headers: {
     'Content-Type': 'application/json',
   },

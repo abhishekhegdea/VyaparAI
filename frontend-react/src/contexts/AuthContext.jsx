@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       return {
         success: false,
         error: isNetworkError
-          ? 'Cannot connect to server. Start backend on http://localhost:3000'
+          ? 'Cannot connect to server right now. Please wait a few seconds and try again.'
           : (error.response?.data?.error || 'Login failed')
       };
     }
@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       return {
         success: false,
         error: isNetworkError
-          ? 'Cannot connect to server. Start backend on http://localhost:3000'
+          ? 'Cannot connect to server right now. Please wait a few seconds and try again.'
           : (error.response?.data?.error || 'Registration failed')
       };
     }
