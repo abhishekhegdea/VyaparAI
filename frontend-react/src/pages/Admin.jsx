@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings, ArrowLeft } from 'lucide-react';
+import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings, ArrowLeft, ScanLine, FileSearch } from 'lucide-react';
 import NotificationBell from '../components/NotificationBell';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { apiService } from '../config/api';
@@ -130,6 +130,10 @@ const Admin = ({ showToast }) => {
   const [financeAdvice, setFinanceAdvice] = useState(null);
   const [nearExpiryAlerts, setNearExpiryAlerts] = useState([]);
   const [photoStyle, setPhotoStyle] = useState('studio-white');
+  const [scanInProgress, setScanInProgress] = useState(false);
+  const [scannerReportLoading, setScannerReportLoading] = useState(false);
+  const [latestScanResult, setLatestScanResult] = useState(null);
+  const [latestScannerReport, setLatestScannerReport] = useState('');
 
   const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts', 'Beverages', 'Food'];
   const paymentMethods = ['cash', 'card', 'upi', 'bank_transfer'];
@@ -979,6 +983,41 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return 'in-stock';
   };
 
+  const handleDesktopScan = async () => {
+    if (scanInProgress) return;
+    setScanInProgress(true);
+
+    try {
+      showToast('Opening webcam. Press SPACE in camera window to capture.', 'info');
+      const response = await apiService.scanProductFromDesktop();
+      const scan = response?.data?.scan;
+      setLatestScanResult(scan || null);
+      showToast('Product scanned and saved to sales.json', 'success');
+    } catch (error) {
+      const msg = error?.response?.data?.error || error?.message || 'Scan failed';
+      showToast(msg, 'error');
+    } finally {
+      setScanInProgress(false);
+    }
+  };
+
+  const handleScannerReport = async () => {
+    if (scannerReportLoading) return;
+    setScannerReportLoading(true);
+
+    try {
+      const response = await apiService.getDesktopScanReport();
+      const report = response?.data?.report || '';
+      setLatestScannerReport(report);
+      showToast('Scanner report generated', 'success');
+    } catch (error) {
+      const msg = error?.response?.data?.error || error?.message || 'Report failed';
+      showToast(msg, 'error');
+    } finally {
+      setScannerReportLoading(false);
+    }
+  };
+
   const HomeScreen = () => {
     const getGreeting = () => {
       const h = new Date().getHours();
@@ -1287,8 +1326,36 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               <div className="qa-card-icon"><Users size={22} /></div>
               <span>New Customer</span>
             </button>
+            <button className="qa-card" onClick={handleDesktopScan} disabled={scanInProgress}>
+              <div className="qa-card-icon"><ScanLine size={22} /></div>
+              <span>{scanInProgress ? 'Scanning...' : 'Scan Product'}</span>
+            </button>
+            <button className="qa-card" onClick={handleScannerReport} disabled={scannerReportLoading}>
+              <div className="qa-card-icon"><FileSearch size={22} /></div>
+              <span>{scannerReportLoading ? 'Generating...' : 'Scan Report'}</span>
+            </button>
           </div>
         </div>
+
+        {(latestScanResult || latestScannerReport) && (
+          <div className="analytics-card">
+            <div className="analytics-head">
+              <h3>Desktop Scanner Output</h3>
+            </div>
+            {latestScanResult && (
+              <div className="scanner-output-block">
+                <h4>Latest Scan JSON</h4>
+                <pre>{JSON.stringify(latestScanResult, null, 2)}</pre>
+              </div>
+            )}
+            {latestScannerReport && (
+              <div className="scanner-output-block">
+                <h4>Latest Report</h4>
+                <p>{latestScannerReport}</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   };
@@ -1825,6 +1892,49 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     </div>
   );
 
+  const ScannerHub = () => (
+    <div className="agent-section">
+      <div className="agent-header">
+        <h2>Product Scanner</h2>
+      </div>
+
+      <div className="agent-card">
+        <p>Use your webcam to scan product labels and store structured JSON in sales.json.</p>
+        <div className="form-row" style={{ marginTop: '12px' }}>
+          <button className="btn btn-primary" type="button" onClick={handleDesktopScan} disabled={scanInProgress}>
+            <ScanLine size={16} />
+            {scanInProgress ? 'Scanning...' : 'Scan Product'}
+          </button>
+          <button className="btn btn-outline" type="button" onClick={handleScannerReport} disabled={scannerReportLoading}>
+            <FileSearch size={16} />
+            {scannerReportLoading ? 'Generating...' : 'Generate Report'}
+          </button>
+        </div>
+        <p className="agent-disclaimer">Tip: In webcam window press SPACE to capture, ESC to cancel.</p>
+      </div>
+
+      {(latestScanResult || latestScannerReport) && (
+        <div className="agent-card">
+          <h3>Scanner Output</h3>
+
+          {latestScanResult && (
+            <div className="scanner-output-block">
+              <h4>Latest Scan JSON</h4>
+              <pre>{JSON.stringify(latestScanResult, null, 2)}</pre>
+            </div>
+          )}
+
+          {latestScannerReport && (
+            <div className="scanner-output-block">
+              <h4>Latest Report</h4>
+              <p>{latestScannerReport}</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+
   const AddProduct = () => (
     <div className="add-product">
       <h2>Add New Product</h2>
@@ -1987,6 +2097,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         {activeTab === 'transactions' && Transactions()}
         {activeTab === 'financeAI' && FinanceAI()}
         {activeTab === 'marketingAI' && MarketingAI()}
+        {activeTab === 'scanner' && ScannerHub()}
       </main>
 
       <nav className="app-bottom-nav">
@@ -2002,8 +2113,11 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         <button onClick={() => setActiveTab('manageProducts')} className={`bnav-item ${activeTab === 'manageProducts' ? 'active' : ''}`}>
           <Package size={20} /><span>Stock</span>
         </button>
+        <button onClick={() => setActiveTab('scanner')} className={`bnav-item ${activeTab === 'scanner' ? 'active' : ''}`}>
+          <ScanLine size={20} /><span>Scanner</span>
+        </button>
         <button onClick={() => setActiveTab('financeAI')} className={`bnav-item ${activeTab === 'financeAI' ? 'active' : ''}`}>
-          <Settings size={20} /><span>Settings</span>
+          <Settings size={20} /><span>Finance</span>
         </button>
       </nav>
 

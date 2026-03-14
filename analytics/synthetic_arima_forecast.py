@@ -1,10 +1,13 @@
 import random
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from statsmodels.tsa.arima.model import ARIMA
+
+from product_scanner import generate_shop_report_with_groq, run_product_scan_once
 
 
 # Reproducible synthetic data for demos and testing.
@@ -117,7 +120,7 @@ def plot_sales_and_forecast(daily_sales: pd.DataFrame, forecast_df: pd.DataFrame
     plt.close()
 
 
-def main() -> None:
+def run_forecast_workflow() -> None:
     output_dir = Path(__file__).resolve().parent
     dataset_path = output_dir / "synthetic_billing_data.csv"
     daily_sales_path = output_dir / "daily_sales_timeseries.csv"
@@ -166,5 +169,47 @@ def main() -> None:
     print(forecast_out.to_string(index=False))
 
 
+def main() -> None:
+    print("Shop Management Console")
+    print("S = Scan product from webcam")
+    print("R = Shop report from sales.json")
+    print("F = Existing forecast workflow")
+    print("Q = Quit")
+
+    while True:
+        choice = input("\nChoose option (S/R/F/Q): ").strip().lower()
+
+        if choice == "q":
+            print("Goodbye.")
+            return
+
+        if choice == "s":
+            try:
+                result = run_product_scan_once()
+                print("\nScan saved to sales.json:")
+                print(pd.Series(result).to_string())
+            except Exception as exc:
+                print(f"Scan failed: {exc}")
+            continue
+
+        if choice == "r":
+            try:
+                report = generate_shop_report_with_groq()
+                print("\nShop Report:")
+                print(report)
+            except Exception as exc:
+                print(f"Report failed: {exc}")
+            continue
+
+        if choice == "f":
+            run_forecast_workflow()
+            continue
+
+        print("Invalid option. Please choose S, R, F, or Q.")
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 1 and sys.argv[1] == "--forecast-only":
+        run_forecast_workflow()
+    else:
+        main()

@@ -87,6 +87,10 @@ export const API_ENDPOINTS = {
   MARKETING_ADVICE: '/ai/marketing-advice',
   MARKETING_ADVICE_BY_PRODUCT: (productID) => `/ai/marketing-advice/product/${productID}`,
   WEBSITE_CHAT: '/ai/website-chat',
+
+  // Desktop scanner bridge
+  SCANNER_SCAN: '/scanner/scan',
+  SCANNER_REPORT: '/scanner/report',
   
   // Health
   HEALTH: '/health',
@@ -123,6 +127,10 @@ export const apiService = {
   getMarketingAdvice: (payload) => api.post(API_ENDPOINTS.MARKETING_ADVICE, payload),
   getMarketingAdviceByProduct: (productID) => api.post(API_ENDPOINTS.MARKETING_ADVICE_BY_PRODUCT(productID)),
   askWebsiteAssistant: (query) => api.post(API_ENDPOINTS.WEBSITE_CHAT, { query }),
+
+  // Desktop scanner bridge
+  scanProductFromDesktop: () => api.post(API_ENDPOINTS.SCANNER_SCAN),
+  getDesktopScanReport: () => api.get(API_ENDPOINTS.SCANNER_REPORT),
   
   // Health
   healthCheck: () => api.get(API_ENDPOINTS.HEALTH),

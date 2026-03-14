@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
 const billRoutes = require('./routes/bills');
 const aiAgentRoutes = require('./routes/aiAgents');
+const scannerRoutes = require('./routes/scanner');
 
 // Import database initialization
 const { initDatabase } = require('./database/database');
@@ -65,6 +66,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/bills', billRoutes);
 app.use('/api/ai', aiAgentRoutes);
+app.use('/api/scanner', scannerRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
