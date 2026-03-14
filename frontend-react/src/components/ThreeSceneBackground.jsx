@@ -92,9 +92,10 @@ function createFloatingFrame(color, width, height) {
 export default function ThreeSceneBackground({ className = '', density = 'ambient' }) {
   const mountRef = useRef(null);
   const [webglOk] = useState(() => isWebGLAvailable());
+  const [rendererFailed, setRendererFailed] = useState(false);
 
   useEffect(() => {
-    if (!webglOk) return undefined;
+    if (!webglOk || rendererFailed) return undefined;
     const mount = mountRef.current;
     if (!mount) return undefined;
 
@@ -314,10 +315,17 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
           renderer.dispose();
         } catch { /* ignore */ }
       }
+      setRendererFailed(true);
       return undefined;
     }
-  }, [webglOk]);
+  }, [webglOk, rendererFailed]);
 
-  if (!webglOk) return null;
+  if (!webglOk || rendererFailed) {
+    return (
+      <div className={`three-scene-bg-fallback ${className}`.trim()} role="status" aria-live="polite">
+        <div className="three-scene-bg-fallback-pill">3D effects disabled on this device</div>
+      </div>
+    );
+  }
   return <div className={`three-scene-bg ${className}`.trim()} ref={mountRef} aria-hidden="true" />;
 }
