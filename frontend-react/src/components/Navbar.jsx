@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { User, LogOut, Menu, X, Store, LayoutDashboard } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { User, LogOut, Menu, X, Store, LayoutDashboard, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './Navbar.css';
 
@@ -8,6 +8,9 @@ const Navbar = ({ showToast }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout, isAdmin } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const showBackButton = location.pathname === '/auth';
 
   const handleLogout = () => {
     logout();
@@ -26,6 +29,13 @@ const Navbar = ({ showToast }) => {
   return (
     <nav className="navbar">
       <div className="nav-container">
+        {showBackButton && (
+          <button className="nav-back-btn" onClick={() => navigate(-1)} aria-label="Go back">
+            <ArrowLeft size={18} />
+            <span>Back</span>
+          </button>
+        )}
+
         <Link to="/" className="nav-logo">
           <Store size={24} />
           <span>VyaparAI</span>

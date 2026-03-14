@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings } from 'lucide-react';
+import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings, ArrowLeft } from 'lucide-react';
+import NotificationBell from '../components/NotificationBell';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { apiService } from '../config/api';
 import { useAuth } from '../contexts/AuthContext';
@@ -1964,9 +1965,16 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
   return (
     <div className="admin-app">
       <header className="app-topbar">
-        <span className="app-brand">VyaparAI</span>
+        {activeTab !== 'dashboard' ? (
+          <button className="topbar-back-btn" onClick={() => setActiveTab('dashboard')} aria-label="Back to dashboard">
+            <ArrowLeft size={17} />
+            <span>Back</span>
+          </button>
+        ) : (
+          <span className="app-brand">VyaparAI</span>
+        )}
         <div className="app-topbar-right">
-          <button className="icon-btn" aria-label="Notifications"><Bell size={22} /></button>
+          <NotificationBell />
           <div className="avatar-circle">{user?.name?.[0]?.toUpperCase() || 'A'}</div>
         </div>
       </header>
