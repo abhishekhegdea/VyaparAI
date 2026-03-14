@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "VyaparAI API",
-    "description": "Complete API collection for VyaparAI e-commerce system",
+    "name": "DukaanSaathi API",
+    "description": "Complete API collection for DukaanSaathi e-commerce system",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -88,7 +88,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"email\": \"admin@vyaparai.com\",\n  \"password\": \"admin123\"\n}"
+          "raw": "{\n  \"email\": \"admin@DukaanSaathi.com\",\n  \"password\": \"admin123\"\n}"
         },
         "url": {
           "raw": "{{base_url}}/auth/login",

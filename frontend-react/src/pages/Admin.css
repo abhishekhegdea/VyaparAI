@@ -2,7 +2,9 @@
 .admin-app { max-width: 480px; margin: 0 auto; min-height: 100dvh; height: 100dvh; background: linear-gradient(160deg, #eef2ff 0%, #f0f9ff 45%, #fdf4ff 100%); position: relative; display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(2px); }
 .admin-app::before { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(99,102,241,0.05), rgba(14,165,233,0.04) 42%, rgba(249,115,22,0.03)); pointer-events: none; }
 .app-topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: rgba(255,255,255,0.88); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(214, 227, 233, 0.9); position: sticky; top: 0; z-index: 100; }
-.app-brand { font-size: 20px; font-weight: 800; background: linear-gradient(135deg, #0ea5e9, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.app-brand { font-size: 20px; font-weight: 800; display: inline-flex; align-items: baseline; gap: 2px; letter-spacing: -0.02em; }
+.app-brand .brand-dukaan { color: #f97316; }
+.app-brand .brand-saathi { color: #16a34a; }
 .topbar-back-btn { display: flex; align-items: center; gap: 7px; background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(14,165,233,0.08)); border: 1px solid rgba(99,102,241,0.18); border-radius: 12px; padding: 7px 14px; font-size: 14px; font-weight: 700; color: #6366f1; cursor: pointer; font-family: inherit; transition: background 0.18s, transform 0.12s; }
 .topbar-back-btn:hover { background: linear-gradient(135deg, rgba(99,102,241,0.18), rgba(14,165,233,0.14)); transform: translateX(-2px); }
 .topbar-back-btn:active { transform: scale(0.97); }

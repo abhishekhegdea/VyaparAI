@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 Setting up VyaparAI with Bun..."
+echo "🚀 Setting up DukaanSaathi with Bun..."
 
 # Check if bun is installed
 if ! command -v bun &> /dev/null; then

@@ -1,6 +1,6 @@
-# VyaparAI - React Frontend
+# DukaanSaathi - React Frontend
 
-A modern, responsive e-commerce frontend built with React, Vite, and Tailwind CSS for VyaparAI.
+A modern, responsive e-commerce frontend built with React, Vite, and Tailwind CSS for DukaanSaathi.
 
 ## 🚀 Features
 
@@ -98,7 +98,7 @@ Create a `.env` file in the root directory:
 
 ```env
 VITE_API_URL=http://localhost:3000
-VITE_APP_NAME=VyaparAI
+VITE_APP_NAME=DukaanSaathi
 ```
 
 ### API Endpoints
@@ -114,7 +114,7 @@ The frontend communicates with the backend API:
 ### Authentication
 1. **Register**: Create a new account with email and password
 2. **Login**: Sign in with existing credentials
-3. **Admin Access**: Use `admin@vyaparai.com` / `admin123` for admin features
+3. **Admin Access**: Use `admin@DukaanSaathi.com` / `admin123` for admin features
 
 ### Shopping Experience
 1. **Browse Products**: View products by category or search
@@ -211,4 +211,4 @@ For support and questions:
 
 ---
 
-**VyaparAI** - Your One-Stop Shop for Stationaries, Fancy Items, Toys, and Gifts! 🛍️
+**DukaanSaathi** - Your One-Stop Shop for Stationaries, Fancy Items, Toys, and Gifts! 🛍️

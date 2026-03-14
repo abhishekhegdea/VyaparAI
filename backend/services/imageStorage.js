@@ -56,7 +56,7 @@ async function uploadBufferToCloudinary(file, options = {}) {
   return new Promise((resolve, reject) => {
     const upload = cloudinary.uploader.upload_stream(
       {
-        folder: options.folder || 'vyaparai/products',
+        folder: options.folder || 'DukaanSaathi/products',
         public_id: `${sanitizeBaseName(options.baseName)}-${Date.now()}`,
         resource_type: 'image'
       },
@@ -112,7 +112,7 @@ async function uploadRemoteImage(imageUrl, options = {}) {
   }
 
   const result = await cloudinary.uploader.upload(imageUrl, {
-    folder: options.folder || 'vyaparai/generated',
+    folder: options.folder || 'DukaanSaathi/generated',
     public_id: `${sanitizeBaseName(options.baseName)}-${Date.now()}`,
     resource_type: 'image'
   });
@@ -142,7 +142,7 @@ async function persistMarketingAdviceImage(advice) {
   }
 
   const uploaded = await uploadRemoteImage(advice.creative.imageUrl, {
-    folder: 'vyaparai/marketing-ai',
+    folder: 'DukaanSaathi/marketing-ai',
     baseName: advice.productSnapshot?.name || 'marketing-image'
   });
 

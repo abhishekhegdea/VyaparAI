@@ -1,4 +1,4 @@
-// Products Module for VyaparAI
+// Products Module for DukaanSaathi
 
 class ProductsManager {
     constructor() {

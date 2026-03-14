@@ -10,7 +10,10 @@ const Home = () => {
           <div className="mark-icon">
             <ShoppingBag size={20} />
           </div>
-          <h2>VyaparAI</h2>
+          <h2 className="brand-wordmark" aria-label="DukaanSaathi">
+            <span className="brand-dukaan">Dukaan</span>
+            <span className="brand-saathi">Saathi</span>
+          </h2>
         </div>
 
         <div className="hero-photo-wrap">
@@ -34,7 +37,7 @@ const Home = () => {
         </Link>
 
         <p className="onboarding-footnote">
-          By continuing, you agree to VyaparAI&apos;s Terms of Service and Privacy Policy.
+          By continuing, you agree to DukaanSaathi&apos;s Terms of Service and Privacy Policy.
         </p>
       </section>
 

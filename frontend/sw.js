@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vyaparai-v1';
+const CACHE_NAME = 'DukaanSaathi-v1';
 const urlsToCache = [
   '/',
   '/css/style.css',

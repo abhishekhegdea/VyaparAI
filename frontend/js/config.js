@@ -1,4 +1,4 @@
-// Configuration file for VyaparAI Frontend
+// Configuration file for DukaanSaathi Frontend
 
 const CONFIG = {
     // API Configuration
@@ -34,7 +34,7 @@ const CONFIG = {
     },
     
     // Application Settings
-    APP_NAME: 'VyaparAI',
+    APP_NAME: 'DukaanSaathi',
     APP_VERSION: '1.0.0',
     
     // UI Settings
@@ -72,9 +72,9 @@ const CONFIG = {
     
     // Local Storage Keys
     STORAGE_KEYS: {
-        TOKEN: 'vyaparai_token',
-        USER: 'vyaparai_user',
-        CART: 'vyaparai_cart'
+        TOKEN: 'DukaanSaathi_token',
+        USER: 'DukaanSaathi_user',
+        CART: 'DukaanSaathi_cart'
     },
     
     // Error Messages

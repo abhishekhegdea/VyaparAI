@@ -1,4 +1,4 @@
-# VyaparAI API - Complete Postman Testing Guide
+# DukaanSaathi API - Complete Postman Testing Guide
 
 ## 🚀 **Integration Status**
 ✅ **Backend**: Running on `http://localhost:3000`  
@@ -16,7 +16,7 @@
 1. **Open Postman**
 2. **Create New Environment**:
    - Click "Environments" → "New"
-   - Name: `VyaparAI Local`
+   - Name: `DukaanSaathi Local`
    - Add these variables:
 
 | Variable | Initial Value | Current Value |
@@ -36,8 +36,8 @@
 
 1. **Create New Collection**:
    - Click "Collections" → "New Collection"
-   - Name: `VyaparAI API`
-   - Description: `Complete API testing for VyaparAI`
+   - Name: `DukaanSaathi API`
+   - Description: `Complete API testing for DukaanSaathi`
 
 2. **Set Collection Authorization**:
    - Go to Collection settings
@@ -61,7 +61,7 @@
 ```json
 {
   "status": "OK",
-  "message": "VyaparAI API is running"
+  "message": "DukaanSaathi API is running"
 }
 ```
 
@@ -128,7 +128,7 @@ Content-Type: application/json
 **Body** (raw JSON):
 ```json
 {
-  "email": "admin@vyaparai.com",
+  "email": "admin@DukaanSaathi.com",
   "password": "admin123"
 }
 ```
@@ -160,7 +160,7 @@ if (pm.response.code === 200) {
   "user": {
     "userID": 1,
     "name": "Admin User",
-    "email": "admin@vyaparai.com",
+    "email": "admin@DukaanSaathi.com",
     "role": "admin"
   }
 }
@@ -467,7 +467,7 @@ if (pm.response.code === 201) {
 Invoke-RestMethod -Uri "http://localhost:3000/api/health" -Method GET
 
 # Login
-$loginData = '{"email":"admin@vyaparai.com","password":"admin123"}'
+$loginData = '{"email":"admin@DukaanSaathi.com","password":"admin123"}'
 Invoke-RestMethod -Uri "http://localhost:3000/api/auth/login" -Method POST -Body $loginData -ContentType "application/json"
 
 # Get products
@@ -511,4 +511,4 @@ Your API is fully functional when:
 - Admin and user roles are properly enforced
 - Error handling provides meaningful messages
 
-**🎉 Your VyaparAI API is ready for production!** 
+**🎉 Your DukaanSaathi API is ready for production!** 

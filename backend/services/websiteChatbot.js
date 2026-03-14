@@ -136,7 +136,7 @@ function buildPrompt(storeData, question) {
   };
 
   return `
-You are VyaparAI, an AI assistant for a store management system.
+You are DukaanSaathi, an AI assistant for a store management system.
 
 You help answer questions about:
 - product inventory
@@ -145,7 +145,7 @@ You help answer questions about:
 - revenue
 - store insights
 
-Answer ONLY questions related to the VyaparAI website and this store data.
+Answer ONLY questions related to the DukaanSaathi website and this store data.
 If user asks unrelated topics, politely refuse and redirect to website usage.
 
 Use the store data below to answer the user's question.
@@ -235,7 +235,7 @@ async function askWebsiteAssistant(question, ownerAdminID) {
           temperature: 0.2,
           max_tokens: 350,
           messages: [
-            { role: 'system', content: 'You are a helpful business analytics AI for the VyaparAI website.' },
+            { role: 'system', content: 'You are a helpful business analytics AI for the DukaanSaathi website.' },
             { role: 'user', content: prompt }
           ]
         })
@@ -265,7 +265,7 @@ async function askWebsiteAssistant(question, ownerAdminID) {
         body: JSON.stringify({
           model,
           messages: [
-            { role: 'system', content: 'You are a helpful business analytics AI for the VyaparAI website.' },
+            { role: 'system', content: 'You are a helpful business analytics AI for the DukaanSaathi website.' },
             { role: 'user', content: prompt }
           ]
         })

@@ -1,4 +1,4 @@
-# VyaparAI API - Postman Verification Guide
+# DukaanSaathi API - Postman Verification Guide
 
 ## Base URL
 ```
@@ -31,7 +31,7 @@ Create a new environment in Postman with these variables:
 ```json
 {
   "status": "OK",
-  "message": "VyaparAI API is running"
+  "message": "DukaanSaathi API is running"
 }
 ```
 
@@ -88,7 +88,7 @@ if (pm.response.code === 201) {
 - Body (raw JSON):
 ```json
 {
-  "email": "admin@vyaparai.com",
+  "email": "admin@DukaanSaathi.com",
   "password": "admin123"
 }
 ```
@@ -101,7 +101,7 @@ if (pm.response.code === 201) {
   "user": {
     "userID": 1,
     "name": "Admin User",
-    "email": "admin@vyaparai.com",
+    "email": "admin@DukaanSaathi.com",
     "role": "admin"
   }
 }
@@ -130,7 +130,7 @@ if (pm.response.code === 200) {
   "user": {
     "userID": 1,
     "name": "Admin User",
-    "email": "admin@vyaparai.com",
+    "email": "admin@DukaanSaathi.com",
     "role": "admin"
   }
 }
@@ -150,7 +150,7 @@ if (pm.response.code === 200) {
   "valid": true,
   "user": {
     "userID": 1,
-    "email": "admin@vyaparai.com",
+    "email": "admin@DukaanSaathi.com",
     "role": "admin"
   }
 }
@@ -735,4 +735,4 @@ pm.test("Cart has valid structure", function () {
 });
 ```
 
-This comprehensive guide will help you thoroughly test all API endpoints in your VyaparAI backend using Postman.
+This comprehensive guide will help you thoroughly test all API endpoints in your DukaanSaathi backend using Postman.

@@ -116,7 +116,7 @@ router.post('/', requireAuth, requireAdmin, upload.single('image'), async (req, 
     }
 
     const uploadedImage = await uploadProductImage(req.file, {
-      folder: 'vyaparai/products',
+      folder: 'DukaanSaathi/products',
       baseName: name
     });
 
@@ -168,7 +168,7 @@ router.put('/:id', requireAuth, requireAdmin, upload.single('image'), async (req
 
     if (req.file) {
       const uploadedImage = await uploadProductImage(req.file, {
-        folder: 'vyaparai/products',
+        folder: 'DukaanSaathi/products',
         baseName: name || existingProduct.name
       });
       image_url = uploadedImage.imageUrl;

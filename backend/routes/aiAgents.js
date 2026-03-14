@@ -9,7 +9,8 @@ const router = express.Router();
 const { Product } = models;
 
 const WEBSITE_SCOPE_KEYWORDS = [
-  'vyaparai',
+  'dukaansaathi',
+  'dukaan saathi',
   'website',
   'dashboard',
   'login',
@@ -55,7 +56,7 @@ function isWebsiteScopedQuery(query) {
 
 function buildWebsiteScopeFallback() {
   return [
-    'I can only help with VyaparAI website usage.',
+    'I can only help with DukaanSaathi website usage.',
     'Try asking about: login/register, inventory management, product add/edit, billing, reports, Marketing AI, or Finance AI.'
   ].join(' ');
 }

@@ -39,7 +39,7 @@ const Auth = ({ showToast }) => {
     try {
       const result = await register(registerForm.name, registerForm.email, registerForm.password);
       if (result.success) {
-        showToast('Account created! Welcome to VyaparAI.', 'success');
+        showToast('Account created! Welcome to DukaanSaathi.', 'success');
         navigate('/admin');
       } else {
         showToast(result.error, 'error');
@@ -73,7 +73,7 @@ const Auth = ({ showToast }) => {
           {activeTab === 'register' ? (
             <>
               <h2>Create Retailer Account</h2>
-              <p>Register with your email to manage your shop with VyaparAI.</p>
+              <p>Register with your email to manage your shop with DukaanSaathi.</p>
               <form onSubmit={handleRegisterSubmit}>
                 <div className="form-group">
                   <label htmlFor="regName">Full Name</label>

@@ -1,4 +1,4 @@
-// Cart Module for VyaparAI
+// Cart Module for DukaanSaathi
 
 class CartManager {
     constructor() {

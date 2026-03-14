@@ -9,7 +9,7 @@ const LoadingScreen = () => {
           <Store size={48} />
         </div>
         <div className="loading-spinner"></div>
-        <h2>Welcome to VyaparAI</h2>
+        <h2>Welcome to DukaanSaathi</h2>
         <p>Loading your shopping experience...</p>
       </div>
     </div>

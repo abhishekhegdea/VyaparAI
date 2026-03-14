@@ -1,6 +1,6 @@
-# VyaparAI - Frontend
+# DukaanSaathi - Frontend
 
-A modern, responsive e-commerce website frontend built with HTML, CSS, and JavaScript for the VyaparAI store.
+A modern, responsive e-commerce website frontend built with HTML, CSS, and JavaScript for the DukaanSaathi store.
 
 ## Features
 
@@ -88,7 +88,7 @@ frontend/
 
 ### Default Admin Account
 
-- **Email**: admin@vyaparai.com
+- **Email**: admin@DukaanSaathi.com
 - **Password**: admin123
 
 ## Features Overview
@@ -278,4 +278,4 @@ For issues and questions:
 
 ---
 
-**VyaparAI** - Your one-stop destination for Stationaries, Fancy Items, Toys, and Gifts! 🎁 
+**DukaanSaathi** - Your one-stop destination for Stationaries, Fancy Items, Toys, and Gifts! 🎁 

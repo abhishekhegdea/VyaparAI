@@ -1,7 +1,7 @@
 {
-  "name": "vyaparai-backend",
+  "name": "DukaanSaathi-backend",
   "version": "1.0.0",
-  "description": "Backend for VyaparAI e-commerce system",
+  "description": "Backend for DukaanSaathi e-commerce system",
   "main": "server.js",
   "scripts": {
     "start": "bun run server.js",
@@ -37,6 +37,6 @@
     "express",
     "nodejs"
   ],
-  "author": "VyaparAI",
+  "author": "DukaanSaathi",
   "license": "MIT"
 }

@@ -1,4 +1,4 @@
-// Admin Module for VyaparAI
+// Admin Module for DukaanSaathi
 
 class AdminManager {
     constructor() {

@@ -1,4 +1,4 @@
-# 📱 Mobile Usage Guide - VyaparAI
+# 📱 Mobile Usage Guide - DukaanSaathi
 
 ## 🚀 Quick Start
 

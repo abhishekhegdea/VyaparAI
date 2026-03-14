@@ -1,6 +1,6 @@
-// Main Application File for VyaparAI
+// Main Application File for DukaanSaathi
 
-class VyaparAIApp {
+class DukaanSaathiApp {
     constructor() {
         this.currentUser = null;
         this.currentPage = 'home';
@@ -167,15 +167,15 @@ class VyaparAIApp {
 
         // Update page title
         const titles = {
-            home: 'Home - VyaparAI',
-            auth: 'Login/Register - VyaparAI',
-            products: 'Products - VyaparAI',
-            cart: 'Shopping Cart - VyaparAI',
-            bills: 'My Bills - VyaparAI',
-            admin: 'Admin Dashboard - VyaparAI'
+            home: 'Home - DukaanSaathi',
+            auth: 'Login/Register - DukaanSaathi',
+            products: 'Products - DukaanSaathi',
+            cart: 'Shopping Cart - DukaanSaathi',
+            bills: 'My Bills - DukaanSaathi',
+            admin: 'Admin Dashboard - DukaanSaathi'
         };
         
-        document.title = titles[activePage] || 'VyaparAI';
+        document.title = titles[activePage] || 'DukaanSaathi';
     }
 
     async loadPageContent(pageName) {
@@ -432,7 +432,7 @@ window.getCurrentUser = function() {
 
 // Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.app = new VyaparAIApp();
+    window.app = new DukaanSaathiApp();
 });
 
 // Handle page visibility changes

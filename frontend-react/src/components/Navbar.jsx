@@ -38,7 +38,10 @@ const Navbar = ({ showToast }) => {
 
         <Link to="/" className="nav-logo">
           <Store size={24} />
-          <span>VyaparAI</span>
+          <span className="brand-wordmark" aria-label="DukaanSaathi">
+            <span className="brand-dukaan">Dukaan</span>
+            <span className="brand-saathi">Saathi</span>
+          </span>
         </Link>
 
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>

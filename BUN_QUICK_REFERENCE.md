@@ -1,4 +1,4 @@
-# 🥟 Bun Quick Reference - VyaparAI
+# 🥟 Bun Quick Reference - DukaanSaathi
 
 ## 🚀 Quick Start Commands
 
@@ -57,7 +57,7 @@ bun run preview
 ## 🔧 Project Structure
 
 ```
-VyaparAI/
+DukaanSaathi/
 ├── backend/
 │   ├── bun.lock          # Bun lock file
 │   ├── package.json      # Already configured for bun

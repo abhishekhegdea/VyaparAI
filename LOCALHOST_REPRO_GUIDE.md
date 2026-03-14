@@ -13,7 +13,7 @@ This guide makes your measurable localhost business data reproducible from Git.
 Run from project root:
 
 ```powershell
-Set-Location "D:\OneDrive\Desktop\complete_GENAI internship\VyaparAI"
+Set-Location "D:\OneDrive\Desktop\complete_GENAI internship\DukaanSaathi"
 node backend/scripts/exportLocalSnapshot.js abhishekhegdea@gmail.com
 ```
 

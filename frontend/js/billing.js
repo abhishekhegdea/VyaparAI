@@ -1,4 +1,4 @@
-// Billing Module for VyaparAI
+// Billing Module for DukaanSaathi
 
 class BillingManager {
     constructor() {

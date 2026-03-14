@@ -1,7 +1,7 @@
-# VyaparAI API Test Script
+# DukaanSaathi API Test Script
 # Run this script to test all API endpoints
 
-Write-Host "=== VyaparAI API Testing ===" -ForegroundColor Green
+Write-Host "=== DukaanSaathi API Testing ===" -ForegroundColor Green
 Write-Host ""
 
 # Test 1: Health Check
@@ -116,7 +116,7 @@ if ($token) {
 # Test 9: Admin Login
 Write-Host "9. Testing Admin Login..." -ForegroundColor Yellow
 $adminLoginData = @{
-    email = "admin@vyaparai.com"
+    email = "admin@DukaanSaathi.com"
     password = "admin123"
 } | ConvertTo-Json
 

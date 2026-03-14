@@ -1,4 +1,4 @@
-// Authentication Module for VyaparAI
+// Authentication Module for DukaanSaathi
 
 class AuthManager {
     constructor() {

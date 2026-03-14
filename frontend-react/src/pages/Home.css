@@ -39,6 +39,21 @@
   letter-spacing: -0.02em;
 }
 
+.app-mark .brand-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-weight: 800;
+}
+
+.app-mark .brand-dukaan {
+  color: #ea580c;
+}
+
+.app-mark .brand-saathi {
+  color: #15803d;
+}
+
 .hero-photo-wrap {
   width: 100%;
   border-radius: 20px;

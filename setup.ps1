@@ -1,6 +1,6 @@
-# PowerShell setup script for VyaparAI with Bun
+# PowerShell setup script for DukaanSaathi with Bun
 
-Write-Host "🚀 Setting up VyaparAI with Bun..." -ForegroundColor Green
+Write-Host "🚀 Setting up DukaanSaathi with Bun..." -ForegroundColor Green
 
 # Check if bun is installed
 try {

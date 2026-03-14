@@ -1,6 +1,6 @@
-# VyaparAI - Backend API
+# DukaanSaathi - Backend API
 
-A Node.js/Express backend for the VyaparAI e-commerce system with user/admin authentication, product management, cart functionality, and billing system.
+A Node.js/Express backend for the DukaanSaathi e-commerce system with user/admin authentication, product management, cart functionality, and billing system.
 
 ## Features
 
@@ -49,7 +49,7 @@ The server will start on `http://localhost:3000`
 
 ### Default Admin Account
 
-- **Email**: admin@vyaparai.com
+- **Email**: admin@DukaanSaathi.com
 - **Password**: admin123
 
 ## API Endpoints
@@ -124,7 +124,7 @@ Create a `.env` file in the backend directory:
 ```env
 PORT=3000
 MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/?retryWrites=true&w=majority
-MONGODB_DB_NAME=vyaparai
+MONGODB_DB_NAME=DukaanSaathi
 JWT_SECRET=your-jwt-secret-key
 SESSION_SECRET=your-session-secret
 CLOUDINARY_CLOUD_NAME=your-cloud-name

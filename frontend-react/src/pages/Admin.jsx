@@ -115,7 +115,7 @@ const Admin = ({ showToast }) => {
   const [chatMessages, setChatMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hi, I am Ask VyaparAI. I can help only with this website: login/register, products, inventory, billing, reports, Marketing AI, and Finance AI.'
+      content: 'Hi, I am Ask DukaanSaathi. I can help only with this website: login/register, products, inventory, billing, reports, Marketing AI, and Finance AI.'
     }
   ]);
   const [taxAlert, setTaxAlert] = useState(null);
@@ -584,10 +584,10 @@ const Admin = ({ showToast }) => {
         ...prev,
         {
           role: 'assistant',
-          content: 'Sorry, Ask VyaparAI is unavailable right now. Please try again.'
+          content: 'Sorry, Ask DukaanSaathi is unavailable right now. Please try again.'
         }
       ]);
-      showToast('Ask VyaparAI is temporarily unavailable', 'error');
+      showToast('Ask DukaanSaathi is temporarily unavailable', 'error');
     } finally {
       setChatLoading(false);
     }
@@ -778,7 +778,7 @@ const Admin = ({ showToast }) => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `VyaparAI_Bill_${bill.billID}_${new Date().toISOString().split('T')[0]}.txt`;
+    a.download = `DukaanSaathi_Bill_${bill.billID}_${new Date().toISOString().split('T')[0]}.txt`;
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
@@ -791,7 +791,7 @@ const Admin = ({ showToast }) => {
     printWindow.document.write(`
       <html>
         <head>
-          <title>VyaparAI - Bill #${bill.billID}</title>
+          <title>DukaanSaathi - Bill #${bill.billID}</title>
           <style>
             body { 
               font-family: 'Courier New', monospace; 
@@ -871,7 +871,7 @@ const Admin = ({ showToast }) => {
         <body>
           <div class="bill-container">
             <div class="bill-header">
-              <h1 class="bill-title">VYAPARAI</h1>
+              <h1 class="bill-title">DUKAANSAATHI</h1>
               <p class="bill-subtitle">Quality Products & Gifts</p>
               <p class="bill-subtitle">Bill #${bill.billID.toString().padStart(6, '0')}</p>
             </div>
@@ -921,9 +921,9 @@ const Admin = ({ showToast }) => {
             </div>
             
             <div class="footer">
-              <p>Thank you for shopping with VyaparAI!</p>
+              <p>Thank you for shopping with DukaanSaathi!</p>
               <p>Visit us again for more amazing products</p>
-              <p>Contact: +91 XXXXXXXXXX | Email: info@vyaparai.com</p>
+              <p>Contact: +91 XXXXXXXXXX | Email: info@dukaansaathi.com</p>
             </div>
           </div>
         </body>
@@ -939,7 +939,7 @@ const Admin = ({ showToast }) => {
     
     return `
 ╔══════════════════════════════════════════════════════════════╗
-║                    VYAPARAI                       ║
+  ║                    DUKAANSAATHI                   ║
 ║                    Quality Products & Gifts                  ║
 ║                                                              ║
 ║  Bill #: ${bill.billID.toString().padStart(6, '0')}                    ║
@@ -963,10 +963,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 ╠══════════════════════════════════════════════════════════════╣
 ║  Payment Method: ${bill.paymentMethod || 'Cash'}                    ║
 ║                                                              ║
-║  Thank you for shopping with VyaparAI!           ║
+║  Thank you for shopping with DukaanSaathi!       ║
 ║  Visit us again for more amazing products!                 ║
 ║                                                              ║
-║  Contact: +91 XXXXXXXXXX | Email: info@vyaparai.com         ║
+║  Contact: +91 XXXXXXXXXX | Email: info@dukaansaathi.com     ║
 ╚══════════════════════════════════════════════════════════════╝
     `;
   };
@@ -1354,7 +1354,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
         <div className="ai-banner" onClick={() => setActiveTab('marketingAI')} role="button" tabIndex={0} onKeyDown={() => {}}>
           <div className="ai-banner-text">
-            <strong>Ask VyaparAI</strong>
+            <strong>Ask DukaanSaathi</strong>
             <p>Get instant answers about your inventory, sales, and more.</p>
             <button className="btn-ask" onClick={(e) => { e.stopPropagation(); setActiveTab('marketingAI'); }}>Ask Now</button>
           </div>
@@ -1814,7 +1814,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
       )}
 
       <div className="agent-card chatbot-card">
-        <h3>Ask VyaparAI</h3>
+        <h3>Ask DukaanSaathi</h3>
         <p className="chatbot-subtitle">Website help only. Ask about features, workflows, and troubleshooting in this app.</p>
 
         <div className="chatbot-window">
@@ -1830,7 +1830,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <input
             type="text"
             className="form-control"
-            placeholder="Ask about VyaparAI website usage"
+            placeholder="Ask about DukaanSaathi website usage"
             value={chatInput}
             onChange={(e) => setChatInput(e.target.value)}
             maxLength={500}
@@ -2244,7 +2244,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             <span>Back</span>
           </button>
         ) : (
-          <span className="app-brand">VyaparAI</span>
+          <span className="app-brand" aria-label="DukaanSaathi">
+            <span className="brand-dukaan">Dukaan</span>
+            <span className="brand-saathi">Saathi</span>
+          </span>
         )}
         <div className="app-topbar-right">
           <NotificationBell />
