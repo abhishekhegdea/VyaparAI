@@ -1,0 +1,5562 @@
+{
+  "generatedAt": "2026-03-14T02:55:53.996Z",
+  "source": {
+    "admin": {
+      "userID": 2,
+      "name": "Abhishek Hegde",
+      "email": "abhishekhegdea@gmail.com",
+      "role": "admin",
+      "created_at": "2026-03-13T18:47:40.152Z"
+    },
+    "productCount": 30,
+    "billCount": 183
+  },
+  "products": [
+    {
+      "productID": 40,
+      "ownerAdminID": 2,
+      "name": "Pencil Set",
+      "category": "Stationaries",
+      "description": "Colorful pencil set with 12 pencils",
+      "price": 50,
+      "GST_applicable": false,
+      "quantity": 100,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:32.984Z"
+    },
+    {
+      "productID": 41,
+      "ownerAdminID": 2,
+      "name": "Notebook",
+      "category": "Stationaries",
+      "description": "A4 size notebook with 100 pages",
+      "price": 80,
+      "GST_applicable": false,
+      "quantity": 50,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:33.110Z"
+    },
+    {
+      "productID": 42,
+      "ownerAdminID": 2,
+      "name": "Teddy Bear",
+      "category": "Toys",
+      "description": "Soft plush teddy bear",
+      "price": 200,
+      "GST_applicable": true,
+      "quantity": 30,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:33.251Z"
+    },
+    {
+      "productID": 43,
+      "ownerAdminID": 2,
+      "name": "Remote Car",
+      "category": "Toys",
+      "description": "Battery operated remote control car",
+      "price": 500,
+      "GST_applicable": true,
+      "quantity": 20,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:33.367Z"
+    },
+    {
+      "productID": 44,
+      "ownerAdminID": 2,
+      "name": "Gift Box",
+      "category": "Gifts",
+      "description": "Beautiful gift wrapping box",
+      "price": 150,
+      "GST_applicable": true,
+      "quantity": 40,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:33.587Z"
+    },
+    {
+      "productID": 45,
+      "ownerAdminID": 2,
+      "name": "Flower Vase",
+      "category": "Fancy Items",
+      "description": "Decorative ceramic flower vase",
+      "price": 300,
+      "GST_applicable": true,
+      "quantity": 25,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:33.772Z"
+    },
+    {
+      "productID": 46,
+      "ownerAdminID": 2,
+      "name": "Candle Holder",
+      "category": "Fancy Items",
+      "description": "Elegant metal candle holder",
+      "price": 180,
+      "GST_applicable": true,
+      "quantity": 35,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:33.896Z"
+    },
+    {
+      "productID": 47,
+      "ownerAdminID": 2,
+      "name": "Birthday Card",
+      "category": "Gifts",
+      "description": "Handmade birthday greeting card",
+      "price": 30,
+      "GST_applicable": false,
+      "quantity": 97,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T17:50:34.041Z"
+    },
+    {
+      "productID": 48,
+      "ownerAdminID": 2,
+      "name": "book",
+      "category": "Stationaries",
+      "description": "300 pages",
+      "price": 50,
+      "GST_applicable": true,
+      "quantity": 9,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T23:22:23.147Z"
+    },
+    {
+      "productID": 49,
+      "ownerAdminID": 2,
+      "name": "Test Beverage With Expiry",
+      "category": "Beverages",
+      "description": "Expiry validation pass",
+      "price": 20,
+      "GST_applicable": true,
+      "quantity": 5,
+      "expiry_date": "2026-12-31T00:00:00.000Z",
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-13T23:38:44.259Z"
+    },
+    {
+      "productID": 50,
+      "ownerAdminID": 2,
+      "name": "Blue Ball Pen Pack",
+      "category": "Stationaries",
+      "description": "Pack of 10 smooth-writing blue pens",
+      "price": 120,
+      "GST_applicable": false,
+      "quantity": 80,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:13.775Z"
+    },
+    {
+      "productID": 51,
+      "ownerAdminID": 2,
+      "name": "Marker Set",
+      "category": "Stationaries",
+      "description": "Permanent marker set, assorted colors",
+      "price": 95,
+      "GST_applicable": false,
+      "quantity": 45,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:13.887Z"
+    },
+    {
+      "productID": 52,
+      "ownerAdminID": 2,
+      "name": "Geometry Box",
+      "category": "Stationaries",
+      "description": "Compass, divider and ruler kit for students",
+      "price": 140,
+      "GST_applicable": false,
+      "quantity": 40,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.114Z"
+    },
+    {
+      "productID": 53,
+      "ownerAdminID": 2,
+      "name": "Building Blocks Set",
+      "category": "Toys",
+      "description": "Creative 120-piece building block toy set",
+      "price": 650,
+      "GST_applicable": true,
+      "quantity": 18,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.225Z"
+    },
+    {
+      "productID": 54,
+      "ownerAdminID": 2,
+      "name": "Puzzle Board Game",
+      "category": "Toys",
+      "description": "Family-friendly 500-piece puzzle board game",
+      "price": 320,
+      "GST_applicable": true,
+      "quantity": 22,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.318Z"
+    },
+    {
+      "productID": 55,
+      "ownerAdminID": 2,
+      "name": "Greeting Card Combo",
+      "category": "Gifts",
+      "description": "Set of 6 premium greeting cards",
+      "price": 180,
+      "GST_applicable": true,
+      "quantity": 35,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.415Z"
+    },
+    {
+      "productID": 56,
+      "ownerAdminID": 2,
+      "name": "Ribbon Roll Set",
+      "category": "Gifts",
+      "description": "Decorative ribbon rolls for gift wrapping",
+      "price": 110,
+      "GST_applicable": true,
+      "quantity": 55,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.520Z"
+    },
+    {
+      "productID": 57,
+      "ownerAdminID": 2,
+      "name": "Decor String Lights",
+      "category": "Fancy Items",
+      "description": "Warm LED string lights for decoration",
+      "price": 260,
+      "GST_applicable": true,
+      "quantity": 30,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.622Z"
+    },
+    {
+      "productID": 58,
+      "ownerAdminID": 2,
+      "name": "Orange Juice 1L",
+      "category": "Beverages",
+      "description": "Packed orange juice bottle",
+      "price": 120,
+      "GST_applicable": true,
+      "quantity": 28,
+      "expiry_date": "2026-03-28T01:58:13.406Z",
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.759Z"
+    },
+    {
+      "productID": 59,
+      "ownerAdminID": 2,
+      "name": "Mixed Fruit Juice 1L",
+      "category": "Beverages",
+      "description": "Mixed fruit drink, 1 liter pack",
+      "price": 130,
+      "GST_applicable": true,
+      "quantity": 24,
+      "expiry_date": "2026-03-26T01:58:13.406Z",
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.849Z"
+    },
+    {
+      "productID": 60,
+      "ownerAdminID": 2,
+      "name": "Whole Wheat Bread",
+      "category": "Food",
+      "description": "Fresh bakery bread loaf",
+      "price": 45,
+      "GST_applicable": false,
+      "quantity": 18,
+      "expiry_date": "2026-03-19T01:58:13.406Z",
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:14.949Z"
+    },
+    {
+      "productID": 61,
+      "ownerAdminID": 2,
+      "name": "Chocolate Cookies Pack",
+      "category": "Food",
+      "description": "Crunchy chocolate cookies, family pack",
+      "price": 90,
+      "GST_applicable": false,
+      "quantity": 40,
+      "expiry_date": "2026-04-28T01:58:13.406Z",
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T01:58:15.047Z"
+    },
+    {
+      "productID": 62,
+      "ownerAdminID": 2,
+      "name": "Erasers",
+      "category": "Stationaries",
+      "description": "Erasers (synthetic demand seed item)",
+      "price": 5,
+      "GST_applicable": false,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:09:59.520Z"
+    },
+    {
+      "productID": 63,
+      "ownerAdminID": 2,
+      "name": "Pens",
+      "category": "Stationaries",
+      "description": "Pens (synthetic demand seed item)",
+      "price": 12,
+      "GST_applicable": false,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:09:59.673Z"
+    },
+    {
+      "productID": 64,
+      "ownerAdminID": 2,
+      "name": "Highlighters",
+      "category": "Stationaries",
+      "description": "Highlighters (synthetic demand seed item)",
+      "price": 30,
+      "GST_applicable": true,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:09:59.826Z"
+    },
+    {
+      "productID": 65,
+      "ownerAdminID": 2,
+      "name": "Pencils",
+      "category": "Stationaries",
+      "description": "Pencils (synthetic demand seed item)",
+      "price": 7,
+      "GST_applicable": false,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:09:59.970Z"
+    },
+    {
+      "productID": 66,
+      "ownerAdminID": 2,
+      "name": "Notebooks",
+      "category": "Stationaries",
+      "description": "Notebooks (synthetic demand seed item)",
+      "price": 60,
+      "GST_applicable": true,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:10:00.116Z"
+    },
+    {
+      "productID": 67,
+      "ownerAdminID": 2,
+      "name": "Staplers",
+      "category": "Stationaries",
+      "description": "Staplers (synthetic demand seed item)",
+      "price": 120,
+      "GST_applicable": true,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:10:00.264Z"
+    },
+    {
+      "productID": 68,
+      "ownerAdminID": 2,
+      "name": "Files",
+      "category": "Stationaries",
+      "description": "Files (synthetic demand seed item)",
+      "price": 45,
+      "GST_applicable": true,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:10:00.971Z"
+    },
+    {
+      "productID": 69,
+      "ownerAdminID": 2,
+      "name": "Markers",
+      "category": "Stationaries",
+      "description": "Markers (synthetic demand seed item)",
+      "price": 35,
+      "GST_applicable": true,
+      "quantity": 500,
+      "expiry_date": null,
+      "image_url": null,
+      "image_public_id": null,
+      "created_at": "2026-03-14T02:10:01.103Z"
+    }
+  ],
+  "bills": [
+    {
+      "billID": 191,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 2,
+          "total": 10,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 10,
+      "GST_amount": 0,
+      "total": 10,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 192,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 1,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 193,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 194,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 195,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 196,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 7,
+          "total": 49,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 49,
+      "GST_amount": 0,
+      "total": 49,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 197,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 198,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 199,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 200,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 2,
+          "total": 14,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 14,
+      "GST_amount": 0,
+      "total": 14,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 201,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 202,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 3,
+          "total": 21,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 21,
+      "GST_amount": 0,
+      "total": 21,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 203,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 2,
+          "total": 24,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 24,
+      "GST_amount": 0,
+      "total": 24,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 204,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 1,
+          "total": 30,
+          "GST_applicable": true,
+          "GST_amount": 5.4
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 205,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-23T06:30:00.000Z"
+    },
+    {
+      "billID": 206,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 2,
+          "total": 90,
+          "GST_applicable": true,
+          "GST_amount": 16.2
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-24T06:30:00.000Z"
+    },
+    {
+      "billID": 207,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-24T06:30:00.000Z"
+    },
+    {
+      "billID": 208,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-24T06:30:00.000Z"
+    },
+    {
+      "billID": 209,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-24T06:30:00.000Z"
+    },
+    {
+      "billID": 210,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-24T06:30:00.000Z"
+    },
+    {
+      "billID": 211,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 1,
+          "total": 30,
+          "GST_applicable": true,
+          "GST_amount": 5.4
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-24T06:30:00.000Z"
+    },
+    {
+      "billID": 212,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-25T06:30:00.000Z"
+    },
+    {
+      "billID": 213,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 2,
+          "total": 14,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 14,
+      "GST_amount": 0,
+      "total": 14,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-25T06:30:00.000Z"
+    },
+    {
+      "billID": 214,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-25T06:30:00.000Z"
+    },
+    {
+      "billID": 215,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 1,
+          "total": 45,
+          "GST_applicable": true,
+          "GST_amount": 8.1
+        }
+      ],
+      "subtotal": 45,
+      "GST_amount": 0,
+      "total": 45,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-25T06:30:00.000Z"
+    },
+    {
+      "billID": 216,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 3,
+          "total": 135,
+          "GST_applicable": true,
+          "GST_amount": 24.3
+        }
+      ],
+      "subtotal": 135,
+      "GST_amount": 0,
+      "total": 135,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-25T06:30:00.000Z"
+    },
+    {
+      "billID": 217,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 218,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 219,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 5,
+          "total": 35,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 220,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 221,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 1,
+          "total": 35,
+          "GST_applicable": true,
+          "GST_amount": 6.3
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 222,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 223,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 224,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 225,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 2,
+          "total": 14,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 14,
+      "GST_amount": 0,
+      "total": 14,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-26T06:30:00.000Z"
+    },
+    {
+      "billID": 226,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 227,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 228,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 2,
+          "total": 90,
+          "GST_applicable": true,
+          "GST_amount": 16.2
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 229,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 5,
+          "total": 300,
+          "GST_applicable": true,
+          "GST_amount": 54
+        }
+      ],
+      "subtotal": 300,
+      "GST_amount": 0,
+      "total": 300,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 230,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 3,
+          "total": 21,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 21,
+      "GST_amount": 0,
+      "total": 21,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 231,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 232,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 233,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 1,
+          "total": 35,
+          "GST_applicable": true,
+          "GST_amount": 6.3
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-27T06:30:00.000Z"
+    },
+    {
+      "billID": 234,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 2,
+          "total": 24,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 24,
+      "GST_amount": 0,
+      "total": 24,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 235,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 4,
+          "total": 140,
+          "GST_applicable": true,
+          "GST_amount": 25.2
+        }
+      ],
+      "subtotal": 140,
+      "GST_amount": 0,
+      "total": 140,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 236,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 4,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 237,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 238,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 5,
+          "total": 300,
+          "GST_applicable": true,
+          "GST_amount": 54
+        }
+      ],
+      "subtotal": 300,
+      "GST_amount": 0,
+      "total": 300,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 239,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 240,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 241,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 2,
+          "total": 24,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 24,
+      "GST_amount": 0,
+      "total": 24,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-02-28T06:30:00.000Z"
+    },
+    {
+      "billID": 242,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 2,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 243,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 1,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 244,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 6,
+          "total": 42,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 42,
+      "GST_amount": 0,
+      "total": 42,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 245,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 11,
+          "total": 77,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 77,
+      "GST_amount": 0,
+      "total": 77,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 246,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 6,
+          "total": 30,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 247,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 3,
+          "total": 21,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 21,
+      "GST_amount": 0,
+      "total": 21,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 248,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 1,
+          "total": 7,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 7,
+      "GST_amount": 0,
+      "total": 7,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-01T06:30:00.000Z"
+    },
+    {
+      "billID": 249,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 2,
+          "total": 10,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 10,
+      "GST_amount": 0,
+      "total": 10,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-02T06:30:00.000Z"
+    },
+    {
+      "billID": 250,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-02T06:30:00.000Z"
+    },
+    {
+      "billID": 251,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-02T06:30:00.000Z"
+    },
+    {
+      "billID": 252,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 3,
+          "total": 21,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 21,
+      "GST_amount": 0,
+      "total": 21,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-02T06:30:00.000Z"
+    },
+    {
+      "billID": 253,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 1,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-02T06:30:00.000Z"
+    },
+    {
+      "billID": 254,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-02T06:30:00.000Z"
+    },
+    {
+      "billID": 255,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 256,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 5,
+          "total": 25,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 25,
+      "GST_amount": 0,
+      "total": 25,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 257,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 9,
+          "total": 108,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 108,
+      "GST_amount": 0,
+      "total": 108,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 258,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 4,
+          "total": 140,
+          "GST_applicable": true,
+          "GST_amount": 25.2
+        }
+      ],
+      "subtotal": 140,
+      "GST_amount": 0,
+      "total": 140,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 259,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 1,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 260,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 261,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 1,
+          "total": 35,
+          "GST_applicable": true,
+          "GST_amount": 6.3
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 262,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 6,
+          "total": 42,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 42,
+      "GST_amount": 0,
+      "total": 42,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 263,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 2,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 264,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 2,
+          "total": 24,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 24,
+      "GST_amount": 0,
+      "total": 24,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 265,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 266,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 5,
+          "total": 35,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 267,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 2,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 268,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 269,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 3,
+          "total": 21,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 21,
+      "GST_amount": 0,
+      "total": 21,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-03T06:30:00.000Z"
+    },
+    {
+      "billID": 270,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 7,
+          "total": 84,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 84,
+      "GST_amount": 0,
+      "total": 84,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 271,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 1,
+          "total": 30,
+          "GST_applicable": true,
+          "GST_amount": 5.4
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 272,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 1,
+          "total": 7,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 7,
+      "GST_amount": 0,
+      "total": 7,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 273,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 1,
+          "total": 7,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 7,
+      "GST_amount": 0,
+      "total": 7,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 274,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 3,
+          "total": 15,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 15,
+      "GST_amount": 0,
+      "total": 15,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 275,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 8,
+          "total": 96,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 96,
+      "GST_amount": 0,
+      "total": 96,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 276,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 277,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 4,
+          "total": 28,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 28,
+      "GST_amount": 0,
+      "total": 28,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 278,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 279,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 5,
+          "total": 300,
+          "GST_applicable": true,
+          "GST_amount": 54
+        }
+      ],
+      "subtotal": 300,
+      "GST_amount": 0,
+      "total": 300,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 280,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 1,
+          "total": 45,
+          "GST_applicable": true,
+          "GST_amount": 8.1
+        }
+      ],
+      "subtotal": 45,
+      "GST_amount": 0,
+      "total": 45,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 281,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 282,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 1,
+          "total": 45,
+          "GST_applicable": true,
+          "GST_amount": 8.1
+        }
+      ],
+      "subtotal": 45,
+      "GST_amount": 0,
+      "total": 45,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-04T06:30:00.000Z"
+    },
+    {
+      "billID": 283,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-05T06:30:00.000Z"
+    },
+    {
+      "billID": 284,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 1,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-05T06:30:00.000Z"
+    },
+    {
+      "billID": 285,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 3,
+          "total": 90,
+          "GST_applicable": true,
+          "GST_amount": 16.2
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-05T06:30:00.000Z"
+    },
+    {
+      "billID": 286,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-05T06:30:00.000Z"
+    },
+    {
+      "billID": 287,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 8,
+          "total": 56,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 56,
+      "GST_amount": 0,
+      "total": 56,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-05T06:30:00.000Z"
+    },
+    {
+      "billID": 288,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 1,
+          "total": 30,
+          "GST_applicable": true,
+          "GST_amount": 5.4
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-05T06:30:00.000Z"
+    },
+    {
+      "billID": 289,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 290,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 1,
+          "total": 35,
+          "GST_applicable": true,
+          "GST_amount": 6.3
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 291,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 7,
+          "total": 49,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 49,
+      "GST_amount": 0,
+      "total": 49,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 292,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 293,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 294,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 7,
+          "total": 49,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 49,
+      "GST_amount": 0,
+      "total": 49,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 295,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 296,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 7,
+          "total": 315,
+          "GST_applicable": true,
+          "GST_amount": 56.7
+        }
+      ],
+      "subtotal": 315,
+      "GST_amount": 0,
+      "total": 315,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 297,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 298,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 3,
+          "total": 90,
+          "GST_applicable": true,
+          "GST_amount": 16.2
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 299,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 300,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 1,
+          "total": 45,
+          "GST_applicable": true,
+          "GST_amount": 8.1
+        }
+      ],
+      "subtotal": 45,
+      "GST_amount": 0,
+      "total": 45,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 301,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 4,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 302,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 5,
+          "total": 35,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-06T06:30:00.000Z"
+    },
+    {
+      "billID": 303,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 3,
+          "total": 15,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 15,
+      "GST_amount": 0,
+      "total": 15,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 304,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 305,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 4,
+          "total": 28,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 28,
+      "GST_amount": 0,
+      "total": 28,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 306,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 1,
+          "total": 5,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 5,
+      "GST_amount": 0,
+      "total": 5,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 307,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 308,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 309,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 310,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 311,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 312,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 313,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-07T06:30:00.000Z"
+    },
+    {
+      "billID": 314,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 2,
+          "total": 24,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 24,
+      "GST_amount": 0,
+      "total": 24,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-08T06:30:00.000Z"
+    },
+    {
+      "billID": 315,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-08T06:30:00.000Z"
+    },
+    {
+      "billID": 316,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 4,
+          "total": 140,
+          "GST_applicable": true,
+          "GST_amount": 25.2
+        }
+      ],
+      "subtotal": 140,
+      "GST_amount": 0,
+      "total": 140,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-08T06:30:00.000Z"
+    },
+    {
+      "billID": 317,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 4,
+          "total": 28,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 28,
+      "GST_amount": 0,
+      "total": 28,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-08T06:30:00.000Z"
+    },
+    {
+      "billID": 318,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-08T06:30:00.000Z"
+    },
+    {
+      "billID": 319,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 1,
+          "total": 30,
+          "GST_applicable": true,
+          "GST_amount": 5.4
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-09T06:30:00.000Z"
+    },
+    {
+      "billID": 320,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-09T06:30:00.000Z"
+    },
+    {
+      "billID": 321,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 3,
+          "total": 105,
+          "GST_applicable": true,
+          "GST_amount": 18.9
+        }
+      ],
+      "subtotal": 105,
+      "GST_amount": 0,
+      "total": 105,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-09T06:30:00.000Z"
+    },
+    {
+      "billID": 322,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 1,
+          "total": 5,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 5,
+      "GST_amount": 0,
+      "total": 5,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-09T06:30:00.000Z"
+    },
+    {
+      "billID": 323,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 2,
+          "total": 14,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 14,
+      "GST_amount": 0,
+      "total": 14,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-09T06:30:00.000Z"
+    },
+    {
+      "billID": 324,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 2,
+          "total": 70,
+          "GST_applicable": true,
+          "GST_amount": 12.6
+        }
+      ],
+      "subtotal": 70,
+      "GST_amount": 0,
+      "total": 70,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-10T06:30:00.000Z"
+    },
+    {
+      "billID": 325,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 1,
+          "total": 45,
+          "GST_applicable": true,
+          "GST_amount": 8.1
+        }
+      ],
+      "subtotal": 45,
+      "GST_amount": 0,
+      "total": 45,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-10T06:30:00.000Z"
+    },
+    {
+      "billID": 326,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-10T06:30:00.000Z"
+    },
+    {
+      "billID": 327,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-10T06:30:00.000Z"
+    },
+    {
+      "billID": 328,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 2,
+          "total": 14,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 14,
+      "GST_amount": 0,
+      "total": 14,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-10T06:30:00.000Z"
+    },
+    {
+      "billID": 329,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-10T06:30:00.000Z"
+    },
+    {
+      "billID": 330,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 1,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 331,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 1,
+          "total": 5,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 5,
+      "GST_amount": 0,
+      "total": 5,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 332,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 7,
+          "total": 84,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 84,
+      "GST_amount": 0,
+      "total": 84,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 333,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 334,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 5,
+          "total": 300,
+          "GST_applicable": true,
+          "GST_amount": 54
+        }
+      ],
+      "subtotal": 300,
+      "GST_amount": 0,
+      "total": 300,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 335,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 2,
+          "total": 90,
+          "GST_applicable": true,
+          "GST_amount": 16.2
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 336,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 5,
+          "total": 25,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 25,
+      "GST_amount": 0,
+      "total": 25,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 337,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-11T06:30:00.000Z"
+    },
+    {
+      "billID": 338,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 339,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 340,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 8,
+          "total": 56,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 56,
+      "GST_amount": 0,
+      "total": 56,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 341,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 2,
+          "total": 70,
+          "GST_applicable": true,
+          "GST_amount": 12.6
+        }
+      ],
+      "subtotal": 70,
+      "GST_amount": 0,
+      "total": 70,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 342,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 4,
+          "total": 28,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 28,
+      "GST_amount": 0,
+      "total": 28,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 343,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 344,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 5,
+          "total": 25,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 25,
+      "GST_amount": 0,
+      "total": 25,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 345,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 6,
+          "total": 42,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 42,
+      "GST_amount": 0,
+      "total": 42,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-12T06:30:00.000Z"
+    },
+    {
+      "billID": 346,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 4,
+          "total": 28,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 28,
+      "GST_amount": 0,
+      "total": 28,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 347,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 2,
+          "total": 120,
+          "GST_applicable": true,
+          "GST_amount": 21.6
+        }
+      ],
+      "subtotal": 120,
+      "GST_amount": 0,
+      "total": 120,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 348,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 2,
+          "total": 24,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 24,
+      "GST_amount": 0,
+      "total": 24,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 349,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 1,
+          "total": 35,
+          "GST_applicable": true,
+          "GST_amount": 6.3
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 350,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 2,
+          "total": 90,
+          "GST_applicable": true,
+          "GST_amount": 16.2
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 351,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 4,
+          "total": 48,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 48,
+      "GST_amount": 0,
+      "total": 48,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 352,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 5,
+          "total": 35,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 353,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 3,
+          "total": 15,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 15,
+      "GST_amount": 0,
+      "total": 15,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 354,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 69,
+          "name": "Markers",
+          "category": "Stationaries",
+          "price": 35,
+          "quantity": 2,
+          "total": 70,
+          "GST_applicable": true,
+          "GST_amount": 12.6
+        }
+      ],
+      "subtotal": 70,
+      "GST_amount": 0,
+      "total": 70,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 355,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 356,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 62,
+          "name": "Erasers",
+          "category": "Stationaries",
+          "price": 5,
+          "quantity": 3,
+          "total": 15,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 15,
+      "GST_amount": 0,
+      "total": 15,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 357,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 5,
+          "total": 60,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 358,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 3,
+          "total": 36,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 36,
+      "GST_amount": 0,
+      "total": 36,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-13T06:30:00.000Z"
+    },
+    {
+      "billID": 359,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 47,
+          "name": "Birthday Card",
+          "category": "Gifts",
+          "price": 30,
+          "quantity": 3,
+          "total": 90,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 90,
+      "GST_amount": 0,
+      "total": 90,
+      "bill_type": "admin",
+      "customer_name": "shek abdul",
+      "customer_phone": "9876543211",
+      "customer_email": "a@email.com",
+      "payment_method": "cash",
+      "notes": null,
+      "apply_gst": true,
+      "created_at": "2026-03-13T18:48:44.003Z"
+    },
+    {
+      "billID": 360,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 3,
+          "total": 21,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 21,
+      "GST_amount": 0,
+      "total": 21,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 361,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 8,
+          "total": 96,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 96,
+      "GST_amount": 0,
+      "total": 96,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 362,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 4,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 363,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 1,
+          "total": 45,
+          "GST_applicable": true,
+          "GST_amount": 8.1
+        }
+      ],
+      "subtotal": 45,
+      "GST_amount": 0,
+      "total": 45,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 364,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 365,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 67,
+          "name": "Staplers",
+          "category": "Stationaries",
+          "price": 120,
+          "quantity": 2,
+          "total": 240,
+          "GST_applicable": true,
+          "GST_amount": 43.2
+        }
+      ],
+      "subtotal": 240,
+      "GST_amount": 0,
+      "total": 240,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 366,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 3,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 367,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 68,
+          "name": "Files",
+          "category": "Stationaries",
+          "price": 45,
+          "quantity": 4,
+          "total": 180,
+          "GST_applicable": true,
+          "GST_amount": 32.4
+        }
+      ],
+      "subtotal": 180,
+      "GST_amount": 0,
+      "total": 180,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 368,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 64,
+          "name": "Highlighters",
+          "category": "Stationaries",
+          "price": 30,
+          "quantity": 1,
+          "total": 30,
+          "GST_applicable": true,
+          "GST_amount": 5.4
+        }
+      ],
+      "subtotal": 30,
+      "GST_amount": 0,
+      "total": 30,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 369,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 65,
+          "name": "Pencils",
+          "category": "Stationaries",
+          "price": 7,
+          "quantity": 5,
+          "total": 35,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 35,
+      "GST_amount": 0,
+      "total": 35,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 370,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 6,
+          "total": 72,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 72,
+      "GST_amount": 0,
+      "total": 72,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 371,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 63,
+          "name": "Pens",
+          "category": "Stationaries",
+          "price": 12,
+          "quantity": 1,
+          "total": 12,
+          "GST_applicable": false,
+          "GST_amount": 0
+        }
+      ],
+      "subtotal": 12,
+      "GST_amount": 0,
+      "total": 12,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 372,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 1,
+          "total": 60,
+          "GST_applicable": true,
+          "GST_amount": 10.8
+        }
+      ],
+      "subtotal": 60,
+      "GST_amount": 0,
+      "total": 60,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    },
+    {
+      "billID": 373,
+      "ownerAdminID": 2,
+      "userID": null,
+      "items": [
+        {
+          "productID": 66,
+          "name": "Notebooks",
+          "category": "Stationaries",
+          "price": 60,
+          "quantity": 5,
+          "total": 300,
+          "GST_applicable": true,
+          "GST_amount": 54
+        }
+      ],
+      "subtotal": 300,
+      "GST_amount": 0,
+      "total": 300,
+      "bill_type": "admin",
+      "customer_name": "Synthetic Customer",
+      "customer_phone": null,
+      "customer_email": null,
+      "payment_method": "cash",
+      "notes": "synthetic-arima-seed",
+      "apply_gst": false,
+      "created_at": "2026-03-14T06:30:00.000Z"
+    }
+  ]
+}

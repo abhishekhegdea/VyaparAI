@@ -10,7 +10,9 @@
     "import:synthetic": "node scripts/importSyntheticBilling.js",
     "check:profile-data": "node scripts/checkProfileData.js",
     "migrate:owner-data": "node scripts/migrateOwnerData.js",
-    "reset:admin-password": "node scripts/resetAdminPassword.js"
+    "reset:admin-password": "node scripts/resetAdminPassword.js",
+    "export:localhost-data": "node scripts/exportLocalSnapshot.js",
+    "import:localhost-data": "node scripts/importLocalSnapshot.js"
   },
   "dependencies": {
     "arima": "^0.2.8",
