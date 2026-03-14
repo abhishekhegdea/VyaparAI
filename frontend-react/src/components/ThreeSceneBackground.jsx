@@ -1,5 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+
+function isWebGLAvailable() {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext &&
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch {
+    return false;
+  }
+}
 
 const BLOB_PALETTE = ['#78c9d1', '#8ab6ff', '#9ad8c5', '#b8a5ff', '#75b4c8'];
 
@@ -81,11 +91,26 @@ function createFloatingFrame(color, width, height) {
 
 export default function ThreeSceneBackground({ className = '', density = 'ambient' }) {
   const mountRef = useRef(null);
+  const [webglOk] = useState(() => isWebGLAvailable());
 
   useEffect(() => {
+    if (!webglOk) return undefined;
     const mount = mountRef.current;
     if (!mount) return undefined;
 
+    // Declare all refs here so cleanup closures can always reach them
+    let renderer = null;
+    let frameId = null;
+    let pendingResize = null;
+    let blobs = [];
+    let frames = [];
+    let mist = null;
+    let camera = null;
+    let onPointerMoveFn = null;
+    let onResizeFn = null;
+    let resizeObserver = null;
+
+    try {
     const getSize = () => ({
       width: Math.max(mount.clientWidth || window.innerWidth, 1),
       height: Math.max(mount.clientHeight || window.innerHeight, 1)
@@ -93,7 +118,7 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
 
     const initialSize = getSize();
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
     renderer.setSize(initialSize.width, initialSize.height);
     renderer.setClearColor(0x000000, 0);
@@ -222,6 +247,7 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
 
     animate();
 
+
     let pendingResize = null;
     const onResize = () => {
       if (pendingResize !== null) cancelAnimationFrame(pendingResize);
@@ -230,12 +256,9 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
         const nextSize = getSize();
         camera.aspect = nextSize.width / nextSize.height;
         camera.updateProjectionMatrix();
-        // updateStyle=false keeps CSS (width:100%) controlling visual size;
-        // only the internal buffer resolution is updated
         renderer.setSize(nextSize.width, nextSize.height, false);
       });
     };
-
     window.addEventListener('resize', onResize);
     const resizeObserver = new ResizeObserver(onResize);
     resizeObserver.observe(mount);
@@ -273,15 +296,28 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
         });
       });
 
-      if (mist.geometry) mist.geometry.dispose();
-      if (mist.material) mist.material.dispose();
+      if (mist && mist.geometry) mist.geometry.dispose();
+      if (mist && mist.material) mist.material.dispose();
 
       renderer.dispose();
       if (renderer.domElement.parentNode === mount) {
         mount.removeChild(renderer.domElement);
       }
     };
-  }, []);
 
+    } catch {
+      if (renderer) {
+        try {
+          if (renderer.domElement && renderer.domElement.parentNode === mount) {
+            mount.removeChild(renderer.domElement);
+          }
+          renderer.dispose();
+        } catch { /* ignore */ }
+      }
+      return undefined;
+    }
+  }, [webglOk]);
+
+  if (!webglOk) return null;
   return <div className={`three-scene-bg ${className}`.trim()} ref={mountRef} aria-hidden="true" />;
 }
