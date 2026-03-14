@@ -8,7 +8,7 @@ import './Navbar.css';
 const Navbar = ({ showToast }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout, isAdmin } = useAuth();
-  const { language, setLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const Navbar = ({ showToast }) => {
 
   const handleLogout = () => {
     logout();
-    showToast(t('toasts.loggedOut'), 'success');
+    showToast(t('Logged out successfully'), 'success');
     setIsMenuOpen(false);
   };
 
@@ -25,16 +25,16 @@ const Navbar = ({ showToast }) => {
   };
 
   const navLinks = user && isAdmin()
-    ? [{ path: '/admin', label: t('nav.dashboard'), icon: <LayoutDashboard size={16} /> }]
-    : [{ path: '/', label: t('nav.home') }];
+    ? [{ path: '/admin', label: t('Dashboard'), icon: <LayoutDashboard size={16} /> }]
+    : [{ path: '/', label: t('Home') }];
 
   return (
     <nav className="navbar">
       <div className="nav-container">
         {showBackButton && (
-          <button className="nav-back-btn" onClick={() => navigate(-1)} aria-label={t('nav.goBack')}>
+          <button className="nav-back-btn" onClick={() => navigate(-1)} aria-label={t('Go back')}>
             <ArrowLeft size={18} />
-            <span>{t('nav.back')}</span>
+            <span>{t('Back')}</span>
           </button>
         )}
 
@@ -47,17 +47,6 @@ const Navbar = ({ showToast }) => {
         </Link>
 
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-          <label className="nav-language" htmlFor="language-select">
-            <span>{t('nav.languageLabel')}</span>
-            <select
-              id="language-select"
-              value={language}
-              onChange={(event) => setLanguage(event.target.value)}
-            >
-              <option value="en">{t('common.english')}</option>
-              <option value="hi">{t('common.hindi')}</option>
-            </select>
-          </label>
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -71,10 +60,10 @@ const Navbar = ({ showToast }) => {
           ))}
           {user ? (
             <div className="nav-user">
-              <span className="user-name">{t('nav.greeting', { name: user.name })}</span>
+              <span className="user-name">{t('Hi, {name}', { name: user.name })}</span>
               <button onClick={handleLogout} className="nav-link logout-btn">
                 <LogOut size={16} />
-                {t('nav.logout')}
+                {t('Logout')}
               </button>
             </div>
           ) : (
@@ -84,7 +73,7 @@ const Navbar = ({ showToast }) => {
               onClick={() => setIsMenuOpen(false)}
             >
               <User size={16} />
-              {t('nav.login')}
+              {t('Login')}
             </Link>
           )}
         </div>
@@ -92,7 +81,7 @@ const Navbar = ({ showToast }) => {
         <button
           className="nav-toggle"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={t('nav.toggleMenu')}
+          aria-label={t('Toggle navigation menu')}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -101,4 +90,4 @@ const Navbar = ({ showToast }) => {
   );
 };
 
-export default Navbar; 
+export default Navbar;

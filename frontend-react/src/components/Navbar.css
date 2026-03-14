@@ -73,25 +73,6 @@
   gap: 24px;
 }
 
-.nav-language {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.nav-language select {
-  border: 1px solid rgba(99, 102, 241, 0.25);
-  border-radius: 8px;
-  background: #ffffff;
-  padding: 6px 8px;
-  font-size: 13px;
-  color: var(--text-primary);
-  font-family: inherit;
-}
-
 .nav-link {
   display: flex;
   align-items: center;
@@ -180,11 +161,6 @@
     flex-direction: column;
     gap: 16px;
     width: 100%;
-  }
-
-  .nav-language {
-    width: 100%;
-    justify-content: center;
   }
 
   .user-name {

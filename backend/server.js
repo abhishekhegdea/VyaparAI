@@ -49,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // Session configuration
 app.use(session({
-  secret: 'dukaansaathi-secret-key',
+  secret: 'vyaparai-secret-key',
   resave: false,
   saveUninitialized: false,
   cookie: { 

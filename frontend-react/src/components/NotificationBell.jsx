@@ -1,70 +1,83 @@
 import { useState, useEffect, useRef } from 'react';
 import { Bell, X, TrendingUp, Megaphone, AlertTriangle, DollarSign, ChevronRight, Info } from 'lucide-react';
 import { apiService } from '../config/api';
+import { useLanguage } from '../contexts/LanguageContext';
 import './NotificationBell.css';
 
-const STATIC_NOTIFICATIONS = [
+const STATIC_NOTIFICATION_DEFS = [
   {
     id: 'fin-1',
     type: 'finance',
-    title: 'GST Planning Reminder',
-    message: 'Estimate your quarterly GST liability using Finance AI before month-end to avoid surprises.',
-    badge: 'Finance',
+    titleKey: 'GST Planning Reminder',
+    messageKey: 'Estimate your quarterly GST liability using Finance AI before month-end to avoid surprises.',
+    badgeKey: 'Finance',
     badgeColor: 'gold',
     icon: 'dollar',
   },
   {
     id: 'fin-2',
     type: 'finance',
-    title: 'Income Tax Insight',
-    message: 'New regime: No income tax up to ₹12 lakh. Use Finance AI to simulate your exact tax slab.',
-    badge: 'Tax',
+    titleKey: 'Income Tax Insight',
+    messageKey: 'New regime: No income tax up to ₹12 lakh. Use Finance AI to simulate your exact tax slab.',
+    badgeKey: 'Tax',
     badgeColor: 'blue',
     icon: 'trending',
   },
   {
     id: 'mkt-1',
     type: 'marketing',
-    title: 'AI Campaign Ready',
-    message: 'Add any product and instantly get AI product photography + a full launch campaign strategy.',
-    badge: 'Marketing',
+    titleKey: 'AI Campaign Ready',
+    messageKey: 'Add any product and instantly get AI product photography + a full launch campaign strategy.',
+    badgeKey: 'Marketing',
     badgeColor: 'purple',
     icon: 'megaphone',
   },
   {
     id: 'mkt-2',
     type: 'marketing',
-    title: 'Boost Weekend Sales',
-    message: 'Bundle 2–3 related products as a combo deal — retailers typically see a 15–20% sales lift.',
-    badge: 'Tip',
+    titleKey: 'Boost Weekend Sales',
+    messageKey: 'Bundle 2–3 related products as a combo deal — retailers typically see a 15–20% sales lift.',
+    badgeKey: 'Tip',
     badgeColor: 'coral',
     icon: 'megaphone',
   },
   {
     id: 'mkt-3',
     type: 'marketing',
-    title: 'Festive Season Strategy',
-    message: 'Build WhatsApp broadcast lists now. Festive outreach gets 3× better open rates than email.',
-    badge: 'Marketing',
+    titleKey: 'Festive Season Strategy',
+    messageKey: 'Build WhatsApp broadcast lists now. Festive outreach gets 3× better open rates than email.',
+    badgeKey: 'Marketing',
     badgeColor: 'purple',
     icon: 'megaphone',
   },
   {
     id: 'fin-3',
     type: 'finance',
-    title: 'Input GST Credit',
-    message: 'Reconcile your purchase invoices this week to maximise your eligible input GST credit claims.',
-    badge: 'Finance',
+    titleKey: 'Input GST Credit',
+    messageKey: 'Reconcile your purchase invoices this week to maximise your eligible input GST credit claims.',
+    badgeKey: 'Finance',
     badgeColor: 'gold',
     icon: 'info',
   },
 ];
 
 const NotificationBell = () => {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [notifications, setNotifications] = useState(STATIC_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState([]);
   const [allRead, setAllRead] = useState(false);
   const panelRef = useRef(null);
+
+  // Re-seed static notifications whenever language (t) changes
+  useEffect(() => {
+    const statics = STATIC_NOTIFICATION_DEFS.map(n => ({
+      ...n,
+      title: t(n.titleKey),
+      message: t(n.messageKey),
+      badge: t(n.badgeKey),
+    }));
+    setNotifications(statics);
+  }, [t]);
 
   useEffect(() => {
     apiService.getProducts({ includeOutOfStock: true })
@@ -74,9 +87,11 @@ const NotificationBell = () => {
         const stockNotifs = lowStock.slice(0, 4).map(p => ({
           id: `stock-${p.productID || p._id}`,
           type: 'stock',
-          title: `Low Stock: ${p.name}`,
-          message: `Only ${p.quantity} unit${p.quantity === 1 ? '' : 's'} left. Restock before you run out.`,
-          badge: 'Inventory',
+          title: t('Low Stock: {name}', { name: p.name }),
+          message: p.quantity === 1
+            ? t('Only {quantity} unit left. Restock before you run out.', { quantity: p.quantity })
+            : t('Only {quantity} units left. Restock before you run out.', { quantity: p.quantity }),
+          badge: t('Inventory'),
           badgeColor: 'red',
           icon: 'alert',
         }));
@@ -85,7 +100,7 @@ const NotificationBell = () => {
         }
       })
       .catch(() => {});
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -120,7 +135,7 @@ const NotificationBell = () => {
       <button
         className="nbell-trigger"
         onClick={() => { setOpen(o => !o); setAllRead(true); }}
-        aria-label={`Notifications — ${unreadCount} unread`}
+        aria-label={t('Notifications — {count} unread', { count: unreadCount })}
       >
         <Bell size={21} />
         {unreadCount > 0 && (
@@ -132,11 +147,11 @@ const NotificationBell = () => {
         <div className="nbell-panel">
           <div className="nbell-header">
             <span className="nbell-header-title">
-              <Bell size={14} /> Notifications
+              <Bell size={14} /> {t('Notifications')}
             </span>
             {notifications.length > 0 && (
               <button className="nbell-markread" onClick={() => setNotifications([])}>
-                Clear all
+                {t('Clear all')}
               </button>
             )}
           </div>
@@ -145,7 +160,7 @@ const NotificationBell = () => {
             {notifications.length === 0 ? (
               <div className="nbell-empty">
                 <span className="nbell-empty-icon">🎉</span>
-                <p>All clear! No new alerts.</p>
+                <p>{t('All clear! No new alerts.')}</p>
               </div>
             ) : (
               notifications.map(n => (
@@ -160,7 +175,7 @@ const NotificationBell = () => {
                     </div>
                     <p className="nbell-msg">{n.message}</p>
                   </div>
-                  <button className="nbell-dismiss" onClick={(e) => dismissOne(n.id, e)} aria-label="Dismiss">
+                  <button className="nbell-dismiss" onClick={(e) => dismissOne(n.id, e)} aria-label={t('Dismiss notification')}>
                     <X size={12} />
                   </button>
                 </div>
@@ -171,7 +186,7 @@ const NotificationBell = () => {
           {notifications.length > 0 && (
             <div className="nbell-footer">
               <button className="nbell-footer-clear" onClick={() => { setNotifications([]); setOpen(false); }}>
-                Dismiss all <ChevronRight size={13} />
+                {t('Dismiss all')} <ChevronRight size={13} />
               </button>
             </div>
           )}

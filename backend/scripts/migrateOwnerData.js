@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { initDatabase, models, helpers } = require('../database/database');
 
 async function main() {
-  const sourceEmail = process.argv[2] || 'admin@dukaansaathi.com';
+  const sourceEmail = process.argv[2] || 'admin@vyaparai.com';
   const targetEmail = process.argv[3] || 'abhishekhegdea@gmail.com';
   const replaceMode = (process.argv[4] || 'replace').toLowerCase() === 'replace';
 

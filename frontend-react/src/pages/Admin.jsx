@@ -53,7 +53,7 @@ const handleImageLoadError = (event) => {
 
 const Admin = ({ showToast }) => {
   const { user, isAdmin, loading: authLoading } = useAuth();
-  const { language } = useLanguage();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [products, setProducts] = useState([]);
@@ -143,32 +143,6 @@ const Admin = ({ showToast }) => {
   const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts', 'Beverages', 'Food'];
   const paymentMethods = ['cash', 'card', 'upi', 'bank_transfer'];
 
-  const tr = (en, hi) => (language === 'hi' ? hi : en);
-
-  const getCategoryLabel = (category) => {
-    const labels = {
-      Stationaries: tr('Stationaries', 'स्टेशनरी'),
-      'Fancy Items': tr('Fancy Items', 'फैंसी आइटम्स'),
-      Toys: tr('Toys', 'खिलौने'),
-      Gifts: tr('Gifts', 'गिफ्ट्स'),
-      Beverages: tr('Beverages', 'पेय पदार्थ'),
-      Food: tr('Food', 'खाद्य पदार्थ')
-    };
-
-    return labels[category] || category;
-  };
-
-  const getPaymentMethodLabel = (method) => {
-    const labels = {
-      cash: tr('Cash', 'कैश'),
-      card: tr('Card', 'कार्ड'),
-      upi: tr('UPI', 'यूपीआई'),
-      bank_transfer: tr('Bank Transfer', 'बैंक ट्रांसफर')
-    };
-
-    return labels[method] || method;
-  };
-
   const notifyOncePerSession = (key, message, type = 'warning') => {
     if (sessionStorage.getItem(key)) {
       return;
@@ -185,7 +159,7 @@ const Admin = ({ showToast }) => {
   useEffect(() => {
     if (!authLoading) {
       if (!isAdmin()) {
-        showToast(tr('You are not authorized to view this page.', 'आपको इस पेज को देखने की अनुमति नहीं है।'), 'error');
+        showToast(t('You are not authorized to view this page.'), 'error');
         navigate('/');
       } else {
         fetchProducts();
@@ -253,7 +227,7 @@ const Admin = ({ showToast }) => {
       setLoading(false);
     } catch (error) {
       console.error('Failed to fetch products:', error);
-      showToast(tr('Failed to load products', 'प्रोडक्ट्स लोड नहीं हो सके'), 'error');
+      showToast(t('Failed to load products'), 'error');
       setLoading(false);
     }
   };
@@ -321,7 +295,7 @@ const Admin = ({ showToast }) => {
       }
     } catch (error) {
       console.error('Failed to fetch stats:', error);
-      showToast(tr('Failed to fetch dashboard stats', 'डैशबोर्ड आँकड़े नहीं मिल सके'), 'error');
+      showToast(t('Failed to fetch dashboard stats'), 'error');
     }
   };
 
@@ -329,7 +303,7 @@ const Admin = ({ showToast }) => {
     const lowStock = products.filter(product => product.quantity <= 5);
     
     if (lowStock.length > 0) {
-      notifyOncePerSession('lowStockToastShown', tr(`${lowStock.length} items are running low on stock!`, `${lowStock.length} आइटम्स का स्टॉक कम हो रहा है!`), 'warning');
+      notifyOncePerSession('lowStockToastShown', `${lowStock.length} items are running low on stock!`, 'warning');
     }
   };
 
@@ -394,7 +368,7 @@ const Admin = ({ showToast }) => {
       setAllBills(response.data.bills || []);
     } catch (error) {
       console.error('Failed to fetch bills:', error);
-      showToast(tr('Failed to load bills', 'बिल्स लोड नहीं हो सके'), 'error');
+      showToast(t('Failed to load bills'), 'error');
     }
   };
 
@@ -433,7 +407,7 @@ const Admin = ({ showToast }) => {
       });
     } catch (error) {
       console.error('Failed to fetch sales analytics:', error);
-      showToast(tr('Failed to load sales analytics', 'सेल्स एनालिटिक्स लोड नहीं हो सका'), 'error');
+      showToast(t('Failed to load sales analytics'), 'error');
     } finally {
       setAnalyticsLoading(false);
     }
@@ -470,12 +444,12 @@ const Admin = ({ showToast }) => {
         const fallbackProductID = String(products[0].productID);
         if (String(productID) !== fallbackProductID) {
           setForecastProductID(fallbackProductID);
-          showToast(tr('Selected product no longer exists. Switched to first available product.', 'चुना गया प्रोडक्ट अब उपलब्ध नहीं है। पहले उपलब्ध प्रोडक्ट पर स्विच किया गया।'), 'warning');
+          showToast(t('Selected product no longer exists. Switched to first available product.'), 'warning');
           return;
         }
       }
 
-      showToast(tr('Failed to generate ARIMA forecast', 'ARIMA फोरकास्ट जनरेट नहीं हो सका'), 'error');
+      showToast(t('Failed to generate ARIMA forecast'), 'error');
     } finally {
       setForecastLoading(false);
     }
@@ -531,7 +505,7 @@ const Admin = ({ showToast }) => {
     try {
       if (form.productID) {
         await apiService.updateProduct(form.productID, formData);
-        showToast(tr('Product updated successfully', 'प्रोडक्ट सफलतापूर्वक अपडेट हुआ'), 'success');
+        showToast(t('Product updated successfully'), 'success');
       } else {
         const response = await apiService.addProduct(formData);
         if (response?.data?.product) {
@@ -545,20 +519,20 @@ const Admin = ({ showToast }) => {
             setActiveTab('marketingAI');
           }
         }
-        showToast(tr('Product added successfully', 'प्रोडक्ट सफलतापूर्वक जोड़ा गया'), 'success');
+        showToast(t('Product added successfully'), 'success');
       }
       fetchProducts();
       resetForm();
       setShowProductModal(false);
     } catch (error) {
       console.error('Form submission error:', error);
-      showToast(tr('Failed to submit product', 'प्रोडक्ट सबमिट नहीं हो सका'), 'error');
+      showToast(t('Failed to submit product'), 'error');
     }
   };
 
   const generateMarketingAdvice = async (product = latestAddedProduct, style = photoStyle) => {
     if (!product) {
-      showToast(tr('Add or select a product first to generate marketing strategy', 'मार्केटिंग रणनीति बनाने के लिए पहले प्रोडक्ट जोड़ें या चुनें'), 'warning');
+      showToast(t('Add or select a product first to generate marketing strategy'), 'warning');
       return;
     }
 
@@ -566,10 +540,10 @@ const Admin = ({ showToast }) => {
       setAgentLoading(true);
       const response = await apiService.getMarketingAdvice({ product, photoStyle: style });
       setMarketingAdvice(response.data.advice);
-      showToast(tr('Marketing AI strategy generated', 'मार्केटिंग AI रणनीति तैयार हो गई'), 'success');
+      showToast(t('Marketing AI strategy generated'), 'success');
     } catch (error) {
       console.error('Marketing AI error:', error);
-      showToast(tr('Failed to generate marketing advice', 'मार्केटिंग सलाह जनरेट नहीं हो सकी'), 'error');
+      showToast(t('Failed to generate marketing advice'), 'error');
     } finally {
       setAgentLoading(false);
     }
@@ -582,10 +556,10 @@ const Admin = ({ showToast }) => {
       setAgentLoading(true);
       const response = await apiService.getFinanceAdvice({});
       setFinanceAdvice(response.data.advice);
-      showToast(tr('GST compliance audit ready', 'GST अनुपालन ऑडिट तैयार है'), 'success');
+      showToast(t('GST compliance audit ready'), 'success');
     } catch (error) {
       console.error('Finance AI error:', error);
-      showToast(tr('Failed to generate financial advice', 'वित्तीय सलाह जनरेट नहीं हो सकी'), 'error');
+      showToast(t('Failed to generate financial advice'), 'error');
     } finally {
       setAgentLoading(false);
     }
@@ -604,7 +578,7 @@ const Admin = ({ showToast }) => {
     try {
       setChatLoading(true);
       const response = await apiService.askWebsiteAssistant(query);
-      const answer = response?.data?.answer || tr('I could not answer that right now.', 'मैं अभी इसका उत्तर नहीं दे सका।');
+      const answer = response?.data?.answer || 'I could not answer that right now.';
       setChatMessages((prev) => [...prev, { role: 'assistant', content: answer }]);
     } catch (error) {
       console.error('Website chatbot error:', error);
@@ -612,10 +586,10 @@ const Admin = ({ showToast }) => {
         ...prev,
         {
           role: 'assistant',
-          content: tr('Sorry, Ask DukaanSaathi is unavailable right now. Please try again.', 'क्षमा करें, Ask DukaanSaathi अभी उपलब्ध नहीं है। कृपया फिर से प्रयास करें।')
+          content: 'Sorry, Ask DukaanSaathi is unavailable right now. Please try again.'
         }
       ]);
-      showToast(tr('Ask DukaanSaathi is temporarily unavailable', 'Ask DukaanSaathi अस्थायी रूप से उपलब्ध नहीं है'), 'error');
+      showToast(t('Ask DukaanSaathi is temporarily unavailable'), 'error');
     } finally {
       setChatLoading(false);
     }
@@ -637,14 +611,14 @@ const Admin = ({ showToast }) => {
   };
 
   const handleDelete = async (productId) => {
-    if (window.confirm(tr('Are you sure you want to delete this product?', 'क्या आप वाकई इस प्रोडक्ट को हटाना चाहते हैं?'))) {
+    if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await apiService.deleteProduct(productId);
-        showToast(tr('Product deleted successfully', 'प्रोडक्ट सफलतापूर्वक हटाया गया'), 'success');
+        showToast(t('Product deleted successfully'), 'success');
         fetchProducts();
       } catch (error) {
         console.error('Delete error:', error);
-        showToast(tr('Failed to delete product', 'प्रोडक्ट हटाया नहीं जा सका'), 'error');
+        showToast(t('Failed to delete product'), 'error');
       }
     }
   };
@@ -658,19 +632,19 @@ const Admin = ({ showToast }) => {
   const addItemToBilling = (product) => {
     // Check stock availability
     if (product.quantity <= 0) {
-      showToast(`${product.name} is out of stock!`, 'error');
+      showToast(t('{name} is out of stock!', { name: product.name }), 'error');
       return;
     }
     
     if (product.quantity <= 5) {
-      showToast(`Warning: Only ${product.quantity} ${product.name} left in stock!`, 'warning');
+      showToast(t('Warning: Only {quantity} {name} left in stock!', { quantity: product.quantity, name: product.name }), 'warning');
     }
     
     const existingItem = billingForm.items.find(item => item.productID === product.productID);
     
     if (existingItem) {
       if (existingItem.quantity >= product.quantity) {
-        showToast(`Cannot add more ${product.name}. Only ${product.quantity} available.`, 'error');
+        showToast(t('Cannot add more {name}. Only {quantity} available.', { name: product.name, quantity: product.quantity }), 'error');
         return;
       }
       setBillingForm(prev => ({
@@ -699,7 +673,7 @@ const Admin = ({ showToast }) => {
     const product = products.find(p => p.productID === productID);
     
     if (quantity > product.quantity) {
-      showToast(`Cannot add more ${product.name}. Only ${product.quantity} available.`, 'error');
+      showToast(t('Cannot add more {name}. Only {quantity} available.', { name: product.name, quantity: product.quantity }), 'error');
       return;
     }
     
@@ -734,12 +708,12 @@ const Admin = ({ showToast }) => {
     e.preventDefault();
     
     if (!billingForm.customerName.trim()) {
-      showToast('Please enter customer name', 'error');
+      showToast(t('Please enter customer name'), 'error');
       return;
     }
     
     if (billingForm.items.length === 0) {
-      showToast('Please add items to the bill', 'error');
+      showToast(t('Please add items to the bill'), 'error');
       return;
     }
 
@@ -747,7 +721,7 @@ const Admin = ({ showToast }) => {
     for (const item of billingForm.items) {
       const product = products.find(p => p.productID === item.productID);
       if (item.quantity > product.quantity) {
-        showToast(`Insufficient stock for ${product.name}. Only ${product.quantity} available.`, 'error');
+        showToast(t('Insufficient stock for {name}. Only {quantity} available.', { name: product.name, quantity: product.quantity }), 'error');
         return;
       }
     }
@@ -768,7 +742,7 @@ const Admin = ({ showToast }) => {
       };
 
       const response = await apiService.generateAdminBill(billData);
-      showToast('Bill generated successfully! 🎉', 'success');
+      showToast(t('Bill generated successfully! 🎉'), 'success');
       
       // Reset form
       setBillingForm({
@@ -796,7 +770,7 @@ const Admin = ({ showToast }) => {
       }
     } catch (error) {
       console.error('Billing error:', error);
-      showToast('Failed to generate bill', 'error');
+      showToast(t('Failed to generate bill'), 'error');
     }
   };
 
@@ -811,7 +785,7 @@ const Admin = ({ showToast }) => {
     a.click();
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
-    showToast('Bill downloaded successfully! 📄', 'success');
+    showToast(t('Bill downloaded successfully! 📄'), 'success');
   };
 
   const printBill = (bill) => {
@@ -959,7 +933,7 @@ const Admin = ({ showToast }) => {
     `);
     printWindow.document.close();
     printWindow.print();
-    showToast('Bill printed successfully! 🖨️', 'success');
+    showToast(t('Bill printed successfully! 🖨️'), 'success');
   };
 
   const generateBillContent = (bill) => {
@@ -1111,9 +1085,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
   const HomeScreen = () => {
     const getGreeting = () => {
       const h = new Date().getHours();
-      if (h < 12) return tr('Good Morning', 'सुप्रभात');
-      if (h < 17) return tr('Good Afternoon', 'नमस्कार');
-      return tr('Good Evening', 'शुभ संध्या');
+      if (h < 12) return t('Good Morning');
+      if (h < 17) return t('Good Afternoon');
+      return t('Good Evening');
     };
 
     const trendSeries = getTrendSeriesByPeriod();
@@ -1127,12 +1101,12 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     const rangeRevenue = trendSeries.reduce((sum, item) => sum + Number(item.revenue || 0), 0);
     const rangeItems = trendSeries.reduce((sum, item) => sum + Number(item.itemsSold || 0), 0);
     const trendHeadline = statsPeriod === 'day'
-      ? tr('Last 14 days', 'पिछले 14 दिन')
+      ? t('Last 14 days')
       : statsPeriod === 'week'
-        ? tr('Last 12 weeks', 'पिछले 12 सप्ताह')
+        ? t('Last 12 weeks')
         : statsPeriod === 'month'
-          ? tr('Last 12 months', 'पिछले 12 महीने')
-          : tr('Last 5 years', 'पिछले 5 वर्ष');
+          ? t('Last 12 months')
+          : t('Last 5 years');
 
     return (
       <div className="home-screen">
@@ -1141,26 +1115,26 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <div className="dashboard-hero-overlay" />
           <div className="dashboard-hero-content">
             <div className="greeting-section dashboard-hero-copy">
-              <span className="dashboard-hero-tag">{tr('Retail command center', 'रिटेल कमांड सेंटर')}</span>
+              <span className="dashboard-hero-tag">{t('Retail command center')}</span>
               <h1>{getGreeting()}, {user?.name?.split(' ')[0] || 'Admin'}!</h1>
-              <p>{tr('Track revenue, identify your most selling products, and predict demand before stock runs low.', 'राजस्व ट्रैक करें, सबसे अधिक बिकने वाले प्रोडक्ट पहचानें और स्टॉक कम होने से पहले मांग का अनुमान लगाएं।')}</p>
+              <p>{t('Track revenue, identify your most selling products, and predict demand before stock runs low.')}</p>
             </div>
 
             <div className="dashboard-hero-metrics">
               <div className="hero-metric-card">
-                <span className="hero-metric-label">{tr('Analytics Window', 'एनालिटिक्स विंडो')}</span>
+                <span className="hero-metric-label">{t('Analytics Window')}</span>
                 <strong>{trendHeadline}</strong>
-                <small>{language === 'hi' ? `${rangeItems} आइटम्स बिके` : `${rangeItems} items sold`}</small>
+                <small>{t('{count} items sold', { count: rangeItems })}</small>
               </div>
               <div className="hero-metric-card">
-                <span className="hero-metric-label">{tr('Revenue in View', 'दिख रहा राजस्व')}</span>
+                <span className="hero-metric-label">{t('Revenue in View')}</span>
                 <strong>₹{rangeRevenue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</strong>
-                <small>{language === 'hi' ? `${trendSeries.length} प्लॉटेड पॉइंट्स` : `${trendSeries.length} plotted points`}</small>
+                <small>{t('{count} plotted points', { count: trendSeries.length })}</small>
               </div>
               <div className="hero-metric-card">
-                <span className="hero-metric-label">{tr('Top Product', 'टॉप प्रोडक्ट')}</span>
-                <strong>{topProduct?.name || tr('Waiting for sales', 'सेल्स का इंतजार')}</strong>
-                <small>{topProduct ? (language === 'hi' ? `${topProduct.totalQuantity} यूनिट्स बिकीं` : `${topProduct.totalQuantity} units sold`) : tr('No transactions yet', 'अभी कोई ट्रांजैक्शन नहीं')}</small>
+                <span className="hero-metric-label">{t('Top Product')}</span>
+                <strong>{topProduct?.name || t('Waiting for sales')}</strong>
+                <small>{topProduct ? t('{count} units sold', { count: topProduct.totalQuantity }) : t('No transactions yet')}</small>
               </div>
             </div>
           </div>
@@ -1170,7 +1144,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <div className="stat-card-item">
             <div className="sci-icon teal"><DollarSign size={20} /></div>
             <div className="sci-body">
-              <span className="sci-label">{tr("Today's Sales", 'आज की बिक्री')}</span>
+              <span className="sci-label">{t("Today's Sales")}</span>
               <span className="sci-value">₹{stats.todayRevenue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
             </div>
             <span className="sci-badge green">+12%</span>
@@ -1178,7 +1152,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <div className="stat-card-item">
             <div className="sci-icon blue"><Users size={20} /></div>
             <div className="sci-body">
-              <span className="sci-label">{tr('Customers Today', 'आज के ग्राहक')}</span>
+              <span className="sci-label">{t('Customers Today')}</span>
               <span className="sci-value">{stats.totalBills}</span>
             </div>
             <span className="sci-badge green">+5%</span>
@@ -1186,28 +1160,28 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <div className="stat-card-item">
             <div className="sci-icon red"><AlertTriangle size={20} /></div>
             <div className="sci-body">
-              <span className="sci-label">{tr('Low Stock Items', 'कम स्टॉक आइटम्स')}</span>
-              <span className="sci-value">{language === 'hi' ? `${stats.lowStockItems?.length || 0} आइटम्स` : `${stats.lowStockItems?.length || 0} items`}</span>
+              <span className="sci-label">{t('Low Stock Items')}</span>
+              <span className="sci-value">{t('{count} items', { count: stats.lowStockItems?.length || 0 })}</span>
             </div>
-            <span className="sci-badge red">{tr('Alert', 'अलर्ट')}</span>
+            <span className="sci-badge red">{t('Alert')}</span>
           </div>
         </div>
 
         <div className="analytics-card">
           <div className="analytics-head">
-            <h3>{tr('Sales Trend', 'बिक्री रुझान')}</h3>
+            <h3>{t('Sales Trend')}</h3>
             <div className="range-toggle">
-              <button className={`range-btn ${statsPeriod === 'day' ? 'active' : ''}`} onClick={() => setStatsPeriod('day')}>{tr('Day', 'दिन')}</button>
-              <button className={`range-btn ${statsPeriod === 'week' ? 'active' : ''}`} onClick={() => setStatsPeriod('week')}>{tr('Week', 'सप्ताह')}</button>
-              <button className={`range-btn ${statsPeriod === 'month' ? 'active' : ''}`} onClick={() => setStatsPeriod('month')}>{tr('Month', 'महीना')}</button>
-              <button className={`range-btn ${statsPeriod === 'year' ? 'active' : ''}`} onClick={() => setStatsPeriod('year')}>{tr('Year', 'वर्ष')}</button>
+              <button className={`range-btn ${statsPeriod === 'day' ? 'active' : ''}`} onClick={() => setStatsPeriod('day')}>{t('Day')}</button>
+              <button className={`range-btn ${statsPeriod === 'week' ? 'active' : ''}`} onClick={() => setStatsPeriod('week')}>{t('Week')}</button>
+              <button className={`range-btn ${statsPeriod === 'month' ? 'active' : ''}`} onClick={() => setStatsPeriod('month')}>{t('Month')}</button>
+              <button className={`range-btn ${statsPeriod === 'year' ? 'active' : ''}`} onClick={() => setStatsPeriod('year')}>{t('Year')}</button>
             </div>
           </div>
 
           {analyticsLoading ? (
-            <p className="chart-empty">{tr('Loading sales charts...', 'सेल्स चार्ट लोड हो रहे हैं...')}</p>
+            <p className="chart-empty">{t('Loading sales charts...')}</p>
           ) : trendSeries.length === 0 ? (
-            <p className="chart-empty">{tr('No sales data available yet.', 'अभी बिक्री डेटा उपलब्ध नहीं है।')}</p>
+            <p className="chart-empty">{t('No sales data available yet.')}</p>
           ) : (
             <div className="chart-wrap">
               <ResponsiveContainer width="100%" height={260}>
@@ -1227,10 +1201,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
         <div className="analytics-card">
           <div className="analytics-head">
-            <h3>{tr('Most Selling Products', 'सबसे ज्यादा बिकने वाले प्रोडक्ट')}</h3>
+            <h3>{t('Most Selling Products')}</h3>
           </div>
           {topSellingChartData.length === 0 ? (
-            <p className="chart-empty">{tr('Top products will appear after sales start.', 'बिक्री शुरू होने के बाद टॉप प्रोडक्ट दिखेंगे।')}</p>
+            <p className="chart-empty">{t('Top products will appear after sales start.')}</p>
           ) : (
             <div className="chart-wrap">
               <ResponsiveContainer width="100%" height={260}>
@@ -1250,7 +1224,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
         <div className="analytics-card">
           <div className="analytics-head">
-            <h3>{tr('Hybrid ARIMA + SARIMA Forecast', 'हाइब्रिड ARIMA + SARIMA पूर्वानुमान')}</h3>
+            <h3>{t('Hybrid ARIMA + SARIMA Forecast')}</h3>
           </div>
 
           <div className="forecast-controls">
@@ -1259,7 +1233,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               value={forecastProductID}
               onChange={(e) => setForecastProductID(e.target.value)}
             >
-              <option value="">{tr('Select product', 'प्रोडक्ट चुनें')}</option>
+              <option value="">{t('Select product')}</option>
               {products.map((product) => (
                 <option key={product.productID} value={String(product.productID)}>
                   {product.name}
@@ -1272,10 +1246,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               value={forecastHorizon}
               onChange={(e) => setForecastHorizon(Number(e.target.value))}
             >
-              <option value={7}>{tr('Next 7 days', 'अगले 7 दिन')}</option>
-              <option value={14}>{tr('Next 14 days', 'अगले 14 दिन')}</option>
-              <option value={21}>{tr('Next 21 days', 'अगले 21 दिन')}</option>
-              <option value={30}>{tr('Next 30 days', 'अगले 30 दिन')}</option>
+              <option value={7}>Next 7 days</option>
+              <option value={14}>Next 14 days</option>
+              <option value={21}>Next 21 days</option>
+              <option value={30}>Next 30 days</option>
             </select>
 
             <button
@@ -1284,15 +1258,15 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               onClick={() => fetchProductForecast(forecastProductID, forecastHorizon)}
               disabled={forecastLoading || !forecastProductID}
             >
-              {forecastLoading ? tr('Predicting...', 'पूर्वानुमान चल रहा है...') : tr('Run Hybrid Forecast', 'हाइब्रिड फोरकास्ट चलाएं')}
+              {forecastLoading ? 'Predicting...' : 'Run Hybrid Forecast'}
             </button>
           </div>
 
           {productForecast && (
             <div className="forecast-summary">
               <p>
-                <strong>{productForecast.productName}</strong> | {tr('Method', 'विधि')}: {productForecast.method} | {tr('Suggested stock for next', 'अगले लिए सुझाया गया स्टॉक')} {productForecast.horizonDays} {tr('days', 'दिन')}:
-                {' '}<strong>{productForecast.suggestedStock} {tr('items', 'आइटम्स')}</strong>
+                <strong>{productForecast.productName}</strong> | Method: {productForecast.method} | Suggested stock for next {productForecast.horizonDays} days:
+                {' '}<strong>{productForecast.suggestedStock} items</strong>
               </p>
             </div>
           )}
@@ -1312,7 +1286,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               </ResponsiveContainer>
             </div>
           ) : (
-            <p className="chart-empty">{tr('Select a product and run hybrid forecast to view demand prediction.', 'मांग पूर्वानुमान देखने के लिए प्रोडक्ट चुनें और हाइब्रिड फोरकास्ट चलाएं।')}</p>
+            <p className="chart-empty">Select a product and run hybrid forecast to view demand prediction.</p>
           )}
         </div>
 
@@ -1360,9 +1334,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           return (
           <div className="dashboard-photo-card">
             <div className="dashboard-photo-head">
-              <strong>{tr('Latest AI Product Photo', 'नवीनतम AI प्रोडक्ट फोटो')}</strong>
+              <strong>Latest AI Product Photo</strong>
               <button className="btn btn-outline btn-small" onClick={() => setActiveTab('marketingAI')}>
-                {tr('Open Marketing AI', 'मार्केटिंग AI खोलें')}
+                Open Marketing AI
               </button>
             </div>
             <img
@@ -1374,7 +1348,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               onError={handleImageLoadError}
             />
             <p className="agent-disclaimer">
-              {marketingAdvice.productSnapshot?.name || tr('Product', 'प्रोडक्ट')} • {marketingAdvice.creative?.selectedStyle || 'studio-white'}
+              {marketingAdvice.productSnapshot?.name || 'Product'} • {marketingAdvice.creative?.selectedStyle || 'studio-white'}
             </p>
           </div>
           );
@@ -1382,47 +1356,47 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
         <div className="ai-banner" onClick={() => setActiveTab('marketingAI')} role="button" tabIndex={0} onKeyDown={() => {}}>
           <div className="ai-banner-text">
-            <strong>{tr('Ask DukaanSaathi', 'Ask DukaanSaathi')}</strong>
-            <p>{tr('Get instant answers about your inventory, sales, and more.', 'इन्वेंट्री, बिक्री और अन्य प्रश्नों के तुरंत उत्तर पाएं।')}</p>
-            <button className="btn-ask" onClick={(e) => { e.stopPropagation(); setActiveTab('marketingAI'); }}>{tr('Ask Now', 'अभी पूछें')}</button>
+            <strong>Ask DukaanSaathi</strong>
+            <p>Get instant answers about your inventory, sales, and more.</p>
+            <button className="btn-ask" onClick={(e) => { e.stopPropagation(); setActiveTab('marketingAI'); }}>Ask Now</button>
           </div>
           <div className="ai-banner-bot">🤖</div>
         </div>
 
         <div className="quick-actions">
-          <h3>{tr('Quick Actions', 'त्वरित कार्य')}</h3>
+          <h3>Quick Actions</h3>
           <div className="qa-grid">
             <button className="qa-card" onClick={() => setShowBillingModal(true)}>
               <div className="qa-card-icon"><Receipt size={22} /></div>
-              <span>{tr('Create Bill', 'बिल बनाएं')}</span>
+              <span>Create Bill</span>
             </button>
             <button className="qa-card" onClick={() => setActiveTab('manageProducts')}>
               <div className="qa-card-icon"><Package size={22} /></div>
-              <span>{tr('Inventory', 'इन्वेंट्री')}</span>
+              <span>Inventory</span>
             </button>
             <button className="qa-card" onClick={() => setActiveTab('transactions')}>
               <div className="qa-card-icon"><BarChart3 size={22} /></div>
-              <span>{tr('Sales Analytics', 'सेल्स एनालिटिक्स')}</span>
+              <span>Sales Analytics</span>
             </button>
             <button className="qa-card" onClick={() => setActiveTab('billing')}>
               <div className="qa-card-icon"><List size={22} /></div>
-              <span>{tr('Billing History', 'बिलिंग हिस्ट्री')}</span>
+              <span>Billing History</span>
             </button>
             <button className="qa-card" onClick={() => setActiveTab('manageProducts')}>
               <div className="qa-card-icon"><AlertTriangle size={22} /></div>
-              <span>{tr('Expiry Alerts', 'एक्सपायरी अलर्ट्स')}</span>
+              <span>Expiry Alerts</span>
             </button>
             <button className="qa-card" onClick={() => setActiveTab('addProduct')}>
               <div className="qa-card-icon"><Users size={22} /></div>
-              <span>{tr('New Customer', 'नया ग्राहक')}</span>
+              <span>New Customer</span>
             </button>
             <button className="qa-card" onClick={handleDesktopScan} disabled={scanInProgress}>
               <div className="qa-card-icon"><ScanLine size={22} /></div>
-              <span>{scanInProgress ? tr('Scanning...', 'स्कैन हो रहा है...') : tr('Scan Product', 'प्रोडक्ट स्कैन करें')}</span>
+              <span>{scanInProgress ? 'Scanning...' : 'Scan Product'}</span>
             </button>
             <button className="qa-card" onClick={handleScannerReport} disabled={scannerReportLoading}>
               <div className="qa-card-icon"><FileSearch size={22} /></div>
-              <span>{scannerReportLoading ? tr('Generating...', 'बन रहा है...') : tr('Scan Report', 'स्कैन रिपोर्ट')}</span>
+              <span>{scannerReportLoading ? 'Generating...' : 'Scan Report'}</span>
             </button>
           </div>
         </div>
@@ -1430,17 +1404,17 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         {(latestScanResult || latestScannerReport) && (
           <div className="analytics-card">
             <div className="analytics-head">
-              <h3>{tr('Scanner Output', 'स्कैनर आउटपुट')}</h3>
+              <h3>Scanner Output</h3>
             </div>
             {latestScanResult && (
               <div className="scanner-output-block">
-                <h4>{tr('Latest Scan JSON', 'नवीनतम स्कैन JSON')}</h4>
+                <h4>Latest Scan JSON</h4>
                 <pre>{JSON.stringify(latestScanResult, null, 2)}</pre>
               </div>
             )}
             {latestScannerReport && (
               <div className="scanner-output-block">
-                <h4>{tr('Latest Report', 'नवीनतम रिपोर्ट')}</h4>
+                <h4>Latest Report</h4>
                 <p>{latestScannerReport}</p>
               </div>
             )}
@@ -1453,7 +1427,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
   const ManageProducts = () => (
     <div className="products-list">
       <div className="billing-header">
-        <h2>{tr('Manage Products', 'प्रोडक्ट प्रबंधन')}</h2>
+        <h2>Manage Products</h2>
         <button
           onClick={() => {
             resetForm();
@@ -1463,7 +1437,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           className="btn btn-primary"
         >
           <Plus size={16} />
-          {tr('Add Product', 'प्रोडक्ट जोड़ें')}
+          Add Product
         </button>
       </div>
 
@@ -1471,13 +1445,13 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         <table>
           <thead>
             <tr>
-              <th>{tr('Image', 'इमेज')}</th>
-              <th>{tr('Product', 'प्रोडक्ट')}</th>
-              <th>{tr('Category', 'श्रेणी')}</th>
-              <th>{tr('Price', 'कीमत')}</th>
-              <th>{tr('Stock', 'स्टॉक')}</th>
-              <th>{tr('GST', 'GST')}</th>
-              <th>{tr('Actions', 'कार्रवाई')}</th>
+              <th>Image</th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>GST</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -1493,7 +1467,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                       data-fallback-src={buildAiImageFallbackUrl(product.name)}
                     />
                   ) : (
-                    <div className="no-image">{tr('No Image', 'कोई इमेज नहीं')}</div>
+                    <div className="no-image">No Image</div>
                   )}
                 </td>
                 <td>
@@ -1501,11 +1475,11 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                     <strong>{product.name}</strong>
                     <small>{product.description}</small>
                     {product.expiry_date && (
-                      <small className="expiry-meta">{tr('Expiry', 'एक्सपायरी')}: {new Date(product.expiry_date).toLocaleDateString('en-IN')}</small>
+                      <small className="expiry-meta">Expiry: {new Date(product.expiry_date).toLocaleDateString('en-IN')}</small>
                     )}
                   </div>
                 </td>
-                <td>{getCategoryLabel(product.category)}</td>
+                <td>{product.category}</td>
                 <td>{formatPrice(product.price)}</td>
                 <td>
                   <span className={`stock ${getStockStatus(product.quantity)}`}>
@@ -1514,9 +1488,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 </td>
                 <td>
                   {product.GST_applicable ? (
-                    <span className="gst-badge">{tr('Yes', 'हाँ')}</span>
+                    <span className="gst-badge">Yes</span>
                   ) : (
-                    <span className="no-gst">{tr('No', 'नहीं')}</span>
+                    <span className="no-gst">No</span>
                   )}
                 </td>
                 <td>
@@ -1547,31 +1521,31 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return (
       <div className="billing-section">
         <div className="billing-header">
-          <h2>{tr('Admin Billing', 'एडमिन बिलिंग')}</h2>
+          <h2>Admin Billing</h2>
           <button
             onClick={() => setShowBillingModal(true)}
             className="btn btn-primary"
           >
             <Plus size={16} />
-            {tr('Create New Bill', 'नया बिल बनाएं')}
+            Create New Bill
           </button>
         </div>
 
         <div className="bills-list">
-          <h3>{tr('All Bills', 'सभी बिल्स')}</h3>
+          <h3>All Bills</h3>
           <div className="bills-table">
             <table>
               <thead>
                 <tr>
                   <th>Bill ID</th>
-                  <th>{tr('Customer', 'ग्राहक')}</th>
+                  <th>Customer</th>
                   <th>Items</th>
                   <th>Subtotal</th>
                   <th>GST</th>
                   <th>Total</th>
                   <th>Payment</th>
                   <th>Date</th>
-                  <th>{tr('Actions', 'कार्रवाई')}</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -1580,12 +1554,12 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                   return (
                     <tr key={bill.billID}>
                       <td>#{bill.billID}</td>
-                      <td>{bill.customerName || tr('Walk-in Customer', 'वॉक-इन ग्राहक')}</td>
-                      <td>{language === 'hi' ? `${bill.items ? bill.items.length : 0} आइटम्स` : `${bill.items ? bill.items.length : 0} items`}</td>
+                      <td>{bill.customerName || 'Walk-in Customer'}</td>
+                      <td>{bill.items ? bill.items.length : 0} items</td>
                       <td>{formatPrice(subtotal)}</td>
                       <td>{bill.applyGST ? formatPrice(gstAmount) : 'N/A'}</td>
                       <td>{formatPrice(total)}</td>
-                      <td>{getPaymentMethodLabel((bill.paymentMethod || 'cash').toLowerCase())}</td>
+                      <td>{bill.paymentMethod || 'Cash'}</td>
                       <td>{new Date(bill.created_at).toLocaleDateString()}</td>
                       <td>
                         <div className="action-buttons">
@@ -1635,23 +1609,23 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
     return (
       <div className="transactions-section">
-        <h2>{tr('Reports & Visualizations', 'रिपोर्ट्स और विज़ुअलाइजेशन')}</h2>
+        <h2>{t('Reports & Visualizations')}</h2>
 
         <div className="analytics-card">
           <div className="analytics-head">
-            <h3>{tr('Sales Trend', 'बिक्री रुझान')}</h3>
+            <h3>{t('Sales Trend')}</h3>
             <div className="range-toggle">
-              <button className={`range-btn ${statsPeriod === 'day' ? 'active' : ''}`} onClick={() => setStatsPeriod('day')}>{tr('Day', 'दिन')}</button>
-              <button className={`range-btn ${statsPeriod === 'week' ? 'active' : ''}`} onClick={() => setStatsPeriod('week')}>{tr('Week', 'सप्ताह')}</button>
-              <button className={`range-btn ${statsPeriod === 'month' ? 'active' : ''}`} onClick={() => setStatsPeriod('month')}>{tr('Month', 'महीना')}</button>
-              <button className={`range-btn ${statsPeriod === 'year' ? 'active' : ''}`} onClick={() => setStatsPeriod('year')}>{tr('Year', 'वर्ष')}</button>
+              <button className={`range-btn ${statsPeriod === 'day' ? 'active' : ''}`} onClick={() => setStatsPeriod('day')}>{t('Day')}</button>
+              <button className={`range-btn ${statsPeriod === 'week' ? 'active' : ''}`} onClick={() => setStatsPeriod('week')}>{t('Week')}</button>
+              <button className={`range-btn ${statsPeriod === 'month' ? 'active' : ''}`} onClick={() => setStatsPeriod('month')}>{t('Month')}</button>
+              <button className={`range-btn ${statsPeriod === 'year' ? 'active' : ''}`} onClick={() => setStatsPeriod('year')}>{t('Year')}</button>
             </div>
           </div>
 
           {analyticsLoading ? (
-            <p className="chart-empty">{tr('Loading sales charts...', 'सेल्स चार्ट लोड हो रहे हैं...')}</p>
+            <p className="chart-empty">{t('Loading sales charts...')}</p>
           ) : trendSeries.length === 0 ? (
-            <p className="chart-empty">{tr('No sales data available yet.', 'अभी बिक्री डेटा उपलब्ध नहीं है।')}</p>
+            <p className="chart-empty">{t('No sales data available yet.')}</p>
           ) : (
             <div className="chart-wrap">
               <ResponsiveContainer width="100%" height={260}>
@@ -1671,11 +1645,11 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
         <div className="analytics-card">
           <div className="analytics-head">
-            <h3>{tr('Most Selling Products', 'सबसे ज्यादा बिकने वाले प्रोडक्ट')}</h3>
+            <h3>{t('Most Selling Products')}</h3>
           </div>
 
           {topSellingChartData.length === 0 ? (
-            <p className="chart-empty">{tr('Top products will appear after sales start.', 'बिक्री शुरू होने के बाद टॉप प्रोडक्ट दिखेंगे।')}</p>
+            <p className="chart-empty">{t('Top products will appear after sales start.')}</p>
           ) : (
             <div className="chart-wrap">
               <ResponsiveContainer width="100%" height={260}>
@@ -1693,7 +1667,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           )}
         </div>
 
-        <h2 style={{ marginTop: 20 }}>{tr('Transaction History', 'लेनदेन इतिहास')}</h2>
+        <h2 style={{ marginTop: 20 }}>Transaction History</h2>
         <div className="transactions-table">
           <table>
             <thead>
@@ -1703,8 +1677,8 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 <th>Customer</th>
                 <th>Items</th>
                 <th>Amount</th>
-                  <th>{tr('Payment Method', 'भुगतान विधि')}</th>
-                  <th>{tr('Actions', 'कार्रवाई')}</th>
+                <th>Payment Method</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -1713,9 +1687,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                   <td>{new Date(transaction.date).toLocaleDateString()}</td>
                   <td>#{transaction.id}</td>
                   <td>{transaction.customer}</td>
-                  <td>{language === 'hi' ? `${transaction.items} आइटम्स` : `${transaction.items} items`}</td>
+                  <td>{transaction.items} items</td>
                   <td>{formatPrice(transaction.amount)}</td>
-                  <td>{getPaymentMethodLabel((transaction.paymentMethod || '').toLowerCase())}</td>
+                  <td>{transaction.paymentMethod}</td>
                   <td>
                     <button
                       onClick={() => {
@@ -1742,14 +1716,14 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
   const MarketingAI = () => (
     <div className="agent-section">
       <div className="agent-header">
-        <h2>{tr('Marketing Agent AI', 'मार्केटिंग एजेंट AI')}</h2>
+        <h2>Marketing Agent AI</h2>
         <button
           className="btn btn-primary"
           onClick={() => generateMarketingAdvice()}
           disabled={agentLoading}
         >
           <Megaphone size={16} />
-          {agentLoading ? tr('Generating...', 'बन रहा है...') : tr('Generate Strategy', 'रणनीति बनाएं')}
+          {agentLoading ? 'Generating...' : 'Generate Strategy'}
         </button>
       </div>
 
@@ -1760,11 +1734,11 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <p><strong>Stock:</strong> {latestAddedProduct.quantity}</p>
           <div className="form-row" style={{ marginTop: '10px' }}>
             <div className="form-group">
-              <label>{tr('Photo Style', 'फोटो स्टाइल')}</label>
+              <label>Photo Style</label>
               <select className="form-control" value={photoStyle} onChange={(e) => setPhotoStyle(e.target.value)}>
-                <option value="studio-white">{tr('Studio White', 'स्टूडियो व्हाइट')}</option>
-                <option value="dark-luxury">{tr('Dark Luxury', 'डार्क लग्जरी')}</option>
-                <option value="lifestyle-desk">{tr('Lifestyle Desk', 'लाइफस्टाइल डेस्क')}</option>
+                <option value="studio-white">Studio White</option>
+                <option value="dark-luxury">Dark Luxury</option>
+                <option value="lifestyle-desk">Lifestyle Desk</option>
               </select>
             </div>
             <div className="form-group" style={{ display: 'flex', alignItems: 'end' }}>
@@ -1774,7 +1748,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 onClick={() => generateMarketingAdvice(latestAddedProduct, photoStyle)}
                 disabled={agentLoading}
               >
-                {tr('Regenerate Product Photo', 'प्रोडक्ट फोटो फिर से बनाएं')}
+                Regenerate Product Photo
               </button>
             </div>
           </div>
@@ -1800,7 +1774,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
             return (
             <div className="marketing-image-wrap">
-              <h4>{tr('AI Product Photography', 'AI प्रोडक्ट फोटोग्राफी')}</h4>
+              <h4>AI Product Photography</h4>
               <img
                 src={primary}
                 data-fallback-src={fallback}
@@ -1814,21 +1788,21 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             );
           })()}
 
-          <h4>{tr('Recommended Channels', 'सुझाए गए चैनल')}</h4>
+          <h4>Recommended Channels</h4>
           <ul className="agent-list">
             {(marketingAdvice.strategy?.channels || []).map((channel) => (
               <li key={channel}>{channel}</li>
             ))}
           </ul>
 
-          <h4>{tr('Offer Ideas', 'ऑफर आइडियाज')}</h4>
+          <h4>Offer Ideas</h4>
           <ul className="agent-list">
             {(marketingAdvice.strategy?.offers || []).map((offer) => (
               <li key={offer}>{offer}</li>
             ))}
           </ul>
 
-          <h4>{tr('Content Ideas', 'कंटेंट आइडियाज')}</h4>
+          <h4>Content Ideas</h4>
           <ul className="agent-list">
             {(marketingAdvice.strategy?.contentIdeas || []).map((idea) => (
               <li key={idea}>{idea}</li>
@@ -1837,13 +1811,13 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         </div>
       ) : (
         <div className="agent-card empty-state">
-          <p>{tr('Add a product and generate a marketing strategy to see campaign suggestions here.', 'यहां अभियान सुझाव देखने के लिए प्रोडक्ट जोड़ें और मार्केटिंग रणनीति बनाएं।')}</p>
+          <p>Add a product and generate a marketing strategy to see campaign suggestions here.</p>
         </div>
       )}
 
       <div className="agent-card chatbot-card">
-        <h3>{tr('Ask DukaanSaathi', 'Ask DukaanSaathi')}</h3>
-        <p className="chatbot-subtitle">{tr('Website help only. Ask about features, workflows, and troubleshooting in this app.', 'केवल वेबसाइट सहायता। इस ऐप में फीचर्स, वर्कफ़्लो और समस्या समाधान के बारे में पूछें।')}</p>
+        <h3>Ask DukaanSaathi</h3>
+        <p className="chatbot-subtitle">Website help only. Ask about features, workflows, and troubleshooting in this app.</p>
 
         <div className="chatbot-window">
           {chatMessages.map((msg, idx) => (
@@ -1851,20 +1825,20 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               {msg.content}
             </div>
           ))}
-          {chatLoading && <div className="chat-msg assistant">{tr('Thinking...', 'सोच रहा है...')}</div>}
+          {chatLoading && <div className="chat-msg assistant">Thinking...</div>}
         </div>
 
         <form className="chatbot-form" onSubmit={askWebsiteAssistant}>
           <input
             type="text"
             className="form-control"
-            placeholder={tr('Ask about DukaanSaathi website usage', 'DukaanSaathi वेबसाइट उपयोग के बारे में पूछें')}
+            placeholder="Ask about DukaanSaathi website usage"
             value={chatInput}
             onChange={(e) => setChatInput(e.target.value)}
             maxLength={500}
           />
           <button type="submit" className="btn btn-primary" disabled={chatLoading || !chatInput.trim()}>
-            {tr('Ask', 'पूछें')}
+            Ask
           </button>
         </form>
       </div>
@@ -1933,7 +1907,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return (
       <div className="agent-section">
         <div className="agent-header">
-          <h2>{tr('GST Compliance Advisor (India)', 'GST अनुपालन सलाहकार (भारत)')}</h2>
+          <h2>GST Compliance Advisor (India)</h2>
         </div>
 
         <div className="agent-card">
@@ -1945,7 +1919,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             <div className="modal-footer" style={{ marginTop: '8px' }}>
               <button type="submit" className="btn btn-primary" disabled={agentLoading}>
                 <FileSearch size={16} />
-                {agentLoading ? tr('Analyzing...', 'विश्लेषण हो रहा है...') : tr('Run GST Compliance Audit', 'GST अनुपालन ऑडिट चलाएं')}
+                {agentLoading ? 'Analyzing...' : 'Run GST Compliance Audit'}
               </button>
             </div>
           </form>
@@ -2029,38 +2003,38 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
   const ScannerHub = () => (
     <div className="agent-section">
       <div className="agent-header">
-        <h2>{tr('Product Scanner', 'प्रोडक्ट स्कैनर')}</h2>
+        <h2>Product Scanner</h2>
       </div>
 
       <div className="agent-card">
-        <p>{tr('Use your webcam to scan product labels and store structured JSON in sales.json.', 'प्रोडक्ट लेबल स्कैन करने और structured JSON को sales.json में सेव करने के लिए वेबकैम का उपयोग करें।')}</p>
+        <p>Use your webcam to scan product labels and store structured JSON in sales.json.</p>
         <div className="form-row" style={{ marginTop: '12px' }}>
           <button className="btn btn-primary" type="button" onClick={handleDesktopScan} disabled={scanInProgress}>
             <ScanLine size={16} />
-            {scanInProgress ? tr('Processing...', 'प्रोसेस हो रहा है...') : tr('Scan Product', 'प्रोडक्ट स्कैन करें')}
+            {scanInProgress ? 'Processing...' : 'Scan Product'}
           </button>
           <button className="btn btn-outline" type="button" onClick={handleScannerReport} disabled={scannerReportLoading}>
             <FileSearch size={16} />
-            {scannerReportLoading ? tr('Generating...', 'बन रहा है...') : tr('Generate Report', 'रिपोर्ट बनाएं')}
+            {scannerReportLoading ? 'Generating...' : 'Generate Report'}
           </button>
         </div>
-        <p className="agent-disclaimer">{tr('Tip: Open camera, align label, then tap Capture & Scan.', 'सुझाव: कैमरा खोलें, लेबल को ठीक करें, फिर Capture & Scan दबाएं।')}</p>
+        <p className="agent-disclaimer">Tip: Open camera, align label, then tap Capture &amp; Scan.</p>
       </div>
 
       {(latestScanResult || latestScannerReport) && (
         <div className="agent-card">
-          <h3>{tr('Scanner Output', 'स्कैनर आउटपुट')}</h3>
+          <h3>Scanner Output</h3>
 
           {latestScanResult && (
             <div className="scanner-output-block">
-              <h4>{tr('Latest Scan JSON', 'नवीनतम स्कैन JSON')}</h4>
+              <h4>Latest Scan JSON</h4>
               <pre>{JSON.stringify(latestScanResult, null, 2)}</pre>
             </div>
           )}
 
           {latestScannerReport && (
             <div className="scanner-output-block">
-              <h4>{tr('Latest Report', 'नवीनतम रिपोर्ट')}</h4>
+              <h4>Latest Report</h4>
               <p>{latestScannerReport}</p>
             </div>
           )}
@@ -2078,47 +2052,47 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return (
       <div className="agent-section digital-twin-screen">
         <div className="agent-header">
-          <h2>{tr('Digital Twin View', 'डिजिटल ट्विन व्यू')}</h2>
+          <h2>Digital Twin View</h2>
         </div>
 
         <div className="digital-twin-stage">
           {enableHeroScene ? <ThreeSceneBackground className="digital-twin-scene" density="ambient" /> : <div className="digital-twin-fallback">3D twin is simplified on this device for better performance.</div>}
           <div className="digital-twin-overlay" />
           <div className="digital-twin-copy">
-            <span className="digital-twin-tag">{tr('Store Mirror', 'स्टोर मिरर')}</span>
-            <h3>{tr('Live retail snapshot', 'लाइव रिटेल स्नैपशॉट')}</h3>
-            <p>{tr('Use this view to monitor sales momentum, stock pressure, and your top-selling product in one place.', 'इस व्यू से बिक्री की गति, स्टॉक दबाव और सबसे ज्यादा बिकने वाले प्रोडक्ट को एक ही जगह देखें।')}</p>
+            <span className="digital-twin-tag">Store Mirror</span>
+            <h3>Live retail snapshot</h3>
+            <p>Use this view to monitor sales momentum, stock pressure, and your top-selling product in one place.</p>
           </div>
         </div>
 
         <div className="digital-twin-grid">
           <div className="digital-twin-card">
-            <span>{tr('Revenue in current view', 'वर्तमान व्यू में राजस्व')}</span>
+            <span>Revenue in current view</span>
             <strong>{formatPrice(latestRevenue)}</strong>
-            <small>{statsPeriod === 'day' ? tr('Recent days', 'हाल के दिन') : tr('Selected reporting window', 'चयनित रिपोर्टिंग विंडो')}</small>
+            <small>{statsPeriod === 'day' ? 'Recent days' : 'Selected reporting window'}</small>
           </div>
           <div className="digital-twin-card">
-            <span>{tr('Top product', 'टॉप प्रोडक्ट')}</span>
-            <strong>{topProduct?.name || tr('No sales yet', 'अभी बिक्री नहीं')}</strong>
-            <small>{topProduct ? (language === 'hi' ? `${topProduct.totalQuantity} यूनिट्स बिकीं` : `${topProduct.totalQuantity} units sold`) : tr('Start billing to see product demand', 'प्रोडक्ट मांग देखने के लिए बिलिंग शुरू करें')}</small>
+            <span>Top product</span>
+            <strong>{topProduct?.name || 'No sales yet'}</strong>
+            <small>{topProduct ? `${topProduct.totalQuantity} units sold` : 'Start billing to see product demand'}</small>
           </div>
           <div className="digital-twin-card">
-            <span>{tr('Low stock pressure', 'कम स्टॉक दबाव')}</span>
+            <span>Low stock pressure</span>
             <strong>{lowStockCount}</strong>
-            <small>{lowStockCount > 0 ? tr('Items need restocking soon', 'आइटम्स को जल्द रीस्टॉक करना होगा') : tr('Inventory looks healthy', 'इन्वेंट्री स्वस्थ दिख रही है')}</small>
+            <small>{lowStockCount > 0 ? 'Items need restocking soon' : 'Inventory looks healthy'}</small>
           </div>
         </div>
 
         <div className="agent-card">
-          <h3>{tr('Operational Controls', 'ऑपरेशनल कंट्रोल्स')}</h3>
+          <h3>Operational Controls</h3>
           <div className="form-row" style={{ marginTop: '12px' }}>
             <button className="btn btn-primary" type="button" onClick={() => setActiveTab('transactions')}>
               <BarChart3 size={16} />
-              {tr('Open Reports', 'रिपोर्ट्स खोलें')}
+              Open Reports
             </button>
             <button className="btn btn-outline" type="button" onClick={() => setActiveTab('manageProducts')}>
               <Package size={16} />
-              {tr('Review Stock', 'स्टॉक देखें')}
+              Review Stock
             </button>
           </div>
         </div>
@@ -2128,10 +2102,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
   const AddProduct = () => (
     <div className="add-product">
-      <h2>{tr('Add New Product', 'नया प्रोडक्ट जोड़ें')}</h2>
+      <h2>Add New Product</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
-          <label>{tr('Product Name', 'प्रोडक्ट नाम')}</label>
+          <label>Product Name</label>
           <input
             type="text"
             value={form.name}
@@ -2139,13 +2113,13 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             name="name"
             required
             className="form-control"
-            placeholder={tr('Enter product name', 'प्रोडक्ट नाम दर्ज करें')}
+            placeholder="Enter product name"
             style={{ color: '#333', backgroundColor: 'white' }}
           />
         </div>
 
         <div className="form-group">
-          <label>{tr('Category', 'श्रेणी')}</label>
+          <label>Category</label>
           <select
             value={form.category}
             onChange={handleInputChange}
@@ -2154,15 +2128,15 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             className="form-control"
             style={{ color: '#333', backgroundColor: 'white' }}
           >
-            <option value="">{tr('Select Category', 'श्रेणी चुनें')}</option>
+            <option value="">Select Category</option>
             {categories.map(category => (
-              <option key={category} value={category}>{getCategoryLabel(category)}</option>
+              <option key={category} value={category}>{category}</option>
             ))}
           </select>
         </div>
 
         <div className="form-group">
-          <label>{tr('Description', 'विवरण')}</label>
+          <label>Description</label>
           <textarea
             value={form.description}
             onChange={handleInputChange}
@@ -2170,7 +2144,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             required
             className="form-control"
             rows="3"
-            placeholder={tr('Enter product description', 'प्रोडक्ट विवरण दर्ज करें')}
+            placeholder="Enter product description"
             style={{ color: '#333', backgroundColor: 'white' }}
           />
         </div>
@@ -2192,7 +2166,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           </div>
 
           <div className="form-group">
-            <label>{tr('Stock Quantity', 'स्टॉक मात्रा')}</label>
+            <label>Stock Quantity</label>
             <input
               type="number"
               value={form.quantity}
@@ -2229,12 +2203,12 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               onChange={handleInputChange}
               name="GST_applicable"
             />
-            {tr('GST Applicable', 'GST लागू')}
+            GST Applicable
           </label>
         </div>
 
         <div className="form-group">
-          <label>{tr('Product Image', 'प्रोडक्ट इमेज')}</label>
+          <label>Product Image</label>
           <input
             type="file"
             onChange={handleFileChange}
@@ -2247,7 +2221,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
         <div className="modal-footer">
           <button type="submit" className="btn btn-primary">
-            {tr('Add Product', 'प्रोडक्ट जोड़ें')}
+            Add Product
           </button>
         </div>
       </form>
@@ -2258,7 +2232,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
-        <p>{tr('Loading admin dashboard...', 'एडमिन डैशबोर्ड लोड हो रहा है...')}</p>
+        <p>Loading admin dashboard...</p>
       </div>
     );
   }
@@ -2267,9 +2241,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     <div className="admin-app">
       <header className="app-topbar">
         {activeTab !== 'dashboard' ? (
-          <button className="topbar-back-btn" onClick={() => setActiveTab('dashboard')} aria-label="Back to dashboard">
+          <button className="topbar-back-btn" onClick={() => setActiveTab('dashboard')} aria-label={t('Back to dashboard')}>
             <ArrowLeft size={17} />
-            <span>{tr('Back', 'वापस')}</span>
+            <span>{t('Back')}</span>
           </button>
         ) : (
           <span className="app-brand" aria-label="DukaanSaathi">
@@ -2297,19 +2271,19 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
       <nav className="app-bottom-nav">
         <button onClick={() => setActiveTab('dashboard')} className={`bnav-item ${activeTab === 'dashboard' ? 'active' : ''}`}>
-          <Home size={20} /><span>{tr('Home', 'होम')}</span>
+          <Home size={20} /><span>{t('Home')}</span>
         </button>
         <button onClick={() => setActiveTab('transactions')} className={`bnav-item ${activeTab === 'transactions' ? 'active' : ''}`}>
-          <BarChart3 size={20} /><span>{tr('Reports', 'रिपोर्ट्स')}</span>
+          <BarChart3 size={20} /><span>{t('Reports')}</span>
         </button>
         <button onClick={() => setActiveTab('manageProducts')} className={`bnav-item ${activeTab === 'manageProducts' ? 'active' : ''}`}>
-          <Package size={20} /><span>{tr('Stock', 'स्टॉक')}</span>
+          <Package size={20} /><span>{t('Stock')}</span>
         </button>
         <button onClick={() => setActiveTab('scanner')} className={`bnav-item ${activeTab === 'scanner' ? 'active' : ''}`}>
-          <ScanLine size={20} /><span>{tr('Scanner', 'स्कैनर')}</span>
+          <ScanLine size={20} /><span>{t('Scanner')}</span>
         </button>
         <button onClick={() => setActiveTab('financeAI')} className={`bnav-item ${activeTab === 'financeAI' ? 'active' : ''}`}>
-          <Settings size={20} /><span>{tr('Finance', 'फाइनेंस')}</span>
+          <Settings size={20} /><span>{t('Finance')}</span>
         </button>
       </nav>
 
@@ -2321,7 +2295,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           aria-label="View digital twin"
         >
           <Cuboid size={17} />
-          <span>{tr('View Digital Twin', 'डिजिटल ट्विन देखें')}</span>
+          <span>View Digital Twin</span>
         </button>
         <button
           type="button"
@@ -2337,7 +2311,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         <div className="scanner-camera-overlay" onClick={closeScannerCamera}>
           <div className="scanner-camera-modal" onClick={(e) => e.stopPropagation()}>
             <div className="scanner-camera-head">
-              <h3>{tr('Capture Product', 'प्रोडक्ट कैप्चर करें')}</h3>
+              <h3>Capture Product</h3>
               <button className="modal-close" onClick={closeScannerCamera} aria-label="Close scanner camera">
                 <X size={22} />
               </button>
@@ -2345,9 +2319,9 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             <video ref={videoRef} className="scanner-camera-preview" autoPlay playsInline muted />
             {cameraError && <p className="scanner-camera-error">{cameraError}</p>}
             <div className="scanner-camera-actions">
-              <button className="btn btn-outline" onClick={closeScannerCamera}>{tr('Cancel', 'रद्द करें')}</button>
+              <button className="btn btn-outline" onClick={closeScannerCamera}>Cancel</button>
               <button className="btn btn-primary" onClick={captureScannerFrame} disabled={scanInProgress}>
-                {scanInProgress ? tr('Processing...', 'प्रोसेस हो रहा है...') : tr('Capture & Scan', 'कैप्चर और स्कैन')}
+                {scanInProgress ? 'Processing...' : 'Capture & Scan'}
               </button>
             </div>
           </div>
@@ -2360,7 +2334,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         <div className="modal-overlay" onClick={() => setShowProductModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>{editingProduct ? tr('Edit Product', 'प्रोडक्ट संपादित करें') : tr('Add New Product', 'नया प्रोडक्ट जोड़ें')}</h2>
+              <h2>{editingProduct ? 'Edit Product' : 'Add New Product'}</h2>
               <button
                 onClick={() => setShowProductModal(false)}
                 className="modal-close"
@@ -2371,7 +2345,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
             <form onSubmit={handleSubmit} className="modal-body">
               <div className="form-group">
-                  <label>{tr('Product Name', 'प्रोडक्ट नाम')}</label>
+                <label>Product Name</label>
                 <input
                   type="text"
                   value={form.name}
@@ -2385,7 +2359,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               </div>
 
               <div className="form-group">
-                  <label>{tr('Category', 'श्रेणी')}</label>
+                <label>Category</label>
                 <select
                   value={form.category}
                   onChange={handleInputChange}
@@ -2394,15 +2368,15 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                   className="form-control"
                   style={{ color: '#333', backgroundColor: 'white' }}
                 >
-                  <option value="">{tr('Select Category', 'श्रेणी चुनें')}</option>
+                  <option value="">Select Category</option>
                   {categories.map(category => (
-                    <option key={category} value={category}>{getCategoryLabel(category)}</option>
+                    <option key={category} value={category}>{category}</option>
                   ))}
                 </select>
               </div>
 
               <div className="form-group">
-                  <label>{tr('Description', 'विवरण')}</label>
+                <label>Description</label>
                 <textarea
                   value={form.description}
                   onChange={handleInputChange}
@@ -2432,7 +2406,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 </div>
 
                 <div className="form-group">
-                  <label>{tr('Stock Quantity', 'स्टॉक मात्रा')}</label>
+                  <label>Stock Quantity</label>
                   <input
                     type="number"
                     value={form.quantity}
@@ -2469,12 +2443,12 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                     onChange={handleInputChange}
                     name="GST_applicable"
                   />
-                  {tr('GST Applicable', 'GST लागू')}
+                  GST Applicable
                 </label>
               </div>
 
               <div className="form-group">
-                <label>{tr('Product Image', 'प्रोडक्ट इमेज')}</label>
+                <label>Product Image</label>
                 <input
                   type="file"
                   onChange={handleFileChange}
@@ -2491,10 +2465,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                   onClick={() => setShowProductModal(false)}
                   className="btn btn-secondary"
                 >
-                  {tr('Cancel', 'रद्द करें')}
+                  Cancel
                 </button>
                 <button type="submit" className="btn btn-primary">
-                  {editingProduct ? tr('Update Product', 'प्रोडक्ट अपडेट करें') : tr('Add Product', 'प्रोडक्ट जोड़ें')}
+                  {editingProduct ? 'Update Product' : 'Add Product'}
                 </button>
               </div>
             </form>
@@ -2509,7 +2483,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <div className="modal-overlay" onClick={() => setShowBillingModal(false)}>
             <div className="modal-content billing-modal" onClick={(e) => e.stopPropagation()}>
               <div className="modal-header">
-                <h2>{tr('Create New Bill', 'नया बिल बनाएं')}</h2>
+                <h2>Create New Bill</h2>
                 <button
                   onClick={() => setShowBillingModal(false)}
                   className="modal-close"
@@ -2521,7 +2495,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               <form onSubmit={handleBillingSubmit} className="modal-body">
                 <div className="form-row">
                   <div className="form-group">
-                    <label>{tr('Customer Name *', 'ग्राहक का नाम *')}</label>
+                    <label>Customer Name *</label>
                     <input
                       type="text"
                       value={billingForm.customerName}
@@ -2529,12 +2503,12 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                       name="customerName"
                       required
                       className="form-control"
-                      placeholder={tr('Enter customer name', 'ग्राहक का नाम दर्ज करें')}
+                      placeholder="Enter customer name"
                       style={{ color: '#333', backgroundColor: 'white' }}
                     />
                   </div>
                   <div className="form-group">
-                    <label>{tr('Sale Date *', 'बिक्री तिथि *')}</label>
+                    <label>Sale Date *</label>
                     <input
                       type="date"
                       value={billingForm.sale_date}
@@ -2550,27 +2524,27 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label>{tr('Customer Phone', 'ग्राहक फोन')}</label>
+                    <label>Customer Phone</label>
                     <input
                       type="text"
                       value={billingForm.customerPhone}
                       onChange={(e) => setBillingForm({ ...billingForm, customerPhone: e.target.value })}
                       name="customerPhone"
                       className="form-control"
-                      placeholder={tr('Enter customer phone', 'ग्राहक फोन दर्ज करें')}
+                      placeholder="Enter customer phone"
                       style={{ color: '#333', backgroundColor: 'white' }}
                     />
                   </div>
 
                   <div className="form-group">
-                    <label>{tr('Customer Email', 'ग्राहक ईमेल')}</label>
+                    <label>Customer Email</label>
                     <input
                       type="email"
                       value={billingForm.customerEmail}
                       onChange={(e) => setBillingForm({ ...billingForm, customerEmail: e.target.value })}
                       name="customerEmail"
                       className="form-control"
-                      placeholder={tr('Enter customer email', 'ग्राहक ईमेल दर्ज करें')}
+                      placeholder="Enter customer email"
                       style={{ color: '#333', backgroundColor: 'white' }}
                     />
                   </div>
@@ -2578,7 +2552,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label>{tr('Payment Method', 'भुगतान विधि')}</label>
+                    <label>Payment Method</label>
                     <select
                       value={billingForm.paymentMethod}
                       onChange={(e) => setBillingForm({ ...billingForm, paymentMethod: e.target.value })}
@@ -2588,7 +2562,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                     >
                       {paymentMethods.map(method => (
                         <option key={method} value={method}>
-                          {getPaymentMethodLabel(method)}
+                          {method.charAt(0).toUpperCase() + method.slice(1).replace('_', ' ')}
                         </option>
                       ))}
                     </select>
@@ -2602,13 +2576,13 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                         onChange={(e) => setBillingForm({ ...billingForm, applyGST: e.target.checked })}
                         name="applyGST"
                       />
-                      {tr('Apply GST (18%)', 'GST लागू करें (18%)')}
+                      Apply GST (18%)
                     </label>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label>{tr('Add Products', 'प्रोडक्ट जोड़ें')}</label>
+                  <label>Add Products</label>
                   <div className="products-selector">
                     <select
                       onChange={(e) => {
@@ -2624,10 +2598,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                       className="form-control"
                       style={{ color: '#333', backgroundColor: 'white' }}
                     >
-                      <option value="">{tr('Select a product to add', 'जोड़ने के लिए प्रोडक्ट चुनें')}</option>
+                      <option value="">Select a product to add</option>
                       {products.map(product => (
                         <option key={product.productID} value={product.productID}>
-                          {product.name} - ₹{product.price} ({tr('Stock', 'स्टॉक')}: {product.quantity})
+                          {product.name} - ₹{product.price} (Stock: {product.quantity})
                         </option>
                       ))}
                     </select>
@@ -2635,16 +2609,16 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 </div>
 
                 <div className="form-group">
-                  <label>{tr('Bill Items', 'बिल आइटम्स')}</label>
+                  <label>Bill Items</label>
                   <div className="items-list">
                     {billingForm.items.length === 0 ? (
-                      <p className="no-items">{tr('No items added yet. Select products above to add them.', 'अभी कोई आइटम नहीं जोड़ा गया। ऊपर से प्रोडक्ट चुनें।')}</p>
+                      <p className="no-items">No items added yet. Select products above to add them.</p>
                     ) : (
                       billingForm.items.map(item => (
                         <div key={item.productID} className="item-row">
                           <div className="item-info">
                             <span className="item-name">{item.name}</span>
-                            <span className="item-price">₹{item.price} {tr('each', 'प्रति')}</span>
+                            <span className="item-price">₹{item.price} each</span>
                           </div>
                           <div className="item-quantity">
                             <button
@@ -2682,31 +2656,31 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 {billingForm.items.length > 0 && (
                   <div className="bill-summary">
                     <div className="summary-row">
-                      <span>{tr('Subtotal:', 'उप-योग:')}</span>
+                      <span>Subtotal:</span>
                       <span>{formatPrice(subtotal)}</span>
                     </div>
                     {billingForm.applyGST && (
                       <div className="summary-row">
-                        <span>{tr('GST (18%):', 'GST (18%):')}</span>
+                        <span>GST (18%):</span>
                         <span>{formatPrice(gstAmount)}</span>
                       </div>
                     )}
                     <div className="summary-row total">
-                      <span>{tr('Total:', 'कुल:')}</span>
+                      <span>Total:</span>
                       <span>{formatPrice(total)}</span>
                     </div>
                   </div>
                 )}
 
                 <div className="form-group">
-                  <label>{tr('Notes', 'नोट्स')}</label>
+                  <label>Notes</label>
                   <textarea
                     value={billingForm.notes}
                     onChange={(e) => setBillingForm({ ...billingForm, notes: e.target.value })}
                     name="notes"
                     className="form-control"
                     rows="3"
-                    placeholder={tr('Any additional notes...', 'कोई अतिरिक्त नोट्स...')}
+                    placeholder="Any additional notes..."
                     style={{ color: '#333', backgroundColor: 'white' }}
                   />
                 </div>
@@ -2717,14 +2691,14 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                     onClick={() => setShowBillingModal(false)}
                     className="btn btn-secondary"
                   >
-                    {tr('Cancel', 'रद्द करें')}
+                    Cancel
                   </button>
                   <button
                     type="submit"
                     className="btn btn-primary"
                     disabled={billingForm.items.length === 0}
                   >
-                    {tr('Generate Bill', 'बिल बनाएं')}
+                    Generate Bill
                   </button>
                 </div>
               </form>
@@ -2757,21 +2731,21 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 onClick={() => setShowBillModal(false)}
                 className="btn btn-secondary"
               >
-                {tr('Close', 'बंद करें')}
+                Close
               </button>
               <button
                 onClick={() => downloadBill(selectedBill)}
                 className="btn btn-primary"
               >
                 <Download size={16} />
-                {tr('Download Bill', 'बिल डाउनलोड करें')}
+                Download Bill
               </button>
               <button
                 onClick={() => printBill(selectedBill)}
                 className="btn btn-primary"
               >
                 <Printer size={16} />
-                {tr('Print Bill', 'बिल प्रिंट करें')}
+                Print Bill
               </button>
             </div>
           </div>
