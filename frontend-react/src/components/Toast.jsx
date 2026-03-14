@@ -1,7 +1,7 @@
 import { CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 import './Toast.css';
 
-const Toast = ({ message, type = 'info' }) => {
+const Toast = ({ message, type = 'info', onClose }) => {
   const getIcon = () => {
     switch (type) {
       case 'success':
@@ -29,9 +29,11 @@ const Toast = ({ message, type = 'info' }) => {
   };
 
   return (
-    <div 
-      className="toast"
+    <div
+      className={`toast ${type === 'warning' ? 'toast-warning' : ''}`}
       style={{ borderLeftColor: getBackgroundColor() }}
+      role="status"
+      aria-live="polite"
     >
       <div 
         className="toast-icon"
@@ -40,8 +42,14 @@ const Toast = ({ message, type = 'info' }) => {
         {getIcon()}
       </div>
       <div className="toast-message">
+        {type === 'warning' && <strong className="toast-title">Warning</strong>}
         {message}
       </div>
+      {typeof onClose === 'function' && (
+        <button type="button" className="toast-close" onClick={onClose} aria-label="Dismiss notification">
+          ×
+        </button>
+      )}
     </div>
   );
 };

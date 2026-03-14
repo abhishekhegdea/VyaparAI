@@ -127,11 +127,14 @@ MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/?retryWrites=true&
 MONGODB_DB_NAME=vyaparai
 JWT_SECRET=your-jwt-secret-key
 SESSION_SECRET=your-session-secret
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-cloudinary-api-key
+CLOUDINARY_API_SECRET=your-cloudinary-api-secret
 ```
 
 ## File Upload
 
-Product images are stored in the `uploads/` directory. Supported formats:
+Product images are stored in Cloudinary when `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` are configured. If those values are missing, the app falls back to the local `uploads/` directory. Supported formats:
 - JPEG/JPG
 - PNG
 - GIF

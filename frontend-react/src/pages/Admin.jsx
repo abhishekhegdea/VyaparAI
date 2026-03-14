@@ -1,9 +1,53 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings } from 'lucide-react';
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { apiService } from '../config/api';
 import { useAuth } from '../contexts/AuthContext';
+import ThreeSceneBackground from '../components/ThreeSceneBackground';
 import './Admin.css';
+
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api').replace(/\/api\/?$/, '');
+
+const isHttpUrl = (value) => /^https?:\/\//i.test(String(value || '').trim());
+
+const buildUploadedImageUrl = (path) => {
+  const normalized = String(path || '').trim();
+  if (!normalized) return '';
+  if (isHttpUrl(normalized)) return normalized;
+
+  if (normalized.startsWith('/')) {
+    return `${API_BASE_URL}${normalized}`;
+  }
+
+  return `${API_BASE_URL}/${normalized}`;
+};
+
+const buildAiImageFallbackUrl = (productName) => {
+  const label = encodeURIComponent(`${productName || 'Product'} photo`);
+  return `https://dummyimage.com/1024x1024/f1f5f9/334155&text=${label}`;
+};
+
+const resolveAiImageSource = (advice) => {
+  const primary = String(advice?.creative?.imageUrl || '').trim();
+  const fallback = buildAiImageFallbackUrl(advice?.productSnapshot?.name);
+  return {
+    primary: isHttpUrl(primary) ? primary : fallback,
+    fallback
+  };
+};
+
+const handleImageLoadError = (event) => {
+  const img = event.currentTarget;
+  const fallback = img.dataset.fallbackSrc;
+
+  if (fallback && img.src !== fallback) {
+    img.src = fallback;
+    return;
+  }
+
+  img.style.display = 'none';
+};
 
 const Admin = ({ showToast }) => {
   const { user, isAdmin, loading: authLoading } = useAuth();
@@ -34,7 +78,6 @@ const Admin = ({ showToast }) => {
     GST_applicable: false,
     productID: null
   });
-  const [selectedFile, setSelectedFile] = useState(null);
   const [billingForm, setBillingForm] = useState({
     customerName: '',
     customerPhone: '',
@@ -42,15 +85,27 @@ const Admin = ({ showToast }) => {
     items: [],
     applyGST: true,
     paymentMethod: 'cash',
-    notes: ''
+    notes: '',
+    sale_date: new Date().toISOString().split('T')[0]
   });
   const [allBills, setAllBills] = useState([]);
   const [showBillingModal, setShowBillingModal] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [selectedBill, setSelectedBill] = useState(null);
   const [showBillModal, setShowBillModal] = useState(false);
-  const [statsPeriod, setStatsPeriod] = useState('today');
-  const [lowStockAlerts, setLowStockAlerts] = useState([]);
+  const [statsPeriod, setStatsPeriod] = useState('day');
+  const [salesAnalytics, setSalesAnalytics] = useState({
+    byDay: [],
+    byWeek: [],
+    byMonth: [],
+    byYear: [],
+    topSellingProducts: []
+  });
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [forecastLoading, setForecastLoading] = useState(false);
+  const [forecastProductID, setForecastProductID] = useState('');
+  const [forecastHorizon, setForecastHorizon] = useState(14);
+  const [productForecast, setProductForecast] = useState(null);
   const [marketingAdvice, setMarketingAdvice] = useState(null);
   const [latestAddedProduct, setLatestAddedProduct] = useState(null);
   const [agentLoading, setAgentLoading] = useState(false);
@@ -101,10 +156,29 @@ const Admin = ({ showToast }) => {
         fetchStats();
         fetchAllBills();
         fetchTransactions();
+        fetchSalesAnalytics();
         checkLowStock();
       }
     }
-  }, [authLoading, navigate, showToast, isAdmin]);
+  }, [authLoading, navigate, showToast, isAdmin]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!forecastProductID && products.length > 0) {
+      const autoId = String(products[0].productID);
+      setForecastProductID(autoId);
+      // Auto-run forecast on first product load so the chart is immediately visible
+      if (!productForecast && !forecastLoading) {
+        fetchProductForecast(autoId, forecastHorizon);
+      }
+    }
+  }, [forecastProductID, products]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!forecastProductID || products.length === 0) {
+      return;
+    }
+    fetchProductForecast(forecastProductID, forecastHorizon);
+  }, [forecastProductID, forecastHorizon]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchProducts = async () => {
     try {
@@ -187,7 +261,6 @@ const Admin = ({ showToast }) => {
 
   const checkLowStock = () => {
     const lowStock = products.filter(product => product.quantity <= 5);
-    setLowStockAlerts(lowStock);
     
     if (lowStock.length > 0) {
       notifyOncePerSession('lowStockToastShown', `${lowStock.length} items are running low on stock!`, 'warning');
@@ -276,6 +349,77 @@ const Admin = ({ showToast }) => {
     } catch (error) {
       console.error('Failed to fetch transactions:', error);
     }
+  };
+
+  const fetchSalesAnalytics = async () => {
+    try {
+      setAnalyticsLoading(true);
+      const response = await apiService.getAdminSalesAnalytics();
+      const analytics = response?.data?.analytics || {};
+      const topProducts = analytics.topSellingProducts || [];
+
+      setSalesAnalytics({
+        byDay: analytics.byDay || [],
+        byWeek: analytics.byWeek || [],
+        byMonth: analytics.byMonth || [],
+        byYear: analytics.byYear || [],
+        topSellingProducts: topProducts
+      });
+    } catch (error) {
+      console.error('Failed to fetch sales analytics:', error);
+      showToast('Failed to load sales analytics', 'error');
+    } finally {
+      setAnalyticsLoading(false);
+    }
+  };
+
+  const fetchProductForecast = async (productID, horizon = forecastHorizon) => {
+    if (!productID) {
+      return;
+    }
+
+    const normalizedProductID = Number(productID);
+    const hasProduct = products.some((p) => Number(p.productID) === normalizedProductID);
+    if (!hasProduct) {
+      const fallback = products[0];
+      if (fallback) {
+        setForecastProductID(String(fallback.productID));
+      }
+      return;
+    }
+
+    try {
+      setForecastLoading(true);
+      const response = await apiService.getProductDemandForecast({
+        productID: normalizedProductID,
+        horizon: Number(horizon)
+      });
+      setProductForecast(response?.data?.forecast || null);
+    } catch (error) {
+      console.error('Failed to fetch product forecast:', error);
+      setProductForecast(null);
+
+      const notFound = error?.response?.status === 404;
+      if (notFound && products.length > 0) {
+        const fallbackProductID = String(products[0].productID);
+        if (String(productID) !== fallbackProductID) {
+          setForecastProductID(fallbackProductID);
+          showToast('Selected product no longer exists. Switched to first available product.', 'warning');
+          return;
+        }
+      }
+
+      showToast('Failed to generate ARIMA forecast', 'error');
+    } finally {
+      setForecastLoading(false);
+    }
+  };
+
+  const getTrendSeriesByPeriod = () => {
+    if (statsPeriod === 'week') return salesAnalytics.byWeek || [];
+    if (statsPeriod === 'month') return salesAnalytics.byMonth || [];
+    if (statsPeriod === 'year') return salesAnalytics.byYear || [];
+    return salesAnalytics.byDay || [];
   };
 
   const handleInputChange = (e) => {
@@ -450,9 +594,7 @@ const Admin = ({ showToast }) => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
+    setForm((prev) => ({ ...prev, image: file || null }));
   };
 
   // Enhanced Billing functions
@@ -564,7 +706,8 @@ const Admin = ({ showToast }) => {
         customerEmail: billingForm.customerEmail,
         applyGST: billingForm.applyGST,
         paymentMethod: billingForm.paymentMethod,
-        notes: billingForm.notes
+        notes: billingForm.notes,
+        sale_date: billingForm.sale_date || new Date().toISOString().split('T')[0]
       };
 
       const response = await apiService.generateAdminBill(billData);
@@ -578,7 +721,8 @@ const Admin = ({ showToast }) => {
         items: [],
         applyGST: true,
         paymentMethod: 'cash',
-        notes: ''
+        notes: '',
+        sale_date: new Date().toISOString().split('T')[0]
       });
       setShowBillingModal(false);
       
@@ -614,7 +758,6 @@ const Admin = ({ showToast }) => {
   };
 
   const printBill = (bill) => {
-    const billContent = generateBillContent(bill);
     const printWindow = window.open('', '_blank');
     printWindow.document.write(`
       <html>
@@ -827,11 +970,54 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
       return 'Good Evening';
     };
 
+    const trendSeries = getTrendSeriesByPeriod();
+    const topSellingChartData = (salesAnalytics.topSellingProducts || []).slice(0, 7).map((item) => ({
+      ...item,
+      shortName: item.name?.length > 14 ? `${item.name.slice(0, 14)}...` : item.name
+    }));
+
+    const forecastSeries = productForecast?.combinedSeries || [];
+    const topProduct = salesAnalytics.topSellingProducts?.[0] || null;
+    const rangeRevenue = trendSeries.reduce((sum, item) => sum + Number(item.revenue || 0), 0);
+    const rangeItems = trendSeries.reduce((sum, item) => sum + Number(item.itemsSold || 0), 0);
+    const trendHeadline = statsPeriod === 'day'
+      ? 'Last 14 days'
+      : statsPeriod === 'week'
+        ? 'Last 12 weeks'
+        : statsPeriod === 'month'
+          ? 'Last 12 months'
+          : 'Last 5 years';
+
     return (
       <div className="home-screen">
-        <div className="greeting-section">
-          <h1>{getGreeting()}, {user?.name?.split(' ')[0] || 'Admin'}!</h1>
-          <p>Here is what&apos;s happening with your business today.</p>
+        <div className="dashboard-hero-shell">
+          <ThreeSceneBackground className="dashboard-hero-scene" />
+          <div className="dashboard-hero-overlay" />
+          <div className="dashboard-hero-content">
+            <div className="greeting-section dashboard-hero-copy">
+              <span className="dashboard-hero-tag">Retail command center</span>
+              <h1>{getGreeting()}, {user?.name?.split(' ')[0] || 'Admin'}!</h1>
+              <p>Track revenue, identify your most selling products, and predict demand before stock runs low.</p>
+            </div>
+
+            <div className="dashboard-hero-metrics">
+              <div className="hero-metric-card">
+                <span className="hero-metric-label">Analytics Window</span>
+                <strong>{trendHeadline}</strong>
+                <small>{rangeItems} items sold</small>
+              </div>
+              <div className="hero-metric-card">
+                <span className="hero-metric-label">Revenue in View</span>
+                <strong>₹{rangeRevenue.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</strong>
+                <small>{trendSeries.length} plotted points</small>
+              </div>
+              <div className="hero-metric-card">
+                <span className="hero-metric-label">Top Product</span>
+                <strong>{topProduct?.name || 'Waiting for sales'}</strong>
+                <small>{topProduct ? `${topProduct.totalQuantity} units sold` : 'No transactions yet'}</small>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="stat-cards-list">
@@ -859,6 +1045,129 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
             </div>
             <span className="sci-badge red">Alert</span>
           </div>
+        </div>
+
+        <div className="analytics-card">
+          <div className="analytics-head">
+            <h3>Sales Trend</h3>
+            <div className="range-toggle">
+              <button className={`range-btn ${statsPeriod === 'day' ? 'active' : ''}`} onClick={() => setStatsPeriod('day')}>Day</button>
+              <button className={`range-btn ${statsPeriod === 'week' ? 'active' : ''}`} onClick={() => setStatsPeriod('week')}>Week</button>
+              <button className={`range-btn ${statsPeriod === 'month' ? 'active' : ''}`} onClick={() => setStatsPeriod('month')}>Month</button>
+              <button className={`range-btn ${statsPeriod === 'year' ? 'active' : ''}`} onClick={() => setStatsPeriod('year')}>Year</button>
+            </div>
+          </div>
+
+          {analyticsLoading ? (
+            <p className="chart-empty">Loading sales charts...</p>
+          ) : trendSeries.length === 0 ? (
+            <p className="chart-empty">No sales data available yet.</p>
+          ) : (
+            <div className="chart-wrap">
+              <ResponsiveContainer width="100%" height={260}>
+                <LineChart data={trendSeries} margin={{ top: 10, right: 14, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5edf2" />
+                  <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(value, name) => name === 'Revenue' ? [`₹${Number(value || 0).toLocaleString('en-IN')}`, 'Revenue'] : [value, name]} />
+                  <Legend />
+                  <Line type="monotone" dataKey="revenue" stroke="#0f8a8d" strokeWidth={2.5} dot={false} name="Revenue" isAnimationActive={false} />
+                  <Line type="monotone" dataKey="itemsSold" stroke="#f57c00" strokeWidth={2} dot={false} name="Items Sold" isAnimationActive={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        <div className="analytics-card">
+          <div className="analytics-head">
+            <h3>Most Selling Products</h3>
+          </div>
+          {topSellingChartData.length === 0 ? (
+            <p className="chart-empty">Top products will appear after sales start.</p>
+          ) : (
+            <div className="chart-wrap">
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={topSellingChartData} margin={{ top: 10, right: 14, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5edf2" />
+                  <XAxis dataKey="shortName" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(value, name) => name === 'Revenue' ? [`₹${Number(value || 0).toLocaleString('en-IN')}`, 'Revenue'] : [value, name]} />
+                  <Legend />
+                  <Bar dataKey="totalQuantity" name="Qty Sold" fill="#0f8a8d" radius={[8, 8, 0, 0]} isAnimationActive={false} />
+                  <Bar dataKey="totalRevenue" name="Revenue" fill="#4285f4" radius={[8, 8, 0, 0]} isAnimationActive={false} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        <div className="analytics-card">
+          <div className="analytics-head">
+            <h3>Hybrid ARIMA + SARIMA Forecast</h3>
+          </div>
+
+          <div className="forecast-controls">
+            <select
+              className="form-control"
+              value={forecastProductID}
+              onChange={(e) => setForecastProductID(e.target.value)}
+            >
+              <option value="">Select product</option>
+              {products.map((product) => (
+                <option key={product.productID} value={String(product.productID)}>
+                  {product.name}
+                </option>
+              ))}
+            </select>
+
+            <select
+              className="form-control"
+              value={forecastHorizon}
+              onChange={(e) => setForecastHorizon(Number(e.target.value))}
+            >
+              <option value={7}>Next 7 days</option>
+              <option value={14}>Next 14 days</option>
+              <option value={21}>Next 21 days</option>
+              <option value={30}>Next 30 days</option>
+            </select>
+
+            <button
+              className="btn btn-primary"
+              type="button"
+              onClick={() => fetchProductForecast(forecastProductID, forecastHorizon)}
+              disabled={forecastLoading || !forecastProductID}
+            >
+              {forecastLoading ? 'Predicting...' : 'Run Hybrid Forecast'}
+            </button>
+          </div>
+
+          {productForecast && (
+            <div className="forecast-summary">
+              <p>
+                <strong>{productForecast.productName}</strong> | Method: {productForecast.method} | Suggested stock for next {productForecast.horizonDays} days:
+                {' '}<strong>{productForecast.suggestedStock} items</strong>
+              </p>
+            </div>
+          )}
+
+          {forecastSeries.length > 0 ? (
+            <div className="chart-wrap">
+              <ResponsiveContainer width="100%" height={260}>
+                <LineChart data={forecastSeries} margin={{ top: 10, right: 14, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5edf2" />
+                  <XAxis dataKey="label" tick={{ fontSize: 10 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip />
+                  <Legend />
+                  <Line type="monotone" dataKey="actualQuantity" stroke="#0f8a8d" strokeWidth={2.5} dot={false} name="Historical Qty" isAnimationActive={false} />
+                  <Line type="monotone" dataKey="predictedQuantity" stroke="#ea4335" strokeWidth={2.5} dot={false} strokeDasharray="6 4" name="Predicted Qty" isAnimationActive={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          ) : (
+            <p className="chart-empty">Select a product and run hybrid forecast to view demand prediction.</p>
+          )}
         </div>
 
         {taxAlert && (
@@ -899,7 +1208,10 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           </div>
         )}
 
-        {marketingAdvice?.creative?.imageUrl && (
+        {marketingAdvice?.creative && (() => {
+          const { primary, fallback } = resolveAiImageSource(marketingAdvice);
+
+          return (
           <div className="dashboard-photo-card">
             <div className="dashboard-photo-head">
               <strong>Latest AI Product Photo</strong>
@@ -908,16 +1220,19 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               </button>
             </div>
             <img
-              src={marketingAdvice.creative.imageUrl}
+              src={primary}
+              data-fallback-src={fallback}
               alt={`${marketingAdvice.productSnapshot?.name || 'Product'} AI generated photography`}
               className="dashboard-generated-photo"
               loading="lazy"
+              onError={handleImageLoadError}
             />
             <p className="agent-disclaimer">
               {marketingAdvice.productSnapshot?.name || 'Product'} • {marketingAdvice.creative?.selectedStyle || 'studio-white'}
             </p>
           </div>
-        )}
+          );
+        })()}
 
         <div className="ai-banner" onClick={() => setActiveTab('marketingAI')} role="button" tabIndex={0} onKeyDown={() => {}}>
           <div className="ai-banner-text">
@@ -997,9 +1312,11 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
                 <td>
                   {product.image_url ? (
                     <img
-                      src={`http://localhost:3000${product.image_url}`}
+                      src={buildUploadedImageUrl(product.image_url)}
                       alt={product.name}
                       className="product-thumbnail"
+                      onError={handleImageLoadError}
+                      data-fallback-src={buildAiImageFallbackUrl(product.name)}
                     />
                   ) : (
                     <div className="no-image">No Image</div>
@@ -1053,8 +1370,6 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
   );
 
   const Billing = () => {
-    const { subtotal, gstAmount, total } = calculateBillingTotal();
-    
     return (
       <div className="billing-section">
         <div className="billing-header">
@@ -1240,18 +1555,24 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <p><strong>Value Hook:</strong> {marketingAdvice.strategy?.valueHook}</p>
           <p><strong>CTA:</strong> {marketingAdvice.strategy?.cta}</p>
 
-          {marketingAdvice.creative?.imageUrl && (
+          {marketingAdvice.creative && (() => {
+            const { primary, fallback } = resolveAiImageSource(marketingAdvice);
+
+            return (
             <div className="marketing-image-wrap">
               <h4>AI Product Photography</h4>
               <img
-                src={marketingAdvice.creative.imageUrl}
+                src={primary}
+                data-fallback-src={fallback}
                 alt={`${marketingAdvice.productSnapshot?.name || 'Product'} product photography`}
                 className="marketing-generated-image"
                 loading="lazy"
+                onError={handleImageLoadError}
               />
               <p className="agent-disclaimer">{marketingAdvice.creative.note}</p>
             </div>
-          )}
+            );
+          })()}
 
           <h4>Recommended Channels</h4>
           <ul className="agent-list">
@@ -1761,18 +2082,33 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
               </div>
 
               <form onSubmit={handleBillingSubmit} className="modal-body">
-                <div className="form-group">
-                  <label>Customer Name *</label>
-                  <input
-                    type="text"
-                    value={billingForm.customerName}
-                    onChange={(e) => setBillingForm({ ...billingForm, customerName: e.target.value })}
-                    name="customerName"
-                    required
-                    className="form-control"
-                    placeholder="Enter customer name"
-                    style={{ color: '#333', backgroundColor: 'white' }}
-                  />
+                <div className="form-row">
+                  <div className="form-group">
+                    <label>Customer Name *</label>
+                    <input
+                      type="text"
+                      value={billingForm.customerName}
+                      onChange={(e) => setBillingForm({ ...billingForm, customerName: e.target.value })}
+                      name="customerName"
+                      required
+                      className="form-control"
+                      placeholder="Enter customer name"
+                      style={{ color: '#333', backgroundColor: 'white' }}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Sale Date *</label>
+                    <input
+                      type="date"
+                      value={billingForm.sale_date}
+                      onChange={(e) => setBillingForm({ ...billingForm, sale_date: e.target.value })}
+                      name="sale_date"
+                      required
+                      max={new Date().toISOString().split('T')[0]}
+                      className="form-control"
+                      style={{ color: '#333', backgroundColor: 'white' }}
+                    />
+                  </div>
                 </div>
 
                 <div className="form-row">

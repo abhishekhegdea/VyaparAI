@@ -71,6 +71,7 @@ const productSchema = new mongoose.Schema(
     quantity: { type: Number, default: 0 },
     expiry_date: { type: Date, default: null },
     image_url: { type: String, default: null },
+    image_public_id: { type: String, default: null },
     created_at: { type: Date, default: Date.now }
   },
   { versionKey: false }
@@ -167,29 +168,50 @@ async function seedDefaultAdmin() {
 }
 
 async function seedSampleProducts(ownerAdminID) {
-  const totalProducts = await Product.countDocuments({ ownerAdminID });
-  if (totalProducts > 0) {
-    return;
-  }
-
   const sampleProducts = [
     { name: 'Pencil Set', category: 'Stationaries', description: 'Colorful pencil set with 12 pencils', price: 50.0, GST_applicable: false, quantity: 100 },
     { name: 'Notebook', category: 'Stationaries', description: 'A4 size notebook with 100 pages', price: 80.0, GST_applicable: false, quantity: 50 },
+    { name: 'Blue Ball Pen Pack', category: 'Stationaries', description: 'Pack of 10 smooth-writing blue pens', price: 120.0, GST_applicable: false, quantity: 80 },
+    { name: 'Marker Set', category: 'Stationaries', description: 'Permanent marker set, assorted colors', price: 95.0, GST_applicable: false, quantity: 45 },
+    { name: 'Geometry Box', category: 'Stationaries', description: 'Compass, divider and ruler kit for students', price: 140.0, GST_applicable: false, quantity: 40 },
     { name: 'Teddy Bear', category: 'Toys', description: 'Soft plush teddy bear', price: 200.0, GST_applicable: true, quantity: 30 },
     { name: 'Remote Car', category: 'Toys', description: 'Battery operated remote control car', price: 500.0, GST_applicable: true, quantity: 20 },
+    { name: 'Building Blocks Set', category: 'Toys', description: 'Creative 120-piece building block toy set', price: 650.0, GST_applicable: true, quantity: 18 },
+    { name: 'Puzzle Board Game', category: 'Toys', description: 'Family-friendly 500-piece puzzle board game', price: 320.0, GST_applicable: true, quantity: 22 },
     { name: 'Gift Box', category: 'Gifts', description: 'Beautiful gift wrapping box', price: 150.0, GST_applicable: true, quantity: 40 },
+    { name: 'Greeting Card Combo', category: 'Gifts', description: 'Set of 6 premium greeting cards', price: 180.0, GST_applicable: true, quantity: 35 },
+    { name: 'Ribbon Roll Set', category: 'Gifts', description: 'Decorative ribbon rolls for gift wrapping', price: 110.0, GST_applicable: true, quantity: 55 },
     { name: 'Flower Vase', category: 'Fancy Items', description: 'Decorative ceramic flower vase', price: 300.0, GST_applicable: true, quantity: 25 },
     { name: 'Candle Holder', category: 'Fancy Items', description: 'Elegant metal candle holder', price: 180.0, GST_applicable: true, quantity: 35 },
+    { name: 'Decor String Lights', category: 'Fancy Items', description: 'Warm LED string lights for decoration', price: 260.0, GST_applicable: true, quantity: 30 },
     { name: 'Birthday Card', category: 'Gifts', description: 'Handmade birthday greeting card', price: 30.0, GST_applicable: false, quantity: 100 },
     { name: 'Orange Juice 1L', category: 'Beverages', description: 'Packed orange juice bottle', price: 120.0, GST_applicable: true, quantity: 28, expiry_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000) },
-    { name: 'Whole Wheat Bread', category: 'Food', description: 'Fresh bakery bread loaf', price: 45.0, GST_applicable: false, quantity: 18, expiry_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) }
+    { name: 'Mixed Fruit Juice 1L', category: 'Beverages', description: 'Mixed fruit drink, 1 liter pack', price: 130.0, GST_applicable: true, quantity: 24, expiry_date: new Date(Date.now() + 12 * 24 * 60 * 60 * 1000) },
+    { name: 'Whole Wheat Bread', category: 'Food', description: 'Fresh bakery bread loaf', price: 45.0, GST_applicable: false, quantity: 18, expiry_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000) },
+    { name: 'Chocolate Cookies Pack', category: 'Food', description: 'Crunchy chocolate cookies, family pack', price: 90.0, GST_applicable: false, quantity: 40, expiry_date: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000) }
   ];
 
+  const existing = await Product.find(
+    { ownerAdminID },
+    { _id: 0, name: 1 }
+  ).lean();
+  const existingNames = new Set(existing.map((item) => String(item.name || '').trim().toLowerCase()));
+
+  let insertedCount = 0;
   for (const product of sampleProducts) {
+    const normalizedName = String(product.name || '').trim().toLowerCase();
+    if (existingNames.has(normalizedName)) {
+      continue;
+    }
+
     await createProduct({ ...product, ownerAdminID });
+    existingNames.add(normalizedName);
+    insertedCount += 1;
   }
 
-  console.log(`Sample products inserted successfully for admin ${ownerAdminID}`);
+  if (insertedCount > 0) {
+    console.log(`Inserted ${insertedCount} sample products for admin ${ownerAdminID}`);
+  }
 }
 
 async function backfillLegacyOwnership(defaultAdminID) {

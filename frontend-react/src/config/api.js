@@ -4,7 +4,7 @@ import axios from 'axios';
 // VITE_API_URL is set in Netlify/Vercel env vars to the Render backend URL, e.g. https://vyaparai-backend.onrender.com/api
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -58,6 +58,8 @@ export const API_ENDPOINTS = {
   
   // Bills
   ADMIN_BILLS: '/bills/admin',
+  ADMIN_BILLS_ANALYTICS: '/bills/admin/analytics',
+  ADMIN_BILLS_FORECAST: '/bills/admin/forecast',
   BILL_BY_ID: (id) => `/bills/${id}`,
   GENERATE_ADMIN_BILL: '/bills/admin/generate',
 
@@ -92,6 +94,8 @@ export const apiService = {
   
   // Bills
   getAdminBills: () => api.get(API_ENDPOINTS.ADMIN_BILLS),
+  getAdminSalesAnalytics: () => api.get(API_ENDPOINTS.ADMIN_BILLS_ANALYTICS),
+  getProductDemandForecast: (params) => api.get(API_ENDPOINTS.ADMIN_BILLS_FORECAST, { params }),
   getBill: (id) => api.get(API_ENDPOINTS.BILL_BY_ID(id)),
   generateAdminBill: (billData) => api.post(API_ENDPOINTS.GENERATE_ADMIN_BILL, billData),
 

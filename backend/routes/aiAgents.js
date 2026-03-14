@@ -3,6 +3,7 @@ const { requireAuth, requireAdmin } = require('./middleware');
 const { buildMarketingAdvice, estimateFinancialAdvice } = require('../services/agenticAdvisors');
 const { askWebsiteAssistant } = require('../services/websiteChatbot');
 const { models } = require('../database/database');
+const { persistMarketingAdviceImage } = require('../services/imageStorage');
 
 const router = express.Router();
 const { Product } = models;
@@ -31,7 +32,20 @@ const WEBSITE_SCOPE_KEYWORDS = [
   'sales',
   'revenue',
   'customer',
-  'analytics'
+  'analytics',
+  'finance',
+  'financial',
+  'gst',
+  'tax',
+  'profit',
+  'loss',
+  'expense',
+  'income',
+  'cashflow',
+  'cash flow',
+  'forecast',
+  'arima',
+  'demand'
 ];
 
 function isWebsiteScopedQuery(query) {
@@ -64,7 +78,7 @@ router.post('/marketing-advice', requireAuth, requireAdmin, async (req, res) => 
       return res.status(400).json({ error: 'Product details are required' });
     }
 
-    const advice = buildMarketingAdvice(product, { photoStyle });
+    const advice = await persistMarketingAdviceImage(buildMarketingAdvice(product, { photoStyle }));
     res.json({ message: 'Marketing advisory generated', advice });
   } catch (error) {
     console.error('Marketing advisory error:', error);
@@ -84,7 +98,7 @@ router.post('/marketing-advice/product/:productID', requireAuth, requireAdmin, a
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const advice = buildMarketingAdvice(product, { photoStyle });
+    const advice = await persistMarketingAdviceImage(buildMarketingAdvice(product, { photoStyle }));
     res.json({ message: 'Marketing advisory generated', advice, product });
   } catch (error) {
     console.error('Marketing advisory by product error:', error);

@@ -100,22 +100,29 @@ function createSpark() {
   return mesh;
 }
 
-export default function ThreeSceneBackground() {
+export default function ThreeSceneBackground({ className = '' }) {
   const mountRef = useRef(null);
 
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return undefined;
 
+    const getSize = () => ({
+      width: Math.max(mount.clientWidth || window.innerWidth, 1),
+      height: Math.max(mount.clientHeight || window.innerHeight, 1)
+    });
+
+    const initialSize = getSize();
+
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(initialSize.width, initialSize.height);
     renderer.setClearColor(0x000000, 0);
     mount.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
 
-    const camera = new THREE.PerspectiveCamera(52, window.innerWidth / window.innerHeight, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(52, initialSize.width / initialSize.height, 0.1, 100);
     camera.position.set(0, 0.1, 5.8);
 
     const ambient = new THREE.AmbientLight('#ffffff', 0.8);
@@ -127,7 +134,7 @@ export default function ThreeSceneBackground() {
     scene.add(ambient, key, rim);
 
     const objects = [];
-    const mobileCount = window.innerWidth < 768 ? 18 : 32;
+    const mobileCount = initialSize.width < 768 ? 18 : 32;
 
     for (let i = 0; i < mobileCount; i += 1) {
       let object;
@@ -188,17 +195,28 @@ export default function ThreeSceneBackground() {
 
     animate();
 
+    let pendingResize = null;
     const onResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.8));
+      if (pendingResize !== null) cancelAnimationFrame(pendingResize);
+      pendingResize = requestAnimationFrame(() => {
+        pendingResize = null;
+        const nextSize = getSize();
+        camera.aspect = nextSize.width / nextSize.height;
+        camera.updateProjectionMatrix();
+        // updateStyle=false keeps CSS (width:100%) controlling visual size;
+        // only the internal buffer resolution is updated
+        renderer.setSize(nextSize.width, nextSize.height, false);
+      });
     };
 
     window.addEventListener('resize', onResize);
+    const resizeObserver = new ResizeObserver(onResize);
+    resizeObserver.observe(mount);
 
     return () => {
+      if (pendingResize !== null) cancelAnimationFrame(pendingResize);
       window.removeEventListener('resize', onResize);
+      resizeObserver.disconnect();
       cancelAnimationFrame(frameId);
 
       objects.forEach((obj) => {
@@ -221,5 +239,5 @@ export default function ThreeSceneBackground() {
     };
   }, []);
 
-  return <div className="three-scene-bg" ref={mountRef} aria-hidden="true" />;
+  return <div className={`three-scene-bg ${className}`.trim()} ref={mountRef} aria-hidden="true" />;
 }

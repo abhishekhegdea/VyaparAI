@@ -4,6 +4,7 @@ const path = require('path');
 const { models, helpers } = require('../database/database');
 const { requireAuth, requireAdmin } = require('./middleware');
 const { buildMarketingAdvice } = require('../services/agenticAdvisors');
+const { uploadProductImage, persistMarketingAdviceImage, removeStoredImage } = require('../services/imageStorage');
 
 const router = express.Router();
 const { Product } = models;
@@ -22,18 +23,8 @@ function parseExpiryDate(value) {
 // Retail manager app: all product access is admin-authenticated.
 router.use(requireAuth, requireAdmin);
 
-// Multer configuration for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-
 const upload = multer({ 
-  storage: storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
     const allowedTypes = /jpeg|jpg|png|gif/;
@@ -124,7 +115,10 @@ router.post('/', requireAuth, requireAdmin, upload.single('image'), async (req, 
       return res.status(400).json({ error: 'Expiry date is required for Food/Beverages products' });
     }
 
-    const image_url = req.file ? `/uploads/${req.file.filename}` : null;
+    const uploadedImage = await uploadProductImage(req.file, {
+      folder: 'vyaparai/products',
+      baseName: name
+    });
 
     const newProductDoc = await helpers.createProduct({
       ownerAdminID: req.user.userID,
@@ -135,12 +129,13 @@ router.post('/', requireAuth, requireAdmin, upload.single('image'), async (req, 
       GST_applicable: GST_applicable === 'true' || GST_applicable === true,
       quantity: parseInt(quantity, 10),
       expiry_date: parsedExpiryDate,
-      image_url
+      image_url: uploadedImage.imageUrl,
+      image_public_id: uploadedImage.publicId
     });
 
     const newProduct = newProductDoc.toObject();
     delete newProduct._id;
-    const marketingAgent = buildMarketingAdvice(newProduct);
+    const marketingAgent = await persistMarketingAdviceImage(buildMarketingAdvice(newProduct));
 
     res.status(201).json({
       message: 'Product added successfully',
@@ -168,7 +163,18 @@ router.put('/:id', requireAuth, requireAdmin, upload.single('image'), async (req
       return res.status(404).json({ error: 'Product not found' });
     }
 
-    const image_url = req.file ? `/uploads/${req.file.filename}` : existingProduct.image_url;
+    let image_url = existingProduct.image_url;
+    let image_public_id = existingProduct.image_public_id || null;
+
+    if (req.file) {
+      const uploadedImage = await uploadProductImage(req.file, {
+        folder: 'vyaparai/products',
+        baseName: name || existingProduct.name
+      });
+      image_url = uploadedImage.imageUrl;
+      image_public_id = uploadedImage.publicId;
+      await removeStoredImage(existingProduct.image_public_id);
+    }
 
     const parsedPrice = price !== undefined ? parseFloat(price) : existingProduct.price;
     const parsedQuantity = quantity !== undefined ? parseInt(quantity, 10) : existingProduct.quantity;
@@ -192,6 +198,7 @@ router.put('/:id', requireAuth, requireAdmin, upload.single('image'), async (req
     existingProduct.quantity = Number.isNaN(parsedQuantity) ? existingProduct.quantity : parsedQuantity;
     existingProduct.expiry_date = parsedExpiryDate;
     existingProduct.image_url = image_url;
+    existingProduct.image_public_id = image_public_id;
 
     await existingProduct.save();
 
@@ -222,6 +229,7 @@ router.delete('/:id', requireAuth, requireAdmin, async (req, res) => {
       return res.status(404).json({ error: 'Product not found' });
     }
 
+    await removeStoredImage(existingProduct.image_public_id);
     await Product.deleteOne({ productID: Number(productId), ownerAdminID: req.user.userID });
 
     res.json({ message: 'Product deleted successfully' });

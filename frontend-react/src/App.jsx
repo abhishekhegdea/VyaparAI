@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
@@ -50,6 +50,8 @@ const AppRoutes = ({ showToast }) => {
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [toast, setToast] = useState(null);
+  const toastTimerRef = useRef(null);
+  const shownWarningKeysRef = useRef(new Set());
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,10 +61,52 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const showToast = (message, type = 'info') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
+  const dismissToast = () => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = null;
+    }
+    setToast(null);
   };
+
+  const showToast = (message, type = 'info') => {
+    const normalizedMessage = String(message || '').trim();
+    if (!normalizedMessage) {
+      return;
+    }
+
+    const warningKey = `${type}:${normalizedMessage.toLowerCase()}`;
+    // Warning toasts should pop once per app session and remain until manually dismissed.
+    if (type === 'warning' && shownWarningKeysRef.current.has(warningKey)) {
+      return;
+    }
+
+    if (type === 'warning') {
+      shownWarningKeysRef.current.add(warningKey);
+    }
+
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = null;
+    }
+
+    setToast({ message: normalizedMessage, type });
+
+    if (type !== 'warning') {
+      toastTimerRef.current = setTimeout(() => {
+        setToast(null);
+        toastTimerRef.current = null;
+      }, 3200);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -76,7 +120,7 @@ function App() {
             <main className="main-content">
               <AppRoutes showToast={showToast} />
             </main>
-            {toast && <Toast message={toast.message} type={toast.type} />}
+            {toast && <Toast message={toast.message} type={toast.type} onClose={dismissToast} />}
           </div>
         </Router>
     </AuthProvider>
