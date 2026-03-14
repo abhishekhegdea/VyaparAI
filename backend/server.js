@@ -70,7 +70,7 @@ app.use('/api/scanner', scannerRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'VyaparAI API is running' });
+  res.json({ status: 'OK', message: 'DukaanSaathi API is running' });
 });
 
 // Error handling middleware

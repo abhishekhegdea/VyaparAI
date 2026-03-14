@@ -12,6 +12,21 @@ function normalizeEmail(value) {
   return String(value || '').trim().toLowerCase();
 }
 
+function buildEmailCandidates(email) {
+  const normalized = normalizeEmail(email);
+  const candidates = [normalized];
+
+  if (normalized.endsWith('@dukaansaathi.com')) {
+    candidates.push(normalized.replace('@dukaansaathi.com', '@vyaparai.com'));
+  }
+
+  if (normalized.endsWith('@vyaparai.com')) {
+    candidates.push(normalized.replace('@vyaparai.com', '@dukaansaathi.com'));
+  }
+
+  return Array.from(new Set(candidates));
+}
+
 // Retailer self-registration — new users are created with admin role
 router.post('/register', async (req, res) => {
   try {
@@ -72,7 +87,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    const user = await User.findOne({ email }).lean();
+    const user = await User.findOne({ email: { $in: buildEmailCandidates(email) } }).lean();
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -118,7 +133,7 @@ router.post('/admin/login', async (req, res) => {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    const user = await User.findOne({ email }).lean();
+    const user = await User.findOne({ email: { $in: buildEmailCandidates(email) } }).lean();
     if (!user || user.role !== 'admin') {
       return res.status(401).json({ error: 'Admin credentials are invalid' });
     }

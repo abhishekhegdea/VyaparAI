@@ -150,20 +150,30 @@ async function createBill(payload) {
 }
 
 async function seedDefaultAdmin() {
-  const existingAdmin = await User.findOne({ email: 'admin@vyaparai.com' }).lean();
+  const existingAdmin = await User.findOne({
+    $or: [
+      { email: { $regex: '^admin@dukaansaathi\\.com$', $options: 'i' } },
+      { email: { $regex: '^admin@vyaparai\\.com$', $options: 'i' } }
+    ]
+  }).lean();
   if (existingAdmin) {
+    const normalizedExistingEmail = String(existingAdmin.email || '').toLowerCase();
+    if (normalizedExistingEmail !== existingAdmin.email) {
+      await User.updateOne({ userID: existingAdmin.userID }, { $set: { email: normalizedExistingEmail } });
+      existingAdmin.email = normalizedExistingEmail;
+    }
     return existingAdmin;
   }
 
   const defaultAdminPassword = await bcrypt.hash('admin123', 10);
   const createdAdmin = await createUser({
     name: 'Admin',
-    email: 'admin@vyaparai.com',
+    email: 'admin@dukaansaathi.com',
     password: defaultAdminPassword,
     role: 'admin'
   });
 
-  console.log('Default admin user created: admin@vyaparai.com / admin123');
+  console.log('Default admin user created: admin@dukaansaathi.com / admin123');
   return createdAdmin.toObject ? createdAdmin.toObject() : createdAdmin;
 }
 
