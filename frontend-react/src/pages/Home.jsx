@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ShoppingBag, ArrowRight } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 import './Home.css';
 
 const Home = () => {
+  const { language, setLanguage, t } = useLanguage();
+
   return (
     <div className="home onboarding-shell">
       <section className="onboarding-card">
@@ -21,31 +24,44 @@ const Home = () => {
         </div>
 
         <div className="onboarding-copy">
-          <h1>Run Your Shop Smarter with AI</h1>
-          <p className="lang-caption">Select your preferred language</p>
+          <h1>{t('home.title')}</h1>
+          <p className="lang-caption">{t('home.languagePrompt')}</p>
 
           <div className="language-pills" role="tablist" aria-label="Language selector">
-            <button type="button" className="pill active">English</button>
-            <button type="button" className="pill">Hindi</button>
-            <button type="button" className="pill">Kannada</button>
+            <button
+              type="button"
+              className={`pill ${language === 'en' ? 'active' : ''}`}
+              onClick={() => setLanguage('en')}
+              aria-pressed={language === 'en'}
+            >
+              {t('common.english')}
+            </button>
+            <button
+              type="button"
+              className={`pill ${language === 'hi' ? 'active' : ''}`}
+              onClick={() => setLanguage('hi')}
+              aria-pressed={language === 'hi'}
+            >
+              {t('common.hindi')}
+            </button>
           </div>
         </div>
 
         <Link to="/auth" className="btn btn-primary btn-large onboarding-cta">
-          Get Started
+          {t('home.getStarted')}
           <ArrowRight size={20} />
         </Link>
 
         <p className="onboarding-footnote">
-          By continuing, you agree to DukaanSaathi&apos;s Terms of Service and Privacy Policy.
+          {t('home.terms')}
         </p>
       </section>
 
       <section className="home-quick-info">
-        <h3>Built for modern retailers</h3>
-        <p>Inventory, billing, and AI recommendations in one workflow.</p>
+        <h3>{t('home.quickTitle')}</h3>
+        <p>{t('home.quickSubtitle')}</p>
         <Link to="/products" className="btn btn-outline">
-          Browse Products
+          {t('home.browseProducts')}
         </Link>
       </section>
         </div>

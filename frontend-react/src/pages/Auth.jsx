@@ -2,6 +2,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, User } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import './Auth.css';
 
 const Auth = ({ showToast }) => {
@@ -11,6 +12,7 @@ const Auth = ({ showToast }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login, register } = useAuth();
+  const { t } = useLanguage();
 
   const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [registerForm, setRegisterForm] = useState({ name: '', email: '', password: '' });
@@ -21,13 +23,13 @@ const Auth = ({ showToast }) => {
     try {
       const result = await login(loginForm.email, loginForm.password, { adminOnly: true });
       if (result.success) {
-        showToast('Welcome back!', 'success');
+        showToast(t('auth.toasts.welcomeBack'), 'success');
         navigate('/admin');
       } else {
         showToast(result.error, 'error');
       }
     } catch {
-      showToast('Login failed. Please try again.', 'error');
+      showToast(t('auth.toasts.loginFailed'), 'error');
     } finally {
       setLoading(false);
     }
@@ -39,13 +41,13 @@ const Auth = ({ showToast }) => {
     try {
       const result = await register(registerForm.name, registerForm.email, registerForm.password);
       if (result.success) {
-        showToast('Account created! Welcome to DukaanSaathi.', 'success');
+        showToast(t('auth.toasts.accountCreated'), 'success');
         navigate('/admin');
       } else {
         showToast(result.error, 'error');
       }
     } catch {
-      showToast('Registration failed. Please try again.', 'error');
+      showToast(t('auth.toasts.registerFailed'), 'error');
     } finally {
       setLoading(false);
     }
@@ -59,24 +61,24 @@ const Auth = ({ showToast }) => {
             className={`auth-tab ${activeTab === 'register' ? 'active' : ''}`}
             onClick={() => setActiveTab('register')}
           >
-            Create Account
+            {t('auth.createAccountTab')}
           </button>
           <button
             className={`auth-tab ${activeTab === 'login' ? 'active' : ''}`}
             onClick={() => setActiveTab('login')}
           >
-            Sign In
+            {t('auth.signInTab')}
           </button>
         </div>
 
         <div className="auth-form">
           {activeTab === 'register' ? (
             <>
-              <h2>Create Retailer Account</h2>
-              <p>Register with your email to manage your shop with DukaanSaathi.</p>
+              <h2>{t('auth.createRetailerAccount')}</h2>
+              <p>{t('auth.createRetailerSubtitle')}</p>
               <form onSubmit={handleRegisterSubmit}>
                 <div className="form-group">
-                  <label htmlFor="regName">Full Name</label>
+                  <label htmlFor="regName">{t('auth.fullName')}</label>
                   <div className="input-group">
                     <User size={20} />
                     <input
@@ -86,12 +88,12 @@ const Auth = ({ showToast }) => {
                       value={registerForm.name}
                       onChange={(e) => setRegisterForm(prev => ({ ...prev, name: e.target.value }))}
                       required
-                      placeholder="Your full name"
+                      placeholder={t('auth.fullNamePlaceholder')}
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="regEmail">Email</label>
+                  <label htmlFor="regEmail">{t('auth.email')}</label>
                   <div className="input-group">
                     <Mail size={20} />
                     <input
@@ -101,12 +103,12 @@ const Auth = ({ showToast }) => {
                       value={registerForm.email}
                       onChange={(e) => setRegisterForm(prev => ({ ...prev, email: e.target.value }))}
                       required
-                      placeholder="you@gmail.com"
+                      placeholder={t('auth.emailPlaceholder')}
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="regPassword">Password</label>
+                  <label htmlFor="regPassword">{t('auth.password')}</label>
                   <div className="input-group">
                     <Lock size={20} />
                     <input
@@ -116,7 +118,7 @@ const Auth = ({ showToast }) => {
                       value={registerForm.password}
                       onChange={(e) => setRegisterForm(prev => ({ ...prev, password: e.target.value }))}
                       required
-                      placeholder="Min. 6 characters"
+                      placeholder={t('auth.passwordPlaceholder')}
                       minLength={6}
                     />
                     <button type="button" className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
@@ -125,21 +127,21 @@ const Auth = ({ showToast }) => {
                   </div>
                 </div>
                 <button type="submit" className="btn btn-primary w-full" disabled={loading}>
-                  {loading ? 'Creating account...' : 'Create Account'}
+                  {loading ? t('auth.createAccountLoading') : t('auth.createAccount')}
                 </button>
               </form>
               <p className="auth-switch">
-                Already have an account?{' '}
-                <button className="link-btn" onClick={() => setActiveTab('login')}>Sign In</button>
+                {t('auth.alreadyHaveAccount')}{' '}
+                <button className="link-btn" onClick={() => setActiveTab('login')}>{t('auth.signInLink')}</button>
               </p>
             </>
           ) : (
             <>
-              <h2>Retailer Sign In</h2>
-              <p>Sign in to manage your retail shop.</p>
+              <h2>{t('auth.retailerSignIn')}</h2>
+              <p>{t('auth.retailerSignInSubtitle')}</p>
               <form onSubmit={handleLoginSubmit}>
                 <div className="form-group">
-                  <label htmlFor="loginEmail">Email</label>
+                  <label htmlFor="loginEmail">{t('auth.email')}</label>
                   <div className="input-group">
                     <Mail size={20} />
                     <input
@@ -149,12 +151,12 @@ const Auth = ({ showToast }) => {
                       value={loginForm.email}
                       onChange={(e) => setLoginForm(prev => ({ ...prev, email: e.target.value }))}
                       required
-                      placeholder="Enter your email"
+                      placeholder={t('auth.loginEmailPlaceholder')}
                     />
                   </div>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="loginPassword">Password</label>
+                  <label htmlFor="loginPassword">{t('auth.password')}</label>
                   <div className="input-group">
                     <Lock size={20} />
                     <input
@@ -164,7 +166,7 @@ const Auth = ({ showToast }) => {
                       value={loginForm.password}
                       onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
                       required
-                      placeholder="Enter your password"
+                      placeholder={t('auth.loginPasswordPlaceholder')}
                     />
                     <button type="button" className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -172,12 +174,12 @@ const Auth = ({ showToast }) => {
                   </div>
                 </div>
                 <button type="submit" className="btn btn-primary w-full" disabled={loading}>
-                  {loading ? 'Signing in...' : 'Sign In'}
+                  {loading ? t('auth.signInLoading') : t('auth.signInTab')}
                 </button>
               </form>
               <p className="auth-switch">
-                New here?{' '}
-                <button className="link-btn" onClick={() => setActiveTab('register')}>Create an account</button>
+                {t('auth.newHere')}{' '}
+                <button className="link-btn" onClick={() => setActiveTab('register')}>{t('auth.createAccountLink')}</button>
               </p>
             </>
           )}
