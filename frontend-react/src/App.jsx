@@ -1,14 +1,15 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Auth from './pages/Auth';
-import Admin from './pages/Admin';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoadingScreen from './components/LoadingScreen';
 import Toast from './components/Toast';
-import ThreeSceneBackground from './components/ThreeSceneBackground';
 import './App.css';
+
+const Home = lazy(() => import('./pages/Home'));
+const Auth = lazy(() => import('./pages/Auth'));
+const Admin = lazy(() => import('./pages/Admin'));
+const ThreeSceneBackground = lazy(() => import('./components/ThreeSceneBackground'));
 
 const RetailerProtectedRoute = ({ children }) => {
   const { user, loading, isAdmin } = useAuth();
@@ -45,6 +46,36 @@ const AppRoutes = ({ showToast }) => {
       />
       <Route path="*" element={<Navigate to={user && isAdmin() ? '/admin' : '/auth'} replace />} />
     </Routes>
+  );
+};
+
+const AppFrame = ({ showToast, toast, dismissToast }) => {
+  const location = useLocation();
+  const [allowAmbientScene] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lowCpu = typeof navigator !== 'undefined' && (navigator.hardwareConcurrency || 0) > 0 && navigator.hardwareConcurrency <= 4;
+    const smallScreen = window.innerWidth <= 900;
+    return !reducedMotion && !lowCpu && !smallScreen;
+  });
+
+  const shouldRenderAmbientScene = allowAmbientScene && location.pathname !== '/admin';
+
+  return (
+    <div className="App">
+      {shouldRenderAmbientScene && (
+        <Suspense fallback={null}>
+          <ThreeSceneBackground className="app-ambient-scene" density="ambient" />
+        </Suspense>
+      )}
+      <Navbar showToast={showToast} />
+      <main className="main-content">
+        <Suspense fallback={<LoadingScreen />}>
+          <AppRoutes showToast={showToast} />
+        </Suspense>
+      </main>
+      {toast && <Toast message={toast.message} type={toast.type} onClose={dismissToast} />}
+    </div>
   );
 };
 
@@ -116,15 +147,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-          <div className="App">
-            <ThreeSceneBackground className="app-ambient-scene" density="ambient" />
-            <Navbar showToast={showToast} />
-            <main className="main-content">
-              <AppRoutes showToast={showToast} />
-            </main>
-            {toast && <Toast message={toast.message} type={toast.type} onClose={dismissToast} />}
-          </div>
-        </Router>
+        <AppFrame showToast={showToast} toast={toast} dismissToast={dismissToast} />
+      </Router>
     </AuthProvider>
   );
 }

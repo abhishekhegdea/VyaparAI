@@ -137,6 +137,13 @@ const Admin = ({ showToast }) => {
   const [showScannerCamera, setShowScannerCamera] = useState(false);
   const [cameraError, setCameraError] = useState('');
   const [cameraStream, setCameraStream] = useState(null);
+  const [enableHeroScene] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lowCpu = typeof navigator !== 'undefined' && (navigator.hardwareConcurrency || 0) > 0 && navigator.hardwareConcurrency <= 4;
+    const smallScreen = window.innerWidth <= 900;
+    return !reducedMotion && !lowCpu && !smallScreen;
+  });
   const videoRef = useRef(null);
 
   const categories = ['Stationaries', 'Fancy Items', 'Toys', 'Gifts', 'Beverages', 'Food'];
@@ -1119,7 +1126,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     return (
       <div className="home-screen">
         <div className="dashboard-hero-shell">
-          <ThreeSceneBackground className="dashboard-hero-scene" />
+          {enableHeroScene && <ThreeSceneBackground className="dashboard-hero-scene" />}
           <div className="dashboard-hero-overlay" />
           <div className="dashboard-hero-content">
             <div className="greeting-section dashboard-hero-copy">
