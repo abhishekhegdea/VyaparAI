@@ -55,6 +55,30 @@ function createStarMist(count) {
   return new THREE.Points(geometry, material);
 }
 
+function createFloatingFrame(color, width, height) {
+  const group = new THREE.Group();
+
+  const frameGeometry = new THREE.BoxGeometry(width, height, 0.05);
+  const edges = new THREE.EdgesGeometry(frameGeometry);
+  const frame = new THREE.LineSegments(
+    edges,
+    new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.52 })
+  );
+
+  const panel = new THREE.Mesh(
+    new THREE.PlaneGeometry(width * 0.88, height * 0.82),
+    new THREE.MeshBasicMaterial({
+      color,
+      transparent: true,
+      opacity: 0.05,
+      side: THREE.DoubleSide
+    })
+  );
+
+  group.add(frame, panel);
+  return group;
+}
+
 export default function ThreeSceneBackground({ className = '', density = 'ambient' }) {
   const mountRef = useRef(null);
 
@@ -92,6 +116,7 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
     scene.add(ambient, key, fill, glow);
 
     const blobs = [];
+    const frames = [];
     const targetCount = density === 'hero' ? 4 : initialSize.width < 768 ? 5 : 8;
 
     for (let i = 0; i < targetCount; i += 1) {
@@ -121,6 +146,39 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
     const mist = createStarMist(density === 'hero' ? 80 : initialSize.width < 768 ? 130 : 220);
     scene.add(mist);
 
+    const frameCount = density === 'hero' ? 2 : initialSize.width < 768 ? 3 : 5;
+    for (let i = 0; i < frameCount; i += 1) {
+      const frame = createFloatingFrame(
+        i % 2 === 0 ? '#9ec8d8' : '#b6b0ee',
+        2.4 + Math.random() * 1.8,
+        1.3 + Math.random() * 1.2
+      );
+
+      frame.position.set(
+        (Math.random() - 0.5) * 13,
+        (Math.random() - 0.5) * 7,
+        -4 - Math.random() * 9
+      );
+
+      frame.rotation.set(
+        (Math.random() - 0.5) * 0.45,
+        (Math.random() - 0.5) * 0.45,
+        (Math.random() - 0.5) * 0.22
+      );
+
+      frame.userData = {
+        origin: frame.position.clone(),
+        swayX: 0.08 + Math.random() * 0.14,
+        swayY: 0.1 + Math.random() * 0.2,
+        swayZ: 0.07 + Math.random() * 0.16,
+        phase: Math.random() * Math.PI * 2,
+        spin: (Math.random() - 0.5) * 0.0012
+      };
+
+      scene.add(frame);
+      frames.push(frame);
+    }
+
     const cursor = new THREE.Vector2(0, 0);
     const onPointerMove = (event) => {
       cursor.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -141,6 +199,13 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
         blob.position.z = blob.userData.origin.z + Math.sin(elapsed * blob.userData.driftZ + blob.userData.phase) * 0.8;
         blob.rotation.x += blob.userData.spinX;
         blob.rotation.y += blob.userData.spinY;
+      });
+
+      frames.forEach((frame) => {
+        frame.position.x = frame.userData.origin.x + Math.sin(elapsed * frame.userData.swayX + frame.userData.phase) * 0.45;
+        frame.position.y = frame.userData.origin.y + Math.cos(elapsed * frame.userData.swayY + frame.userData.phase) * 0.38;
+        frame.position.z = frame.userData.origin.z + Math.sin(elapsed * frame.userData.swayZ + frame.userData.phase) * 0.55;
+        frame.rotation.y += frame.userData.spin;
       });
 
       mist.rotation.y = elapsed * 0.008;
@@ -183,6 +248,19 @@ export default function ThreeSceneBackground({ className = '', density = 'ambien
       cancelAnimationFrame(frameId);
 
       blobs.forEach((obj) => {
+        obj.traverse((child) => {
+          if (child.geometry) child.geometry.dispose();
+          if (child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach((mat) => mat.dispose());
+            } else {
+              child.material.dispose();
+            }
+          }
+        });
+      });
+
+      frames.forEach((obj) => {
         obj.traverse((child) => {
           if (child.geometry) child.geometry.dispose();
           if (child.material) {
