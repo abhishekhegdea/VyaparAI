@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Calculator, Bell, Home, Settings, ArrowLeft, ScanLine, FileSearch } from 'lucide-react';
+import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Bell, Home, Settings, ArrowLeft, ScanLine, FileSearch } from 'lucide-react';
 import NotificationBell from '../components/NotificationBell';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { apiService } from '../config/api';
@@ -119,14 +119,6 @@ const Admin = ({ showToast }) => {
     }
   ]);
   const [taxAlert, setTaxAlert] = useState(null);
-  const [financeInput, setFinanceInput] = useState({
-    annualRevenue: '',
-    annualExpenses: '',
-    inputGstCredit: '',
-    annualTaxableIncome: '',
-    gstRate: '0.18',
-    regime: 'new'
-  });
   const [financeAdvice, setFinanceAdvice] = useState(null);
   const [nearExpiryAlerts, setNearExpiryAlerts] = useState([]);
   const [photoStyle, setPhotoStyle] = useState('studio-white');
@@ -560,18 +552,9 @@ const Admin = ({ showToast }) => {
 
     try {
       setAgentLoading(true);
-      const payload = {
-        annualRevenue: Number(financeInput.annualRevenue || 0),
-        annualExpenses: Number(financeInput.annualExpenses || 0),
-        inputGstCredit: Number(financeInput.inputGstCredit || 0),
-        annualTaxableIncome: financeInput.annualTaxableIncome ? Number(financeInput.annualTaxableIncome) : undefined,
-        gstRate: Number(financeInput.gstRate || 0.18),
-        regime: financeInput.regime
-      };
-
-      const response = await apiService.getFinanceAdvice(payload);
+      const response = await apiService.getFinanceAdvice({});
       setFinanceAdvice(response.data.advice);
-      showToast('Finance AI advisory ready', 'success');
+      showToast('GST compliance audit ready', 'success');
     } catch (error) {
       console.error('Finance AI error:', error);
       showToast('Failed to generate financial advice', 'error');
@@ -1860,116 +1843,150 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     </div>
   );
 
-  const FinanceAI = () => (
-    <div className="agent-section">
-      <div className="agent-header">
-        <h2>Finance Agent AI (India GST + Income Tax)</h2>
-      </div>
+  const FinanceAI = () => {
+    const complianceIssues = financeAdvice?.complianceIssues || [];
+    const issueText = complianceIssues.map((item) => String(item?.complianceIssue || '').toLowerCase()).join(' ');
 
-      <form className="agent-form" onSubmit={runFinanceAdvisor}>
-        <div className="form-row">
-          <div className="form-group">
-            <label>Annual Revenue (INR)</label>
-            <input
-              type="number"
-              className="form-control"
-              value={financeInput.annualRevenue}
-              onChange={(e) => setFinanceInput({ ...financeInput, annualRevenue: e.target.value })}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Annual Expenses (INR)</label>
-            <input
-              type="number"
-              className="form-control"
-              value={financeInput.annualExpenses}
-              onChange={(e) => setFinanceInput({ ...financeInput, annualExpenses: e.target.value })}
-              required
-            />
-          </div>
+    const ruleChecklist = [
+      {
+        key: 'slab',
+        label: '1. Correct GST slab per product',
+        covered: issueText.includes('slab') || (financeAdvice?.productGstClassification || []).length > 0
+      },
+      {
+        key: 'wrong-rate',
+        label: '2. Incorrect GST rate in invoices',
+        covered: issueText.includes('incorrect gst rates') || issueText.includes('rate mismatch')
+      },
+      {
+        key: 'hsn',
+        label: '3. Missing or incorrect HSN codes',
+        covered: issueText.includes('hsn') || (financeAdvice?.productGstClassification || []).some((p) => p.hsnStatus)
+      },
+      {
+        key: 'registration',
+        label: '4. GST registration threshold eligibility',
+        covered: issueText.includes('registration threshold')
+      },
+      {
+        key: 'composition',
+        label: '5. Composition scheme eligibility',
+        covered: issueText.includes('composition scheme')
+      },
+      {
+        key: 'eway',
+        label: '6. E-Way bill requirement above Rs. 50,000',
+        covered: issueText.includes('e-way') || Array.isArray(financeAdvice?.highValueTransactions)
+      },
+      {
+        key: 'itc',
+        label: '7. Input Tax Credit opportunities',
+        covered: issueText.includes('input tax credit') || issueText.includes('itc')
+      },
+      {
+        key: 'filings',
+        label: '8. Filing obligations (GSTR-1 and GSTR-3B)',
+        covered: issueText.includes('gstr-1') || issueText.includes('gstr-3b') || issueText.includes('return filing obligations')
+      },
+      {
+        key: 'risk',
+        label: '9. Tax risk or penalty exposure',
+        covered: issueText.includes('risk') || issueText.includes('penalty')
+      },
+      {
+        key: 'actions',
+        label: '10. Actionable compliance steps',
+        covered: issueText.includes('action plan') || issueText.includes('ongoing compliance')
+      }
+    ];
+
+    const coveredCount = ruleChecklist.filter((item) => item.covered).length;
+
+    return (
+      <div className="agent-section">
+        <div className="agent-header">
+          <h2>GST Compliance Advisor (India)</h2>
         </div>
 
-        <div className="form-row">
-          <div className="form-group">
-            <label>Input GST Credit (INR)</label>
-            <input
-              type="number"
-              className="form-control"
-              value={financeInput.inputGstCredit}
-              onChange={(e) => setFinanceInput({ ...financeInput, inputGstCredit: e.target.value })}
-            />
-          </div>
-          <div className="form-group">
-            <label>GST Rate</label>
-            <select
-              className="form-control"
-              value={financeInput.gstRate}
-              onChange={(e) => setFinanceInput({ ...financeInput, gstRate: e.target.value })}
-            >
-              <option value="0">0%</option>
-              <option value="0.05">5%</option>
-              <option value="0.12">12%</option>
-              <option value="0.18">18%</option>
-              <option value="0.28">28%</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="form-row">
-          <div className="form-group">
-            <label>Income Tax Regime</label>
-            <select
-              className="form-control"
-              value={financeInput.regime}
-              onChange={(e) => setFinanceInput({ ...financeInput, regime: e.target.value })}
-            >
-              <option value="new">New Regime</option>
-              <option value="old">Old Regime</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label>Taxable Income Override (Optional)</label>
-            <input
-              type="number"
-              className="form-control"
-              value={financeInput.annualTaxableIncome}
-              onChange={(e) => setFinanceInput({ ...financeInput, annualTaxableIncome: e.target.value })}
-              placeholder="Leave empty to use Revenue - Expenses"
-            />
-          </div>
-        </div>
-
-        <div className="modal-footer" style={{ marginTop: '8px' }}>
-          <button type="submit" className="btn btn-primary" disabled={agentLoading}>
-            <Calculator size={16} />
-            {agentLoading ? 'Calculating...' : 'Run Finance Agent'}
-          </button>
-        </div>
-      </form>
-
-      {financeAdvice && (
         <div className="agent-card">
-          <h3>Estimated Tax Output</h3>
-          <p><strong>Estimated Profit:</strong> {formatPrice(Number(financeAdvice.summary?.estimatedProfit || 0))}</p>
-          <p><strong>GST Output:</strong> {formatPrice(Number(financeAdvice.gst?.outputGst || 0))}</p>
-          <p><strong>Input GST Credit:</strong> {formatPrice(Number(financeAdvice.gst?.inputGstCredit || 0))}</p>
-          <p><strong>Net GST Payable:</strong> {formatPrice(Number(financeAdvice.gst?.netPayableGst || 0))}</p>
-          <p><strong>Estimated Income Tax:</strong> {formatPrice(Number(financeAdvice.incomeTax?.estimatedTotalIncomeTax || 0))}</p>
-          <p><strong>Regime:</strong> {financeAdvice.incomeTax?.regime?.toUpperCase()}</p>
-
-          <h4>Compliance Checklist</h4>
-          <ul className="agent-list">
-            {(financeAdvice.complianceChecklist || []).map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-
-          <p className="agent-disclaimer">{financeAdvice.disclaimer}</p>
+          <p>
+            This advisor automatically analyzes your product catalog, billing transactions, GST rates, and inventory-linked sales records.
+            It then gives clear GST compliance recommendations for small Indian businesses.
+          </p>
+          <form className="agent-form" onSubmit={runFinanceAdvisor}>
+            <div className="modal-footer" style={{ marginTop: '8px' }}>
+              <button type="submit" className="btn btn-primary" disabled={agentLoading}>
+                <FileSearch size={16} />
+                {agentLoading ? 'Analyzing...' : 'Run GST Compliance Audit'}
+              </button>
+            </div>
+          </form>
         </div>
-      )}
-    </div>
-  );
+
+        {financeAdvice && (
+          <div className="agent-card">
+            <h3>Compliance Summary ({financeAdvice.period})</h3>
+            <p><strong>Products analyzed:</strong> {financeAdvice.summary?.productsAnalysed || 0}</p>
+            <p><strong>Invoices analyzed:</strong> {financeAdvice.summary?.invoicesAnalysed || 0}</p>
+            <p><strong>Taxable turnover:</strong> {formatPrice(Number(financeAdvice.summary?.taxableTurnover || 0))}</p>
+            <p><strong>Output GST from invoices:</strong> {formatPrice(Number(financeAdvice.summary?.outputGstFromInvoices || 0))}</p>
+            <p><strong>Potential underpaid GST:</strong> {formatPrice(Number(financeAdvice.summary?.potentialUnderPaidGst || 0))}</p>
+            <p><strong>Potential excess charged GST:</strong> {formatPrice(Number(financeAdvice.summary?.potentialOverPaidGst || 0))}</p>
+
+            <div className="scanner-output-block" style={{ marginBottom: '12px' }}>
+              <h4>Rule Coverage</h4>
+              <p><strong>Coverage:</strong> {coveredCount}/10 rules applied</p>
+              <ul className="agent-list">
+                {ruleChecklist.map((rule) => (
+                  <li key={rule.key}>{rule.covered ? '[Yes]' : '[No]'} {rule.label}</li>
+                ))}
+              </ul>
+            </div>
+
+            <h4>Compliance Issues</h4>
+            {complianceIssues.map((issue, idx) => (
+              <div key={`${issue.complianceIssue}-${idx}`} className="scanner-output-block" style={{ marginBottom: '12px' }}>
+                <p><strong>Compliance Issue:</strong> {issue.complianceIssue}</p>
+                <p><strong>Explanation of Rule:</strong> {issue.explanationOfRule}</p>
+                <p><strong>Risk Level:</strong> {issue.riskLevel}</p>
+                <p><strong>Suggested Action:</strong> {issue.suggestedAction}</p>
+                <p><strong>Estimated Tax Impact:</strong> {issue.estimatedTaxImpact}</p>
+                {issue.regulationReference && <p><strong>Regulation:</strong> {issue.regulationReference}</p>}
+              </div>
+            ))}
+
+            {(financeAdvice.invoiceRateMismatchSample || []).length > 0 && (
+              <>
+                <h4>Invoice Rate Mismatch Sample</h4>
+                <ul className="agent-list">
+                  {financeAdvice.invoiceRateMismatchSample.map((mismatch) => (
+                    <li key={`${mismatch.billID}-${mismatch.productID}`}>
+                      Bill #{mismatch.billID} - {mismatch.productName}: observed {mismatch.observedRatePercent}% vs expected {mismatch.expectedRatePercent}%
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {(financeAdvice.highValueTransactions || []).length > 0 && (
+              <>
+                <h4>Transactions Above Rs. 50,000 (E-Way Bill Check)</h4>
+                <ul className="agent-list">
+                  {financeAdvice.highValueTransactions.map((txn) => (
+                    <li key={txn.billID}>
+                      Bill #{txn.billID}: {formatPrice(Number(txn.amount || 0))}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            <p className="agent-disclaimer">{financeAdvice.disclaimer}</p>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const ScannerHub = () => (
     <div className="agent-section">

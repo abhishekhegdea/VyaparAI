@@ -62,7 +62,10 @@ function buildWebsiteScopeFallback() {
 
 router.post('/finance-advice', requireAuth, requireAdmin, async (req, res) => {
   try {
-    const advice = estimateFinancialAdvice(req.body || {});
+    const advice = await estimateFinancialAdvice({
+      ...(req.body || {}),
+      ownerAdminID: req.user.userID
+    });
     res.json({ message: 'Financial advisory generated', advice });
   } catch (error) {
     console.error('Finance advisory error:', error);
