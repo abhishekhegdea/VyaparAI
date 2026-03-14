@@ -19,7 +19,7 @@ function resolveApiBaseUrl() {
 }
 
 // Create axios instance with default configuration
-// VITE_API_URL is set in Netlify/Vercel env vars to the Render backend URL, e.g. https://vyaparai-backend.onrender.com/api
+// Keep VITE_API_URL pointing to the active Render backend URL for DukaanSaathi.
 const api = axios.create({
   baseURL: resolveApiBaseUrl(),
   // Render cold starts can exceed 20s, so keep a higher timeout for first request.
