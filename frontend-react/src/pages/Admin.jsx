@@ -180,6 +180,22 @@ const Admin = ({ showToast }) => {
     fetchProductForecast(forecastProductID, forecastHorizon);
   }, [forecastProductID, forecastHorizon]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (activeTab !== 'dashboard' && activeTab !== 'transactions') {
+      return;
+    }
+
+    const hasSeries =
+      (salesAnalytics.byDay || []).length > 0 ||
+      (salesAnalytics.byWeek || []).length > 0 ||
+      (salesAnalytics.byMonth || []).length > 0 ||
+      (salesAnalytics.byYear || []).length > 0;
+
+    if (!hasSeries && !analyticsLoading) {
+      fetchSalesAnalytics();
+    }
+  }, [activeTab]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const fetchProducts = async () => {
     try {
       const response = await apiService.getProducts({ includeOutOfStock: true });
@@ -1452,52 +1468,118 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     );
   };
 
-  const Transactions = () => (
-    <div className="transactions-section">
-      <h2>Transaction History</h2>
-      <div className="transactions-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Transaction ID</th>
-              <th>Customer</th>
-              <th>Items</th>
-              <th>Amount</th>
-              <th>Payment Method</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map(transaction => (
-              <tr key={transaction.id}>
-                <td>{new Date(transaction.date).toLocaleDateString()}</td>
-                <td>#{transaction.id}</td>
-                <td>{transaction.customer}</td>
-                <td>{transaction.items} items</td>
-                <td>{formatPrice(transaction.amount)}</td>
-                <td>{transaction.paymentMethod}</td>
-                <td>
-                  <button
-                    onClick={() => {
-                      const bill = allBills.find(b => b.billID === transaction.id);
-                      if (bill) {
-                        setSelectedBill(bill);
-                        setShowBillModal(true);
-                      }
-                    }}
-                    className="btn btn-outline btn-small"
-                  >
-                    <FileText size={14} />
-                  </button>
-                </td>
+  const Transactions = () => {
+    const trendSeries = getTrendSeriesByPeriod();
+    const topSellingChartData = (salesAnalytics.topSellingProducts || []).slice(0, 7).map((item) => ({
+      ...item,
+      shortName: item.name?.length > 14 ? `${item.name.slice(0, 14)}...` : item.name
+    }));
+
+    return (
+      <div className="transactions-section">
+        <h2>Reports & Visualizations</h2>
+
+        <div className="analytics-card">
+          <div className="analytics-head">
+            <h3>Sales Trend</h3>
+            <div className="range-toggle">
+              <button className={`range-btn ${statsPeriod === 'day' ? 'active' : ''}`} onClick={() => setStatsPeriod('day')}>Day</button>
+              <button className={`range-btn ${statsPeriod === 'week' ? 'active' : ''}`} onClick={() => setStatsPeriod('week')}>Week</button>
+              <button className={`range-btn ${statsPeriod === 'month' ? 'active' : ''}`} onClick={() => setStatsPeriod('month')}>Month</button>
+              <button className={`range-btn ${statsPeriod === 'year' ? 'active' : ''}`} onClick={() => setStatsPeriod('year')}>Year</button>
+            </div>
+          </div>
+
+          {analyticsLoading ? (
+            <p className="chart-empty">Loading sales charts...</p>
+          ) : trendSeries.length === 0 ? (
+            <p className="chart-empty">No sales data available yet.</p>
+          ) : (
+            <div className="chart-wrap">
+              <ResponsiveContainer width="100%" height={260}>
+                <LineChart data={trendSeries} margin={{ top: 10, right: 14, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5edf2" />
+                  <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(value, name) => name === 'Revenue' ? [`₹${Number(value || 0).toLocaleString('en-IN')}`, 'Revenue'] : [value, name]} />
+                  <Legend />
+                  <Line type="monotone" dataKey="revenue" stroke="#0f8a8d" strokeWidth={2.5} dot={false} name="Revenue" isAnimationActive={false} />
+                  <Line type="monotone" dataKey="itemsSold" stroke="#f57c00" strokeWidth={2} dot={false} name="Items Sold" isAnimationActive={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        <div className="analytics-card">
+          <div className="analytics-head">
+            <h3>Most Selling Products</h3>
+          </div>
+
+          {topSellingChartData.length === 0 ? (
+            <p className="chart-empty">Top products will appear after sales start.</p>
+          ) : (
+            <div className="chart-wrap">
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={topSellingChartData} margin={{ top: 10, right: 14, left: 0, bottom: 4 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e5edf2" />
+                  <XAxis dataKey="shortName" tick={{ fontSize: 11 }} />
+                  <YAxis tick={{ fontSize: 11 }} />
+                  <Tooltip formatter={(value, name) => name === 'Revenue' ? [`₹${Number(value || 0).toLocaleString('en-IN')}`, 'Revenue'] : [value, name]} />
+                  <Legend />
+                  <Bar dataKey="totalQuantity" name="Qty Sold" fill="#0f8a8d" radius={[8, 8, 0, 0]} isAnimationActive={false} />
+                  <Bar dataKey="totalRevenue" name="Revenue" fill="#4285f4" radius={[8, 8, 0, 0]} isAnimationActive={false} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+        </div>
+
+        <h2 style={{ marginTop: 20 }}>Transaction History</h2>
+        <div className="transactions-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Transaction ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Amount</th>
+                <th>Payment Method</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {transactions.map(transaction => (
+                <tr key={transaction.id}>
+                  <td>{new Date(transaction.date).toLocaleDateString()}</td>
+                  <td>#{transaction.id}</td>
+                  <td>{transaction.customer}</td>
+                  <td>{transaction.items} items</td>
+                  <td>{formatPrice(transaction.amount)}</td>
+                  <td>{transaction.paymentMethod}</td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        const bill = allBills.find(b => b.billID === transaction.id);
+                        if (bill) {
+                          setSelectedBill(bill);
+                          setShowBillModal(true);
+                        }
+                      }}
+                      className="btn btn-outline btn-small"
+                    >
+                      <FileText size={14} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const MarketingAI = () => (
     <div className="agent-section">
