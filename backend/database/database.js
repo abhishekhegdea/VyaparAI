@@ -150,12 +150,7 @@ async function createBill(payload) {
 }
 
 async function seedDefaultAdmin() {
-  const existingAdmin = await User.findOne({
-    $or: [
-      { email: { $regex: '^admin@dukaansaathi\\.com$', $options: 'i' } },
-      { email: { $regex: '^admin@vyaparai\\.com$', $options: 'i' } }
-    ]
-  }).lean();
+  const existingAdmin = await User.findOne({ email: { $regex: '^admin@dukaansaathi\\.com$', $options: 'i' } }).lean();
   if (existingAdmin) {
     const normalizedExistingEmail = String(existingAdmin.email || '').toLowerCase();
     if (normalizedExistingEmail !== existingAdmin.email) {
@@ -240,7 +235,7 @@ async function initDatabase() {
   const mongoUri = buildMongoUri();
 
   await mongoose.connect(mongoUri, {
-    dbName: process.env.MONGODB_DB_NAME || 'vyaparai'
+    dbName: process.env.MONGODB_DB_NAME || 'dukaansaathi'
   });
 
   const defaultAdmin = await seedDefaultAdmin();

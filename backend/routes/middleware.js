@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET || 'vyaparai-jwt-secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'dukaansaathi-jwt-secret';
 
 // Authentication middleware
 const requireAuth = (req, res, next) => {

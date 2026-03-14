@@ -61,7 +61,7 @@ function groupByBillId(rows) {
 
 async function main() {
   const csvPathArg = process.argv[2];
-  const adminEmail = process.argv[3] || 'admin@vyaparai.com';
+  const adminEmail = process.argv[3] || 'admin@dukaansaathi.com';
   const csvPath = csvPathArg
     ? path.resolve(csvPathArg)
     : path.resolve(__dirname, '../../analytics/synthetic_billing_data.csv');

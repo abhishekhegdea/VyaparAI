@@ -5,7 +5,7 @@ const { models, helpers } = require('../database/database');
 const { requireAuth } = require('./middleware');
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'vyaparai-jwt-secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'dukaansaathi-jwt-secret';
 const { User } = models;
 
 function normalizeEmail(value) {
@@ -14,17 +14,7 @@ function normalizeEmail(value) {
 
 function buildEmailCandidates(email) {
   const normalized = normalizeEmail(email);
-  const candidates = [normalized];
-
-  if (normalized.endsWith('@dukaansaathi.com')) {
-    candidates.push(normalized.replace('@dukaansaathi.com', '@vyaparai.com'));
-  }
-
-  if (normalized.endsWith('@vyaparai.com')) {
-    candidates.push(normalized.replace('@vyaparai.com', '@dukaansaathi.com'));
-  }
-
-  return Array.from(new Set(candidates));
+  return [normalized];
 }
 
 // Retailer self-registration — new users are created with admin role
