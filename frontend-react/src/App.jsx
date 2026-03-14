@@ -7,6 +7,7 @@ import Admin from './pages/Admin';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import LoadingScreen from './components/LoadingScreen';
 import Toast from './components/Toast';
+import ThreeSceneBackground from './components/ThreeSceneBackground';
 import './App.css';
 
 const RetailerProtectedRoute = ({ children }) => {
@@ -116,6 +117,7 @@ function App() {
     <AuthProvider>
       <Router>
           <div className="App">
+            <ThreeSceneBackground className="app-ambient-scene" density="ambient" />
             <Navbar showToast={showToast} />
             <main className="main-content">
               <AppRoutes showToast={showToast} />

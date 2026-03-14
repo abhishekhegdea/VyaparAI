@@ -37,6 +37,32 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  isolation: isolate;
+}
+
+.app-ambient-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.App::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.42), transparent 34%),
+    radial-gradient(circle at 82% 16%, rgba(221, 240, 246, 0.45), transparent 30%),
+    linear-gradient(180deg, rgba(245, 251, 253, 0.62), rgba(233, 241, 244, 0.58));
+}
+
+.App > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Main Content */
