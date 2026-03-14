@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Bell, Home, Settings, ArrowLeft, ScanLine, FileSearch } from 'lucide-react';
+import { Plus, Edit, Trash2, List, BarChart3, Receipt, Users, X, Download, Printer, FileText, TrendingUp, Package, DollarSign, AlertTriangle, Calendar, Clock, Megaphone, Bell, Home, Settings, ArrowLeft, ScanLine, FileSearch, Cuboid } from 'lucide-react';
 import NotificationBell from '../components/NotificationBell';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import { apiService } from '../config/api';
@@ -2041,6 +2041,63 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
     </div>
   );
 
+  const DigitalTwin = () => {
+    const trendSeries = getTrendSeriesByPeriod();
+    const topProduct = salesAnalytics.topSellingProducts?.[0] || null;
+    const lowStockCount = stats.lowStockItems?.length || 0;
+    const latestRevenue = trendSeries.reduce((sum, item) => sum + Number(item.revenue || 0), 0);
+
+    return (
+      <div className="agent-section digital-twin-screen">
+        <div className="agent-header">
+          <h2>Digital Twin View</h2>
+        </div>
+
+        <div className="digital-twin-stage">
+          {enableHeroScene ? <ThreeSceneBackground className="digital-twin-scene" density="ambient" /> : <div className="digital-twin-fallback">3D twin is simplified on this device for better performance.</div>}
+          <div className="digital-twin-overlay" />
+          <div className="digital-twin-copy">
+            <span className="digital-twin-tag">Store Mirror</span>
+            <h3>Live retail snapshot</h3>
+            <p>Use this view to monitor sales momentum, stock pressure, and your top-selling product in one place.</p>
+          </div>
+        </div>
+
+        <div className="digital-twin-grid">
+          <div className="digital-twin-card">
+            <span>Revenue in current view</span>
+            <strong>{formatPrice(latestRevenue)}</strong>
+            <small>{statsPeriod === 'day' ? 'Recent days' : 'Selected reporting window'}</small>
+          </div>
+          <div className="digital-twin-card">
+            <span>Top product</span>
+            <strong>{topProduct?.name || 'No sales yet'}</strong>
+            <small>{topProduct ? `${topProduct.totalQuantity} units sold` : 'Start billing to see product demand'}</small>
+          </div>
+          <div className="digital-twin-card">
+            <span>Low stock pressure</span>
+            <strong>{lowStockCount}</strong>
+            <small>{lowStockCount > 0 ? 'Items need restocking soon' : 'Inventory looks healthy'}</small>
+          </div>
+        </div>
+
+        <div className="agent-card">
+          <h3>Operational Controls</h3>
+          <div className="form-row" style={{ marginTop: '12px' }}>
+            <button className="btn btn-primary" type="button" onClick={() => setActiveTab('transactions')}>
+              <BarChart3 size={16} />
+              Open Reports
+            </button>
+            <button className="btn btn-outline" type="button" onClick={() => setActiveTab('manageProducts')}>
+              <Package size={16} />
+              Review Stock
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const AddProduct = () => (
     <div className="add-product">
       <h2>Add New Product</h2>
@@ -2197,6 +2254,7 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
 
       <main className="app-content">
         {activeTab === 'dashboard' && HomeScreen()}
+        {activeTab === 'digitalTwin' && DigitalTwin()}
         {activeTab === 'manageProducts' && ManageProducts()}
         {activeTab === 'addProduct' && AddProduct()}
         {activeTab === 'billing' && Billing()}
@@ -2213,9 +2271,6 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
         <button onClick={() => setActiveTab('transactions')} className={`bnav-item ${activeTab === 'transactions' ? 'active' : ''}`}>
           <BarChart3 size={20} /><span>Reports</span>
         </button>
-        <button onClick={() => setShowBillingModal(true)} className="bnav-fab">
-          <Plus size={24} />
-        </button>
         <button onClick={() => setActiveTab('manageProducts')} className={`bnav-item ${activeTab === 'manageProducts' ? 'active' : ''}`}>
           <Package size={20} /><span>Stock</span>
         </button>
@@ -2226,6 +2281,26 @@ ${bill.applyGST ? `║  GST (18%):                                    ${gstAmoun
           <Settings size={20} /><span>Finance</span>
         </button>
       </nav>
+
+      <div className="floating-action-rail" aria-label="Quick mobile actions">
+        <button
+          type="button"
+          className="floating-action-btn floating-twin-btn"
+          onClick={() => setActiveTab('digitalTwin')}
+          aria-label="View digital twin"
+        >
+          <Cuboid size={17} />
+          <span>View Digital Twin</span>
+        </button>
+        <button
+          type="button"
+          className="floating-action-btn floating-add-btn"
+          onClick={() => setShowBillingModal(true)}
+          aria-label="Create bill"
+        >
+          <Plus size={24} />
+        </button>
+      </div>
 
       {showScannerCamera && (
         <div className="scanner-camera-overlay" onClick={closeScannerCamera}>
